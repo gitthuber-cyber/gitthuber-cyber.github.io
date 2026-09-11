@@ -40,11 +40,49 @@
             color: white;
             text-decoration: none;
             font-size: 32px;
-            z-index: 5;
+            z-index: 10;
         }
 
-        .hesap-makinesi {
+        /* İlk görünen küçük kutu */
+        .menu-kutu {
             position: relative;
+            z-index: 2;
+            width: 280px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 18px;
+            text-align: center;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .menu-kutu h1 {
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        .ac {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background: #7c3cff;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .ac:hover {
+            background: #955fff;
+        }
+
+        /* Hesap makinesi */
+        .hesap-makinesi {
+            display: none;
+            position: relative;
+            z-index: 2;
             width: 280px;
             padding: 20px;
             background: rgba(255, 255, 255, 0.08);
@@ -110,11 +148,24 @@
 
     <div class="arka-plan"></div>
 
+    <!-- İlk sayfaya dön -->
     <a href="index.html" class="geri">←</a>
 
-    <div class="hesap-makinesi">
+    <!-- İlk görünen kutu -->
+    <div class="menu-kutu" id="menuKutu">
 
-        <button class="kapat" onclick="anaSayfayaDon()">×</button>
+        <h1>Hesap Makinesi</h1>
+
+        <button class="ac" onclick="hesapMakinesiniAc()">
+            Aç
+        </button>
+
+    </div>
+
+    <!-- Hesap makinesi -->
+    <div class="hesap-makinesi" id="hesapMakinesi">
+
+        <button class="kapat" onclick="hesapMakinesiniKapat()">×</button>
 
         <h1>Hesap Makinesi</h1>
 
@@ -148,6 +199,16 @@
 
     <script>
 
+        function hesapMakinesiniAc() {
+            document.getElementById("menuKutu").style.display = "none";
+            document.getElementById("hesapMakinesi").style.display = "block";
+        }
+
+        function hesapMakinesiniKapat() {
+            document.getElementById("hesapMakinesi").style.display = "none";
+            document.getElementById("menuKutu").style.display = "block";
+        }
+
         function sayiYaz(sayi) {
             document.getElementById("ekran").value += sayi;
         }
@@ -162,10 +223,6 @@
             if (ekran.value !== "") {
                 ekran.value = eval(ekran.value);
             }
-        }
-
-        function anaSayfayaDon() {
-            window.location.href = "index.html";
         }
 
     </script>
