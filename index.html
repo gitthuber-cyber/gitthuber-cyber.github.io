@@ -68,8 +68,11 @@
             background: #7c3cff;
             color: white;
             text-decoration: none;
+            border: none;
             border-radius: 12px;
             font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
             transition: 0.3s;
         }
 
@@ -84,6 +87,58 @@
             color: #888;
         }
 
+        /* HESAP MAKİNESİ */
+
+        .hesap-makinesi {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 250px;
+            padding: 20px;
+            background: #1a2140;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+        }
+
+        .hesap-makinesi h2 {
+            margin-bottom: 15px;
+        }
+
+        #ekran {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            background: #0b1020;
+            color: white;
+            border: 1px solid #444;
+            border-radius: 8px;
+            font-size: 20px;
+            text-align: right;
+        }
+
+        .tuslar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .tuslar button {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #7c3cff;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .tuslar button:hover {
+            background: #955fff;
+        }
+
         @media (max-width: 600px) {
             .kutu h1 {
                 font-size: 32px;
@@ -91,6 +146,12 @@
 
             .kutu p {
                 font-size: 16px;
+            }
+
+            .hesap-makinesi {
+                width: 220px;
+                top: 10px;
+                left: 10px;
             }
         }
     </style>
@@ -109,13 +170,80 @@
             Burası benim küçük web dünyam. 🚀
         </p>
 
-        <a href="#" class="buton">Siteyi Keşfet</a>
+        <button class="buton" onclick="hesapMakinesiniAc()">
+            Siteyi Keşfet
+        </button>
 
         <div class="alt-yazi">
             © 2026 • Kendi yaptığım web sitesi
         </div>
 
     </div>
+
+
+    <!-- HESAP MAKİNESİ -->
+
+    <div id="hesapMakinesi" class="hesap-makinesi">
+
+        <h2>Hesap Makinesi</h2>
+
+        <input type="text" id="ekran" readonly>
+
+        <div class="tuslar">
+
+            <button onclick="temizle()">C</button>
+            <button onclick="sayiYaz('/')">÷</button>
+            <button onclick="sayiYaz('*')">×</button>
+            <button onclick="sayiYaz('-')">−</button>
+
+            <button onclick="sayiYaz('7')">7</button>
+            <button onclick="sayiYaz('8')">8</button>
+            <button onclick="sayiYaz('9')">9</button>
+            <button onclick="sayiYaz('+')">+</button>
+
+            <button onclick="sayiYaz('4')">4</button>
+            <button onclick="sayiYaz('5')">5</button>
+            <button onclick="sayiYaz('6')">6</button>
+            <button onclick="hesapla()">=</button>
+
+            <button onclick="sayiYaz('1')">1</button>
+            <button onclick="sayiYaz('2')">2</button>
+            <button onclick="sayiYaz('3')">3</button>
+            <button onclick="sayiYaz('0')">0</button>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        function hesapMakinesiniAc() {
+            document.getElementById("hesapMakinesi").style.display = "block";
+        }
+
+
+        function sayiYaz(sayi) {
+            document.getElementById("ekran").value += sayi;
+        }
+
+
+        function temizle() {
+            document.getElementById("ekran").value = "";
+        }
+
+
+        function hesapla() {
+
+            let ekran = document.getElementById("ekran");
+
+            if (ekran.value !== "") {
+                ekran.value = eval(ekran.value);
+            }
+
+        }
+
+    </script>
 
 </body>
 </html>
