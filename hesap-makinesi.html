@@ -1,195 +1,1131 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Mini Oyunlar</title>
+<title>Mini Oyunlar</title>
 
-    <style>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+body {
+    font-family: Arial, sans-serif;
+    background: #0b1020;
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.arka-plan {
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(108, 44, 255, 0.18),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(80, 120, 255, 0.12),
+            transparent 35%
+        ),
+        #0b1020;
+}
+
+.geri {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    color: white;
+    text-decoration: none;
+    font-size: 32px;
+    z-index: 20;
+}
+
+.kutu,
+.ekran {
+    position: relative;
+    z-index: 2;
+    width: 310px;
+    padding: 25px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
+.kutu {
+    text-align: center;
+}
+
+.kutu h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.buton {
+    width: 100%;
+    padding: 14px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 12px;
+    background: #7c3cff;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.buton:hover {
+    background: #955fff;
+    transform: scale(1.03);
+}
+
+.ekran {
+    display: none;
+    text-align: center;
+}
+
+.kapat {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    border: none;
+    background: none;
+    color: white;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.ekran h1 {
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+/* HESAP MAKİNESİ */
+
+#hesapEkrani {
+    width: 100%;
+    height: 50px;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: #0b1020;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 22px;
+    text-align: right;
+}
+
+.tuslar {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 8px;
+}
+
+.tuslar button {
+    height: 50px;
+    border: none;
+    border-radius: 8px;
+    background: #7c3cff;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.tuslar button:hover {
+    background: #955fff;
+}
+
+/* OYUN */
+
+#oyunEkrani {
+    width: 340px;
+}
+
+#skor {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+#kalkanDurumu {
+    height: 22px;
+    font-size: 13px;
+    color: #aaa;
+    margin-bottom: 5px;
+}
+
+#oyun {
+    position: relative;
+    width: 100%;
+    height: 280px;
+    overflow: hidden;
+    background:
+        linear-gradient(
+            rgba(124,60,255,0.08),
+            rgba(11,16,32,0.4)
+        );
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 15px;
+}
+
+#zemin {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 25px;
+    background: rgba(124,60,255,0.35);
+    border-top: 2px solid rgba(255,255,255,0.18);
+}
+
+/* OYUNCU */
+
+#oyuncu {
+    position: absolute;
+    left: 45px;
+    bottom: 25px;
+    width: 32px;
+    height: 48px;
+    z-index: 5;
+}
+
+.kafa {
+    position: absolute;
+    top: 0;
+    left: 8px;
+    width: 18px;
+    height: 18px;
+    background: #fff;
+    border-radius: 50%;
+}
+
+.govde {
+    position: absolute;
+    top: 17px;
+    left: 10px;
+    width: 14px;
+    height: 18px;
+    background: #7c3cff;
+    border-radius: 5px;
+}
+
+.kol1,
+.kol2 {
+    position: absolute;
+    top: 18px;
+    width: 6px;
+    height: 17px;
+    background: #fff;
+    border-radius: 5px;
+    transform-origin: top center;
+}
+
+.kol1 {
+    left: 5px;
+}
+
+.kol2 {
+    right: 5px;
+}
+
+.bacak1,
+.bacak2 {
+    position: absolute;
+    top: 33px;
+    width: 7px;
+    height: 15px;
+    background: #fff;
+    border-radius: 5px;
+    transform-origin: top center;
+}
+
+.bacak1 {
+    left: 9px;
+}
+
+.bacak2 {
+    right: 9px;
+}
+
+/* KOŞMA ANİMASYONU SADECE YERDE */
+
+#oyuncu.kosuyor .bacak1 {
+    animation: bacak1Kos 0.18s infinite alternate;
+}
+
+#oyuncu.kosuyor .bacak2 {
+    animation: bacak2Kos 0.18s infinite alternate;
+}
+
+#oyuncu.kosuyor .kol1 {
+    animation: kol1Kos 0.18s infinite alternate;
+}
+
+#oyuncu.kosuyor .kol2 {
+    animation: kol2Kos 0.18s infinite alternate;
+}
+
+@keyframes bacak1Kos {
+    from {
+        transform: rotate(25deg);
+    }
+    to {
+        transform: rotate(-25deg);
+    }
+}
+
+@keyframes bacak2Kos {
+    from {
+        transform: rotate(-25deg);
+    }
+    to {
+        transform: rotate(25deg);
+    }
+}
+
+@keyframes kol1Kos {
+    from {
+        transform: rotate(-25deg);
+    }
+    to {
+        transform: rotate(25deg);
+    }
+}
+
+@keyframes kol2Kos {
+    from {
+        transform: rotate(25deg);
+    }
+    to {
+        transform: rotate(-25deg);
+    }
+}
+
+/* KAYALAR */
+
+.kaya {
+    position: absolute;
+    bottom: 25px;
+    right: -60px;
+    width: 32px;
+    height: 32px;
+    background: #777;
+    border-radius: 7px;
+    transform: rotate(45deg);
+    z-index: 4;
+}
+
+.kaya.kucuk {
+    width: 25px;
+    height: 25px;
+    background: #8c8c8c;
+}
+
+.kaya.buyuk {
+    width: 42px;
+    height: 42px;
+    background: #626262;
+}
+
+.kaya.yuvarlak {
+    width: 31px;
+    height: 31px;
+    border-radius: 50%;
+    background: #707070;
+}
+
+/* KALKAN */
+
+#guc {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    bottom: 55px;
+    right: -50px;
+    z-index: 4;
+    background: rgba(90,200,255,0.25);
+    border: 3px solid #71d8ff;
+    border-radius: 50%;
+    box-shadow:
+        0 0 10px rgba(80,200,255,0.8),
+        0 0 25px rgba(80,200,255,0.5);
+    clip-path: polygon(
+        50% 0%,
+        90% 20%,
+        100% 60%,
+        50% 100%,
+        0% 60%,
+        10% 20%
+    );
+}
+
+#oyuncu.kalkan-aktif::after {
+    content: "";
+    position: absolute;
+    left: -10px;
+    top: -10px;
+    width: 52px;
+    height: 65px;
+    border: 2px solid rgba(80,200,255,0.8);
+    border-radius: 50%;
+    box-shadow:
+        0 0 12px rgba(80,200,255,0.8),
+        0 0 25px rgba(80,200,255,0.4);
+    pointer-events: none;
+}
+
+/* OYUN BİTTİ */
+
+#oyunMesaji {
+    position: absolute;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+    background: rgba(5,5,15,0.75);
+    backdrop-filter: blur(5px);
+    z-index: 10;
+}
+
+#oyunMesaji h2 {
+    font-size: 26px;
+}
+
+#yenidenBaslat {
+    padding: 11px 18px;
+    border: none;
+    border-radius: 10px;
+    background: #7c3cff;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+@media (max-width: 500px) {
+    #oyunEkrani {
+        width: 94vw;
+    }
+
+    #oyun {
+        height: 260px;
+    }
+
+    .geri {
+        font-size: 28px;
+        top: 10px;
+        left: 10px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="arka-plan"></div>
+
+<a href="index.html" class="geri">←</a>
+
+<!-- ANA MENÜ -->
+
+<div class="kutu" id="menu">
+    <h1>🎮 Mini Oyunlar</h1>
+
+    <button class="buton" onclick="hesapMakinesiAc()">
+        🧮 Hesap Makinesi
+    </button>
+
+    <button class="buton" onclick="oyunAc()">
+        🏃 Kaç!
+    </button>
+</div>
+
+<!-- HESAP MAKİNESİ -->
+
+<div class="ekran" id="hesapEkraniPanel">
+
+    <button class="kapat" onclick="menuAc()">×</button>
+
+    <h1>🧮 Hesap Makinesi</h1>
+
+    <input id="hesapEkrani" type="text" readonly>
+
+    <div class="tuslar">
+        <button onclick="temizle()">C</button>
+        <button onclick="sil()">⌫</button>
+        <button onclick="ekle('%')">%</button>
+        <button onclick="ekle('/')">÷</button>
+
+        <button onclick="ekle('7')">7</button>
+        <button onclick="ekle('8')">8</button>
+        <button onclick="ekle('9')">9</button>
+        <button onclick="ekle('*')">×</button>
+
+        <button onclick="ekle('4')">4</button>
+        <button onclick="ekle('5')">5</button>
+        <button onclick="ekle('6')">6</button>
+        <button onclick="ekle('-')">−</button>
+
+        <button onclick="ekle('1')">1</button>
+        <button onclick="ekle('2')">2</button>
+        <button onclick="ekle('3')">3</button>
+        <button onclick="ekle('+')">+</button>
+
+        <button onclick="ekle('0')">0</button>
+        <button onclick="ekle('.')">.</button>
+        <button onclick="hesapla()" style="grid-column: span 2;">=</button>
+    </div>
+
+</div>
+
+<!-- OYUN -->
+
+<div class="ekran" id="oyunEkrani">
+
+    <button class="kapat" onclick="menuAc()">×</button>
+
+    <h1>🏃 Kaç!</h1>
+
+    <div id="skor">Skor: 0</div>
+
+    <div id="kalkanDurumu">
+        🛡️ Kalkan yok
+    </div>
+
+    <div id="oyun">
+
+        <div id="oyuncu">
+
+            <div class="kafa"></div>
+            <div class="govde"></div>
+
+            <div class="kol1"></div>
+            <div class="kol2"></div>
+
+            <div class="bacak1"></div>
+            <div class="bacak2"></div>
+
+        </div>
+
+        <div id="guc"></div>
+
+        <div id="zemin"></div>
+
+        <div id="oyunMesaji">
+            <h2>💥 Oyun Bitti!</h2>
+            <div id="sonSkor">Skor: 0</div>
+            <button id="yenidenBaslat" onclick="oyunuBaslat()">
+                🔄 Tekrar Oyna
+            </button>
+        </div>
+
+    </div>
+
+    <p style="margin-top:10px;font-size:12px;color:#888;">
+        Space / Dokun &nbsp;→&nbsp; Zıpla
+    </p>
+
+</div>
+
+<script>
+
+/* =========================
+   MENÜ
+========================= */
+
+const menu = document.getElementById("menu");
+const hesapPanel = document.getElementById("hesapEkraniPanel");
+const oyunPanel = document.getElementById("oyunEkrani");
+
+function menuAc() {
+    hesapPanel.style.display = "none";
+    oyunPanel.style.display = "none";
+    menu.style.display = "block";
+    oyunuDurdur();
+}
+
+function hesapMakinesiAc() {
+    menu.style.display = "none";
+    oyunPanel.style.display = "none";
+    hesapPanel.style.display = "block";
+    oyunuDurdur();
+}
+
+function oyunAc() {
+    menu.style.display = "none";
+    hesapPanel.style.display = "none";
+    oyunPanel.style.display = "block";
+    oyunuBaslat();
+}
+
+/* =========================
+   HESAP MAKİNESİ
+========================= */
+
+const hesapEkrani = document.getElementById("hesapEkrani");
+
+function ekle(deger) {
+    hesapEkrani.value += deger;
+}
+
+function temizle() {
+    hesapEkrani.value = "";
+}
+
+function sil() {
+    hesapEkrani.value = hesapEkrani.value.slice(0,-1);
+}
+
+function hesapla() {
+
+    try {
+
+        let ifade = hesapEkrani.value;
+
+        if (!ifade) return;
+
+        ifade = ifade.replace(/%/g, "/100");
+
+        if (!/^[0-9+\-*/().\s]+$/.test(ifade)) {
+            throw new Error();
         }
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #0b1020;
-            color: white;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
+        hesapEkrani.value = Function(
+            '"use strict"; return (' + ifade + ')'
+        )();
+
+    } catch {
+        hesapEkrani.value = "Hata";
+    }
+}
+
+/* =========================
+   OYUN
+========================= */
+
+const oyun = document.getElementById("oyun");
+const oyuncu = document.getElementById("oyuncu");
+const skorYazi = document.getElementById("skor");
+const kalkanDurumu = document.getElementById("kalkanDurumu");
+const guc = document.getElementById("guc");
+const oyunMesaji = document.getElementById("oyunMesaji");
+const sonSkor = document.getElementById("sonSkor");
+
+let oyunCalisiyor = false;
+let animasyonID = null;
+
+let oyuncuY = 0;
+let oyuncuHiziY = 0;
+
+const yerCekimi = 0.75;
+const ziplaGucu = 12;
+
+let oyunHizi = 4.5;
+
+let skor = 0;
+let skorSayac = 0;
+
+let sonZaman = 0;
+
+/* KAYA */
+
+let kaya = null;
+let kayaX = -100;
+
+let kayaAktif = false;
+let sonrakiKaya = 1.5;
+
+/* KALKAN */
+
+let gucAktif = false;
+let gucX = -100;
+
+let kalkanVar = false;
+let sonrakiGuc = 4;
+
+let kalkanCooldown = 0;
+
+/* =========================
+   RASTGELE KAYA
+========================= */
+
+function rastgeleKaya() {
+
+    const secim = Math.random();
+
+    if (secim < 0.34) {
+        return "kucuk";
+    }
+
+    if (secim < 0.67) {
+        return "buyuk";
+    }
+
+    return "yuvarlak";
+}
+
+/* =========================
+   KAYA OLUŞTUR
+========================= */
+
+function kayaOlustur() {
+
+    if (kayaAktif) return;
+
+    kaya = document.createElement("div");
+
+    kaya.className = "kaya " + rastgeleKaya();
+
+    oyun.appendChild(kaya);
+
+    kayaX = oyun.clientWidth + 20;
+
+    kaya.style.left = kayaX + "px";
+    kaya.style.right = "auto";
+
+    kayaAktif = true;
+}
+
+/* =========================
+   SONRAKİ KAYA
+========================= */
+
+function yeniKayaSuresi() {
+
+    const zorluk = Math.min(skor / 100, 1);
+
+    const min = 1.25 - zorluk * 0.2;
+    const max = 2.15 - zorluk * 0.3;
+
+    return min + Math.random() * (max - min);
+}
+
+/* =========================
+   KALKAN OLUŞTUR
+========================= */
+
+function gucOlustur() {
+
+    if (gucAktif || kalkanVar || kalkanCooldown > 0) {
+        return;
+    }
+
+    gucAktif = true;
+
+    gucX = oyun.clientWidth + 20;
+
+    guc.style.left = gucX + "px";
+    guc.style.right = "auto";
+    guc.style.display = "block";
+}
+
+/* =========================
+   SONRAKİ KALKAN
+========================= */
+
+function yeniGucSuresi() {
+
+    return 6 + Math.random() * 6;
+}
+
+/* =========================
+   ZIPLAMA
+========================= */
+
+function zipla() {
+
+    if (!oyunCalisiyor) return;
+
+    if (oyuncuY <= 0.5) {
+        oyuncuHiziY = ziplaGucu;
+    }
+}
+
+document.addEventListener("keydown", function(e) {
+
+    if (
+        e.code === "Space" &&
+        oyunCalisiyor
+    ) {
+        e.preventDefault();
+        zipla();
+    }
+});
+
+/* TELEFON */
+
+oyun.addEventListener("touchstart", function(e) {
+
+    e.preventDefault();
+    zipla();
+
+}, { passive: false });
+
+oyun.addEventListener("mousedown", function(e) {
+
+    if (e.button === 0) {
+        zipla();
+    }
+
+});
+
+/* =========================
+   ÇARPIŞMA
+========================= */
+
+function carpisiyor(a,b,bosluk = 7) {
+
+    if (!a || !b) return false;
+
+    const A = a.getBoundingClientRect();
+    const B = b.getBoundingClientRect();
+
+    return !(
+        A.right - bosluk < B.left ||
+        A.left + bosluk > B.right ||
+        A.bottom - bosluk < B.top ||
+        A.top + bosluk > B.bottom
+    );
+}
+
+/* =========================
+   KALKAN AKTİF
+========================= */
+
+function kalkanAktifEt() {
+
+    kalkanVar = true;
+
+    oyuncu.classList.add("kalkan-aktif");
+
+    kalkanDurumu.textContent = "🛡️ Kalkan aktif!";
+    kalkanDurumu.style.color = "#71d8ff";
+
+    gucAktif = false;
+    guc.style.display = "none";
+}
+
+/* =========================
+   KALKAN KIR
+========================= */
+
+function kalkanKir() {
+
+    kalkanVar = false;
+
+    oyuncu.classList.remove("kalkan-aktif");
+
+    kalkanCooldown = 5;
+
+    kalkanDurumu.textContent =
+        "💥 Kalkan kırıldı!";
+
+    kalkanDurumu.style.color = "#ff9999";
+}
+
+/* =========================
+   OYUNU BAŞLAT
+========================= */
+
+function oyunuBaslat() {
+
+    if (animasyonID) {
+        cancelAnimationFrame(animasyonID);
+    }
+
+    /* eski kaya varsa sil */
+
+    if (kaya) {
+        kaya.remove();
+    }
+
+    kaya = null;
+
+    /* sıfırla */
+
+    oyunCalisiyor = true;
+
+    oyuncuY = 0;
+    oyuncuHiziY = 0;
+
+    oyunHizi = 4.5;
+
+    skor = 0;
+    skorSayac = 0;
+
+    kayaAktif = false;
+    kayaX = -100;
+    sonrakiKaya = 1.3;
+
+    gucAktif = false;
+    gucX = -100;
+    sonrakiGuc = 5;
+
+    kalkanVar = false;
+    kalkanCooldown = 0;
+
+    oyuncu.classList.remove("kalkan-aktif");
+    oyuncu.classList.add("kosuyor");
+
+    guc.style.display = "none";
+
+    oyunMesaji.style.display = "none";
+
+    skorYazi.textContent = "Skor: 0";
+
+    kalkanDurumu.textContent = "🛡️ Kalkan yok";
+    kalkanDurumu.style.color = "#aaa";
+
+    sonZaman = performance.now();
+
+    animasyonID =
+        requestAnimationFrame(oyunDongusu);
+}
+
+/* =========================
+   OYUNU DURDUR
+========================= */
+
+function oyunuDurdur() {
+
+    oyunCalisiyor = false;
+
+    if (animasyonID) {
+        cancelAnimationFrame(animasyonID);
+        animasyonID = null;
+    }
+}
+
+/* =========================
+   OYUN BİTTİ
+========================= */
+
+function oyunBitti() {
+
+    oyunCalisiyor = false;
+
+    oyuncu.classList.remove("kosuyor");
+
+    oyunMesaji.style.display = "flex";
+
+    sonSkor.textContent =
+        "Skor: " + Math.floor(skor);
+
+    if (animasyonID) {
+        cancelAnimationFrame(animasyonID);
+        animasyonID = null;
+    }
+}
+
+/* =========================
+   OYUN DÖNGÜSÜ
+========================= */
+
+function oyunDongusu(zaman) {
+
+    if (!oyunCalisiyor) return;
+
+    const delta =
+        Math.min((zaman - sonZaman) / 16.67, 2);
+
+    sonZaman = zaman;
+
+    /* =====================
+       OYUNCU FİZİĞİ
+    ===================== */
+
+    oyuncuHiziY -= yerCekimi * delta;
+
+    oyuncuY += oyuncuHiziY * delta;
+
+    if (oyuncuY < 0) {
+
+        oyuncuY = 0;
+        oyuncuHiziY = 0;
+
+    }
+
+    oyuncu.style.transform =
+        "translateY(" + (-oyuncuY) + "px)";
+
+    /* KOŞMA SADECE YERDE */
+
+    if (oyuncuY === 0) {
+        oyuncu.classList.add("kosuyor");
+    } else {
+        oyuncu.classList.remove("kosuyor");
+    }
+
+    /* =====================
+       HIZ
+    ===================== */
+
+    oyunHizi += 0.0025 * delta;
+
+    if (oyunHizi > 8.5) {
+        oyunHizi = 8.5;
+    }
+
+    /* =====================
+       SKOR
+    ===================== */
+
+    skorSayac += delta;
+
+    if (skorSayac >= 10) {
+
+        skor += 1;
+
+        skorSayac = 0;
+
+        skorYazi.textContent =
+            "Skor: " + skor;
+    }
+
+    /* =====================
+       KAYA ZAMANI
+    ===================== */
+
+    if (!kayaAktif) {
+
+        sonrakiKaya -= delta / 60;
+
+        if (sonrakiKaya <= 0) {
+            kayaOlustur();
+        }
+    }
+
+    /* =====================
+       KAYA HAREKETİ
+    ===================== */
+
+    if (kayaAktif && kaya) {
+
+        kayaX -= oyunHizi * delta;
+
+        kaya.style.left = kayaX + "px";
+
+        if (carpisiyor(oyuncu, kaya, 7)) {
+
+            if (kalkanVar) {
+
+                kalkanKir();
+
+                kaya.remove();
+                kaya = null;
+                kayaAktif = false;
+
+                sonrakiKaya =
+                    yeniKayaSuresi();
+
+            } else {
+
+                oyunBitti();
+                return;
+            }
         }
 
-        .arka-plan {
-            position: fixed;
-            inset: 0;
-            background:
-                radial-gradient(
-                    circle at 20% 20%,
-                    rgba(108, 44, 255, 0.18),
-                    transparent 35%
-                ),
-                radial-gradient(
-                    circle at 80% 80%,
-                    rgba(80, 120, 255, 0.12),
-                    transparent 35%
-                ),
-                #0b1020;
+        /* kaya ekran dışına çıktı */
+
+        if (
+            kaya &&
+            kayaX < -80
+        ) {
+
+            kaya.remove();
+
+            kaya = null;
+
+            kayaAktif = false;
+
+            /* Kaya çıktıktan sonra yeni bekleme */
+
+            sonrakiKaya =
+                yeniKayaSuresi();
+        }
+    }
+
+    /* =====================
+       KALKAN COOLDOWN
+    ===================== */
+
+    if (kalkanCooldown > 0) {
+
+        kalkanCooldown -= delta / 60;
+
+        if (kalkanCooldown < 0) {
+            kalkanCooldown = 0;
+        }
+    }
+
+    /* =====================
+       KALKAN SPAWN
+    ===================== */
+
+    if (
+        !gucAktif &&
+        !kalkanVar &&
+        kalkanCooldown <= 0
+    ) {
+
+        sonrakiGuc -= delta / 60;
+
+        if (sonrakiGuc <= 0) {
+            gucOlustur();
+        }
+    }
+
+    /* =====================
+       KALKAN HAREKETİ
+    ===================== */
+
+    if (gucAktif) {
+
+        gucX -= oyunHizi * delta;
+
+        guc.style.left =
+            gucX + "px";
+
+        if (carpisiyor(oyuncu, guc, 5)) {
+
+            kalkanAktifEt();
+
+            gucX = -100;
         }
 
-        .geri {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            color: white;
-            text-decoration: none;
-            font-size: 32px;
-            z-index: 20;
+        if (gucX < -60) {
+
+            gucAktif = false;
+
+            guc.style.display = "none";
+
+            sonrakiGuc =
+                yeniGucSuresi();
         }
+    }
 
-        .kutu,
-        .ekran {
-            position: relative;
-            z-index: 2;
-            width: 310px;
-            padding: 25px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 20px;
-            backdrop-filter: blur(15px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-        }
+    /* =====================
+       SONRAKİ FRAME
+    ===================== */
 
-        .kutu {
-            text-align: center;
-        }
+    animasyonID =
+        requestAnimationFrame(oyunDongusu);
+}
 
-        .kutu h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
+</script>
 
-        .buton {
-            width: 100%;
-            padding: 14px;
-            margin-top: 10px;
-            border: none;
-            border-radius: 12px;
-            background: #7c3cff;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .buton:hover {
-            background: #955fff;
-            transform: scale(1.03);
-        }
-
-        .ekran {
-            display: none;
-            text-align: center;
-        }
-
-        .kapat {
-            position: absolute;
-            top: 8px;
-            right: 12px;
-            border: none;
-            background: none;
-            color: white;
-            font-size: 25px;
-            cursor: pointer;
-        }
-
-        .ekran h1 {
-            font-size: 22px;
-            margin-bottom: 15px;
-        }
-
-        /* =========================
-           HESAP MAKİNESİ
-        ========================= */
-
-        #hesapEkrani {
-            width: 100%;
-            height: 50px;
-            margin-bottom: 15px;
-            padding: 10px;
-            background: #0b1020;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 22px;
-            text-align: right;
-        }
-
-        .tuslar {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-        }
-
-        .tuslar button {
-            height: 50px;
-            border: none;
-            border-radius: 8px;
-            background: #7c3cff;
-            color: white;
-            font-size: 18px;
-            cursor: pointer;
-        }
-
-        .tuslar button:hover {
-            background: #955fff;
-        }
-
-        /* =========================
-           OYUN
-        ========================= */
-
-        #oyunEkrani {
-            width: 340px;
-        }
-
-        #skor {
-            font-size: 18px;
-            margin-bottom: 5px;
-        }
-
-        #kalkanDurumu {
-            height: 22px;
-            font-size: 13px;
-            color: #aaa;
-            margin-bottom: 5px;
-        }
-
-        #oyun {
-            position: relative;
-            width: 100%;
-            height: 280px;
-            overflow: hidden;
-            background:
-                linear-gradient(
-                    rgba(124, 60, 255, 0.08),
-                    rgba(11, 16, 32, 0.4)
-                );
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 15px;
-        }
-
-        #zemin {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 25px;
-            background: rgba(124, 60, 255, 0.35);
-            border-top: 2px solid rgba(255, 255
+</body>
+</html>
