@@ -30,8 +30,6 @@ body {
     margin: 20px auto;
 }
 
-/* ÜST BAR */
-
 .ust-bar {
     display: flex;
     justify-content: space-between;
@@ -57,8 +55,6 @@ body {
     background: rgba(124,60,255,.25);
     transform: translateX(-2px);
 }
-
-/* ANA MENÜ */
 
 .menu {
     display: flex;
@@ -91,8 +87,6 @@ body {
     display: block;
 }
 
-/* PANEL ÜST */
-
 .panel-ust {
     display: flex;
     justify-content: space-between;
@@ -120,8 +114,6 @@ body {
 .kapat-btn:hover {
     background: rgba(255,70,100,.22);
 }
-
-/* HESAP MAKİNESİ */
 
 .calculator {
     background: rgba(255,255,255,.08);
@@ -184,8 +176,6 @@ body {
 .buttons .clear {
     background: #b3264b;
 }
-
-/* OYUN */
 
 .game-panel {
     background: rgba(255,255,255,.07);
@@ -266,8 +256,6 @@ body {
     background: linear-gradient(#24283d, #151827);
     border-top: 2px solid #454a68;
 }
-
-/* KOŞUCU */
 
 #oyuncu {
     position: absolute;
@@ -354,8 +342,6 @@ body {
     to { transform: rotate(28deg); }
 }
 
-/* KALKAN */
-
 #oyuncu.kalkan-aktif {
     filter: drop-shadow(0 0 15px #50aaff);
 }
@@ -372,8 +358,6 @@ body {
     box-shadow: 0 0 20px #3ca8ff;
     opacity: .8;
 }
-
-/* KAYALAR */
 
 .engel {
     position: absolute;
@@ -401,8 +385,6 @@ body {
     border-radius: 50%;
 }
 
-/* GÜÇ */
-
 #guc {
     position: absolute;
     bottom: 125px;
@@ -425,8 +407,6 @@ body {
     justify-content: center;
     color: white;
 }
-
-/* MESAJ */
 
 #oyunMesaji {
     position: absolute;
@@ -461,8 +441,6 @@ body {
     font-weight: bold;
     cursor: pointer;
 }
-
-/* GREAT */
 
 #greateYazisi {
     position: absolute;
@@ -506,18 +484,12 @@ body {
     }
 }
 
-
-/* =========================================
-   V4 RARE SCREEN
-========================================= */
-
 #rareScreen {
     position: fixed;
     inset: 0;
     display: none;
     align-items: center;
     justify-content: center;
-
     background:
         radial-gradient(
             circle at center,
@@ -525,7 +497,6 @@ body {
             #050000 40%,
             #000 75%
         );
-
     z-index: 9999;
     overflow: hidden;
 }
@@ -534,21 +505,14 @@ body {
     display: flex;
 }
 
-
-/* KIRMIZI ORTAM */
-
 #rareScreen::before {
     content: "";
     position: absolute;
-
     width: 75vw;
     height: 75vw;
-
     max-width: 900px;
     max-height: 900px;
-
     border-radius: 50%;
-
     background:
         radial-gradient(
             circle,
@@ -556,13 +520,7 @@ body {
             rgba(80,0,0,.08) 45%,
             transparent 70%
         );
-
-    animation:
-        ortamTitreme
-        1.8s
-        infinite
-        alternate;
-
+    animation: ortamTitreme 1.8s infinite alternate;
     pointer-events: none;
 }
 
@@ -578,47 +536,23 @@ body {
     }
 }
 
-
-/* KARAKTER */
-
 .rare-karakter {
     position: absolute;
     inset: 0;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
-    transform:
-        scale(.55)
-        translateY(35px);
-
+    transform: scale(.55) translateY(35px);
     opacity: 0;
-
-    animation:
-        karakterGelir
-        1.3s
-        ease
-        forwards;
+    animation: karakterGelir 1.3s ease forwards;
 }
-
-
-/* KAFA */
 
 .rare-kafa {
     position: relative;
-
     width: min(82vw, 620px);
     height: min(82vw, 620px);
-
     max-height: 85vh;
-
-    border-radius:
-        43%
-        43%
-        48%
-        48%;
-
+    border-radius: 43% 43% 48% 48%;
     background:
         radial-gradient(
             ellipse at 50% 20%,
@@ -627,29 +561,20 @@ body {
             #080808 70%,
             #000 100%
         );
-
     box-shadow:
         0 0 30px rgba(170,0,0,.25),
         0 0 80px rgba(120,0,0,.2),
         inset 0 -90px 110px rgba(0,0,0,.95);
 }
 
-
-/* SİNİRLİ / ŞEYTANİ KAŞLAR */
-
 .rare-kafa::before {
     content: "";
-
     position: absolute;
-
     top: 23%;
     left: 7%;
-
     width: 86%;
     height: 14%;
-
     background: #000;
-
     clip-path: polygon(
         0% 8%,
         10% 0%,
@@ -662,7 +587,6 @@ body {
         50% 100%,
         39% 65%
     );
-
     filter:
         drop-shadow(
             0 6px 5px
@@ -670,41 +594,27 @@ body {
         );
 }
 
-
-/* ALT YÜZ GÖLGESİ */
-
 .rare-kafa::after {
     content: "";
-
     position: absolute;
-
     left: 12%;
     bottom: 8%;
-
     width: 76%;
     height: 30%;
-
     background:
         radial-gradient(
             ellipse,
             rgba(0,0,0,.85),
             transparent 70%
         );
-
     pointer-events: none;
 }
 
-
-/* GÖZLER */
-
 .rare-goz {
     position: absolute;
-
     top: 32%;
-
     width: 22%;
     height: 7%;
-
     background:
         radial-gradient(
             ellipse at center,
@@ -713,108 +623,63 @@ body {
             #d00000 52%,
             #300000 100%
         );
-
-    border-radius:
-        50%
-        50%
-        35%
-        35%;
-
+    border-radius: 50% 50% 35% 35%;
     box-shadow:
         0 0 10px rgba(255,0,0,1),
         0 0 28px rgba(220,0,0,.85),
         0 0 55px rgba(130,0,0,.6);
-
     overflow: hidden;
 }
 
-
-/* GÖZ BEBEĞİ */
-
 .rare-goz::after {
     content: "";
-
     position: absolute;
-
     left: 45%;
     top: -15%;
-
     width: 10%;
     height: 130%;
-
     background: #030000;
-
     border-radius: 50%;
-
-    box-shadow:
-        0 0 9px #000;
+    box-shadow: 0 0 9px #000;
 }
-
-
-/* SOL GÖZ */
 
 .rare-goz.sol {
     left: 14%;
-
-    transform:
-        rotate(21deg)
-        skewX(-17deg);
+    transform: rotate(21deg) skewX(-17deg);
 }
-
-
-/* SAĞ GÖZ */
 
 .rare-goz.sag {
     right: 14%;
-
-    transform:
-        rotate(-21deg)
-        skewX(17deg);
+    transform: rotate(-21deg) skewX(17deg);
 }
-
-
-/* GÖZ ÜSTÜ GÖLGELER */
 
 .rare-goz.sol::before,
 .rare-goz.sag::before {
     content: "";
-
     position: absolute;
-
     width: 135%;
     height: 70%;
-
     top: -48%;
-
     background: #020202;
-
     border-radius: 50%;
 }
 
 .rare-goz.sol::before {
     left: -10%;
-
     transform: rotate(-15deg);
 }
 
 .rare-goz.sag::before {
     right: -10%;
-
     transform: rotate(15deg);
 }
 
-
-/* AĞIZ */
-
 .rare-agiz {
     position: absolute;
-
     left: 10%;
     bottom: 15%;
-
     width: 80%;
     height: 22%;
-
     background:
         radial-gradient(
             ellipse at center,
@@ -822,254 +687,124 @@ body {
             #100000 60%,
             #030000 100%
         );
-
-    border:
-        4px solid
-        #650000;
-
-    border-radius:
-        10%
-        10%
-        50%
-        50%;
-
-    transform:
-        scaleX(.04)
-        scaleY(.12);
-
+    border: 4px solid #650000;
+    border-radius: 10% 10% 50% 50%;
+    transform: scaleX(.04) scaleY(.12);
     transform-origin: center;
-
     animation:
         gulus
         1.8s
         cubic-bezier(.22,.7,.25,1)
         forwards;
-
     animation-delay: .55s;
-
     box-shadow:
         0 0 25px rgba(180,0,0,.5),
         inset 0 -18px 25px rgba(0,0,0,.95);
 }
 
-
-/* ÜST DİŞLER */
-
 .rare-agiz::before {
-    content:
-        "▼ ▼ ▼ ▼ ▼ ▼ ▼ ▼";
-
+    content: "▼ ▼ ▼ ▼ ▼ ▼ ▼ ▼";
     position: absolute;
-
     left: 4%;
     top: 5%;
-
     width: 92%;
-
     color: #eee;
-
-    font-size:
-        clamp(
-            15px,
-            3vw,
-            28px
-        );
-
-    letter-spacing:
-        clamp(
-            2px,
-            1vw,
-            8px
-        );
-
+    font-size: clamp(15px,3vw,28px);
+    letter-spacing: clamp(2px,1vw,8px);
     text-align: center;
-
     white-space: nowrap;
-
-    text-shadow:
-        0 0 6px #fff;
+    text-shadow: 0 0 6px #fff;
 }
-
-
-/* ALT DİŞLER */
 
 .rare-agiz::after {
-    content:
-        "▲ ▲ ▲ ▲ ▲ ▲ ▲ ▲";
-
+    content: "▲ ▲ ▲ ▲ ▲ ▲ ▲ ▲";
     position: absolute;
-
     left: 4%;
     bottom: 1%;
-
     width: 92%;
-
     color: #bbb;
-
-    font-size:
-        clamp(
-            12px,
-            2.5vw,
-            23px
-        );
-
-    letter-spacing:
-        clamp(
-            2px,
-            1vw,
-            7px
-        );
-
+    font-size: clamp(12px,2.5vw,23px);
+    letter-spacing: clamp(2px,1vw,7px);
     text-align: center;
-
     white-space: nowrap;
 }
 
-
-/* AKICI GÜLÜŞ */
-
 @keyframes gulus {
-
     0% {
-        transform:
-            scaleX(.04)
-            scaleY(.12);
-
+        transform: scaleX(.04) scaleY(.12);
         border-radius: 50%;
     }
 
     30% {
-        transform:
-            scaleX(.32)
-            scaleY(.28);
-
+        transform: scaleX(.32) scaleY(.28);
         border-radius: 32%;
     }
 
     55% {
-        transform:
-            scaleX(.60)
-            scaleY(.55);
-
+        transform: scaleX(.60) scaleY(.55);
         border-radius: 20%;
     }
 
     75% {
-        transform:
-            scaleX(.83)
-            scaleY(.78);
-
-        border-radius:
-            13%
-            13%
-            42%
-            42%;
+        transform: scaleX(.83) scaleY(.78);
+        border-radius: 13% 13% 42% 42%;
     }
 
     90% {
-        transform:
-            scaleX(.94)
-            scaleY(.92);
+        transform: scaleX(.94) scaleY(.92);
     }
 
     100% {
-        transform:
-            scaleX(1)
-            scaleY(1);
-
-        border-radius:
-            10%
-            10%
-            50%
-            50%;
+        transform: scaleX(1) scaleY(1);
+        border-radius: 10% 10% 50% 50%;
     }
 }
 
-
-/* KARAKTER GELİŞİ */
-
 @keyframes karakterGelir {
-
     0% {
         opacity: 0;
-
-        transform:
-            scale(.55)
-            translateY(40px);
+        transform: scale(.55) translateY(40px);
     }
 
     45% {
         opacity: 1;
-
-        transform:
-            scale(.92)
-            translateY(0);
+        transform: scale(.92) translateY(0);
     }
 
     70% {
-        transform:
-            scale(1.03)
-            translateY(0);
+        transform: scale(1.03) translateY(0);
     }
 
     100% {
         opacity: 1;
-
-        transform:
-            scale(1)
-            translateY(0);
+        transform: scale(1) translateY(0);
     }
 }
 
-
-/* YAZI */
-
 #rareYazi {
     position: absolute;
-
     left: 50%;
     bottom: 6%;
-
-    transform:
-        translateX(-50%);
-
+    transform: translateX(-50%);
     width: 92%;
-
     text-align: center;
-
     color: white;
-
-    font-size:
-        clamp(
-            18px,
-            4vw,
-            34px
-        );
-
+    font-size: clamp(18px,4vw,34px);
     font-weight: bold;
-
     text-shadow:
         0 0 8px #000,
         0 0 15px #000;
-
     z-index: 5;
-
     opacity: 0;
 }
 
 #rareYazi.goster {
-    animation:
-        yaziGelir
-        .4s
-        ease
-        forwards;
+    animation: yaziGelir .4s ease forwards;
 }
 
 @keyframes yaziGelir {
-
     from {
         opacity: 0;
-
         transform:
             translateX(-50%)
             translateY(10px);
@@ -1077,27 +812,18 @@ body {
 
     to {
         opacity: 1;
-
         transform:
             translateX(-50%)
             translateY(0);
     }
 }
 
-
-/* GLITCH */
-
 #rareScreen.glitch::after {
     content: "";
-
     position: absolute;
-
     inset: 0;
-
     pointer-events: none;
-
     z-index: 20;
-
     background:
         repeating-linear-gradient(
             to bottom,
@@ -1106,33 +832,22 @@ body {
             transparent 2px,
             transparent 5px
         );
-
-    animation:
-        scan
-        .12s
-        infinite;
+    animation: scan .12s infinite;
 }
 
 @keyframes scan {
-
     0% {
-        transform:
-            translateY(0);
+        transform: translateY(0);
     }
 
     50% {
-        transform:
-            translateY(3px);
+        transform: translateY(3px);
     }
 
     100% {
-        transform:
-            translateY(-2px);
+        transform: translateY(-2px);
     }
 }
-
-
-/* MOBİL */
 
 @media (max-width: 600px) {
 
@@ -1180,16 +895,11 @@ body {
 
 <div class="container">
 
-    <!-- ANA SAYFAYA DÖN -->
-
     <div class="ust-bar">
         <a href="index.html" class="ana-sayfa">
             ← Ana Sayfa
         </a>
     </div>
-
-
-    <!-- MENÜ -->
 
     <div class="menu">
 
@@ -1202,9 +912,6 @@ body {
         </button>
 
     </div>
-
-
-    <!-- HESAP MAKİNESİ -->
 
     <div id="hesapPanel" class="panel aktif">
 
@@ -1219,7 +926,6 @@ body {
             </button>
 
         </div>
-
 
         <div class="calculator">
 
@@ -1265,9 +971,6 @@ body {
 
     </div>
 
-
-    <!-- OYUN -->
-
     <div id="oyunPanel" class="panel">
 
         <div class="panel-ust">
@@ -1282,7 +985,6 @@ body {
 
         </div>
 
-
         <div class="game-panel">
 
             <div class="oyun-kontrol">
@@ -1292,7 +994,6 @@ body {
                 </button>
 
             </div>
-
 
             <div class="game-header">
 
@@ -1309,7 +1010,6 @@ body {
                 </div>
 
             </div>
-
 
             <div id="oyunAlani">
 
@@ -1328,16 +1028,13 @@ body {
 
                 </div>
 
-
                 <div id="guc"></div>
 
                 <div class="zemin"></div>
 
-
                 <div id="greateYazisi">
                     GREAT!
                 </div>
-
 
                 <div id="oyunMesaji">
 
@@ -1355,7 +1052,6 @@ body {
 
             </div>
 
-
             <p style="text-align:center;color:#999;margin-top:12px;font-size:14px;">
                 Space / Dokun → Zıpla
             </p>
@@ -1365,11 +1061,6 @@ body {
     </div>
 
 </div>
-
-
-<!-- =========================================
-     V4 RARE SCREEN
-========================================= -->
 
 <div id="rareScreen">
 
@@ -1394,10 +1085,6 @@ body {
 
 <script>
 
-/* =========================================
-   MENÜ ELEMENTLERİ
-========================================= */
-
 const hesapBtn =
     document.getElementById("hesapBtn");
 
@@ -1419,10 +1106,6 @@ const oyunKapat =
 const baslatBtn =
     document.getElementById("baslatBtn");
 
-
-/* =========================================
-   PANEL AÇMA
-========================================= */
 
 function hesapMakinesiniAc() {
 
@@ -1450,10 +1133,6 @@ function oyunuAc() {
 }
 
 
-/* =========================================
-   MENÜ BUTONLARI
-========================================= */
-
 hesapBtn.addEventListener("click", () => {
 
     hesapMakinesiniAc();
@@ -1467,10 +1146,6 @@ kacBtn.addEventListener("click", () => {
 
 });
 
-
-/* =========================================
-   PANEL KAPATMA
-========================================= */
 
 hesapKapat.addEventListener("click", () => {
 
@@ -1491,10 +1166,6 @@ oyunKapat.addEventListener("click", () => {
 
 });
 
-
-/* =========================================
-   HESAP MAKİNESİ
-========================================= */
 
 const ekran =
     document.getElementById("ekran");
@@ -1599,10 +1270,6 @@ function hesapla() {
 }
 
 
-/* =========================================
-   OYUN ELEMENTLERİ
-========================================= */
-
 const oyunAlani =
     document.getElementById("oyunAlani");
 
@@ -1639,13 +1306,6 @@ const rareScreen =
 const rareYazi =
     document.getElementById("rareYazi");
 
-const rareKarakter =
-    document.querySelector(".rare-karakter");
-
-
-/* =========================================
-   OYUN DEĞİŞKENLERİ
-========================================= */
 
 let oyunCalisiyor = false;
 
@@ -1684,18 +1344,10 @@ let kalkanVar = false;
 let sonrakiGuc = 5;
 
 
-/* =========================================
-   RARE DEĞİŞKENLERİ
-========================================= */
-
 let rareAktif = false;
 
 let rareTimerlar = [];
 
-
-/* =========================================
-   RARE TIMER
-========================================= */
 
 function rareTimerOlustur(
     callback,
@@ -1742,10 +1394,6 @@ function rareTimerlariniTemizle() {
 
 }
 
-
-/* =========================================
-   ZORLUK
-========================================= */
 
 function zorlukGuncelle() {
 
@@ -1818,10 +1466,6 @@ function zorlukGuncelle() {
 }
 
 
-/* =========================================
-   ZIPLAMA
-========================================= */
-
 function zipla() {
 
     if (
@@ -1841,10 +1485,6 @@ function zipla() {
 }
 
 
-/* =========================================
-   KLAVYE
-========================================= */
-
 document.addEventListener(
     "keydown",
     (e) => {
@@ -1860,10 +1500,6 @@ document.addEventListener(
     }
 );
 
-
-/* =========================================
-   MOBİL
-========================================= */
 
 oyunAlani.addEventListener(
     "pointerdown",
@@ -1881,10 +1517,6 @@ oyunAlani.addEventListener(
     }
 );
 
-
-/* =========================================
-   ENGEL OLUŞTUR
-========================================= */
 
 function engelOlustur() {
 
@@ -1966,10 +1598,6 @@ function engelOlustur() {
 }
 
 
-/* =========================================
-   ENGEL SÜRESİ
-========================================= */
-
 function sonrakiEngelSuresi() {
 
     const temel =
@@ -1986,10 +1614,6 @@ function sonrakiEngelSuresi() {
 
 }
 
-
-/* =========================================
-   ENGELLERİ TEMİZLE
-========================================= */
 
 function engelleriTemizle() {
 
@@ -2009,10 +1633,6 @@ function engelleriTemizle() {
 
 }
 
-
-/* =========================================
-   ENGELLERİ HAREKET ETTİR
-========================================= */
 
 function engelleriHareketEttir(
     delta
@@ -2099,10 +1719,6 @@ function engelleriHareketEttir(
 }
 
 
-/* =========================================
-   GÜÇ
-========================================= */
-
 function gucOlustur() {
 
     gucAktif = true;
@@ -2186,10 +1802,6 @@ function gucuHareketEttir(
 }
 
 
-/* =========================================
-   GREAT
-========================================= */
-
 function greatGoster() {
 
     greateYazisi.classList.remove(
@@ -2205,10 +1817,6 @@ function greatGoster() {
 }
 
 
-/* =========================================
-   V4 RARE SCREEN BAŞLAT
-========================================= */
-
 function rareScreenBaslat() {
 
     if (rareAktif) {
@@ -2223,11 +1831,6 @@ function rareScreenBaslat() {
 
     rareTimerlariniTemizle();
 
-
-    /*
-       Animasyonları tekrar tetiklemek
-       için karakteri yeniden oluşturuyoruz.
-    */
 
     const eskiKarakter =
         document.querySelector(
@@ -2257,8 +1860,6 @@ function rareScreenBaslat() {
     rareYazi.textContent = "";
 
 
-    /* 0.45 saniye sonra glitch biter */
-
     rareTimerOlustur(
         () => {
 
@@ -2270,15 +1871,6 @@ function rareScreenBaslat() {
         450
     );
 
-
-    /*
-       2.00 → bu
-       2.50 → bu normal
-       3.00 → bu normal bir
-       3.50 → bu normal bir oyun
-       4.00 → bu normal bir oyun değil...
-       6.00 → ekran kapanır
-    */
 
     const kelimeler = [
         "bu",
@@ -2379,10 +1971,6 @@ function rareScreenBaslat() {
 }
 
 
-/* =========================================
-   RARE SCREEN BİTİR
-========================================= */
-
 function rareScreenBitir() {
 
     rareTimerlariniTemizle();
@@ -2403,21 +1991,11 @@ function rareScreenBitir() {
 
     rareAktif = false;
 
-
-    /*
-       Easter Egg bittikten sonra
-       normal Oyun Bitti ekranı gelir.
-    */
-
     oyunMesaji.style.display =
         "flex";
 
 }
 
-
-/* =========================================
-   OYUN BİTTİ
-========================================= */
 
 function oyunBitti() {
 
@@ -2448,13 +2026,13 @@ function oyunBitti() {
 
 
     /*
-       %0.125 = 1 / 800
+       %33.33 = 1 / 3
        Easter Egg ihtimali
     */
 
     if (
         Math.random() <
-        (1 / 800)
+        (1 / 3)
     ) {
 
         oyunMesaji.style.display =
@@ -2473,10 +2051,6 @@ function oyunBitti() {
 
 }
 
-
-/* =========================================
-   OYUN DURUMUNU TEMİZLE
-========================================= */
 
 function oyunDurumunuTemizle() {
 
@@ -2559,10 +2133,6 @@ function oyunDurumunuTemizle() {
 }
 
 
-/* =========================================
-   OYUNU DURDUR VE TEMİZLE
-========================================= */
-
 function oyunuDurdurVeTemizle() {
 
     oyunDurumunuTemizle();
@@ -2591,10 +2161,6 @@ function oyunuDurdurVeTemizle() {
 
 }
 
-
-/* =========================================
-   OYUNU BAŞLAT
-========================================= */
 
 function oyunuBaslat() {
 
@@ -2660,10 +2226,6 @@ function oyunuBaslat() {
 }
 
 
-/* =========================================
-   OYUN DÖNGÜSÜ
-========================================= */
-
 function oyunDongusu(zaman) {
 
     if (!oyunCalisiyor) {
@@ -2683,8 +2245,6 @@ function oyunDongusu(zaman) {
 
     sonZaman = zaman;
 
-
-    /* SKOR */
 
     skorSayac += delta;
 
@@ -2718,8 +2278,6 @@ function oyunDongusu(zaman) {
     }
 
 
-    /* FİZİK */
-
     oyuncuHiziY -=
         yerCekimi *
         delta;
@@ -2742,8 +2300,6 @@ function oyunDongusu(zaman) {
         `translateY(${-oyuncuY}px)`;
 
 
-    /* ENGEL ZAMANLAYICI */
-
     sonrakiEngel -= delta;
 
 
@@ -2757,8 +2313,6 @@ function oyunDongusu(zaman) {
     }
 
 
-    /* ENGELLER */
-
     engelleriHareketEttir(
         delta
     );
@@ -2768,8 +2322,6 @@ function oyunDongusu(zaman) {
         return;
     }
 
-
-    /* GÜÇ */
 
     if (
         !gucAktif &&
@@ -2796,8 +2348,6 @@ function oyunDongusu(zaman) {
     );
 
 
-    /* YENİ FRAME */
-
     animasyonID =
         requestAnimationFrame(
             oyunDongusu
@@ -2805,10 +2355,6 @@ function oyunDongusu(zaman) {
 
 }
 
-
-/* =========================================
-   BAŞLAT BUTONU
-========================================= */
 
 baslatBtn.addEventListener(
     "click",
@@ -2820,10 +2366,6 @@ baslatBtn.addEventListener(
 );
 
 
-/* =========================================
-   TEKRAR OYNA
-========================================= */
-
 tekrarOyna.addEventListener(
     "click",
     () => {
@@ -2833,10 +2375,6 @@ tekrarOyna.addEventListener(
     }
 );
 
-
-/* =========================================
-   İLK DURUM
-========================================= */
 
 oyunMesaji.style.display =
     "none";
