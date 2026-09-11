@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Kişisel Web Sitem</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0b1020;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .arka-plan {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: #6c2cff;
+            filter: blur(150px);
+            opacity: 0.35;
+            border-radius: 50%;
+        }
+
+        .kutu {
+            position: relative;
+            width: 90%;
+            max-width: 700px;
+            padding: 50px 25px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 25px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .kutu h1 {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .kutu p {
+            font-size: 18px;
+            color: #cccccc;
+            margin-bottom: 30px;
+        }
+
+        .buton {
+            display: inline-block;
+            padding: 14px 25px;
+            background: #7c3cff;
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .buton:hover {
+            transform: scale(1.05);
+            background: #955fff;
+        }
+
+        .alt-yazi {
+            margin-top: 30px;
+            font-size: 13px;
+            color: #888;
+        }
+
+        @media (max-width: 600px) {
+            .kutu h1 {
+                font-size: 32px;
+            }
+
+            .kutu p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="arka-plan"></div>
+
+    <div class="kutu">
+
+        <h1>Merhaba 👋</h1>
+
+        <p>
+            Kendi web dünyama hoş geldin.
+            Burası benim küçük web dünyam. 🚀
+        </p>
+
+        <a href="hesap-makinesi.html" class="buton">
+            Siteyi Keşfet
+        </a>
+
+        <div class="alt-yazi">
+            © 2026 • Kendi yaptığım web sitesi
+        </div>
+
+    </div>
+
+</body>
+</html>
