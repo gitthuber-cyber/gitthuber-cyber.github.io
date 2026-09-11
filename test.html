@@ -40,9 +40,7 @@ body {
 }
 
 
-/* =========================================
-   TEST KUTUSU
-========================================= */
+/* TEST KUTUSU */
 
 .test-kutu {
     width: 90%;
@@ -100,9 +98,7 @@ body {
 }
 
 
-/* =========================================
-   RARE SCREEN
-========================================= */
+/* RARE SCREEN */
 
 #rareScreen {
     position: fixed;
@@ -131,9 +127,7 @@ body {
 }
 
 
-/* =========================================
-   KIRMIZI ORTAM
-========================================= */
+/* KIRMIZI ORTAM */
 
 #rareScreen::before {
     content: "";
@@ -179,9 +173,7 @@ body {
 }
 
 
-/* =========================================
-   KARAKTER
-========================================= */
+/* KARAKTER */
 
 .rare-karakter {
     position: absolute;
@@ -206,9 +198,7 @@ body {
 }
 
 
-/* =========================================
-   KAFA
-========================================= */
+/* KAFA */
 
 .rare-kafa {
     position: relative;
@@ -247,7 +237,7 @@ body {
 
 
 /* =========================================
-   ŞEYTANİ KAŞLAR
+   SİNİRLİ / ÇATIK KAŞLAR
 ========================================= */
 
 .rare-kafa::before {
@@ -255,37 +245,38 @@ body {
 
     position: absolute;
 
-    top: 22%;
+    top: 23%;
 
-    left: 8%;
+    left: 7%;
 
-    width: 84%;
+    width: 86%;
 
-    height: 15%;
+    height: 14%;
 
-    background:
-        linear-gradient(
-            165deg,
-            transparent 0%,
-            transparent 18%,
-            #020202 19%,
-            #000 55%,
-            transparent 56%
-        );
+    background: #000;
+
+    clip-path: polygon(
+        0% 8%,
+        10% 0%,
+        43% 38%,
+        50% 75%,
+        57% 38%,
+        90% 0%,
+        100% 8%,
+        61% 65%,
+        50% 100%,
+        39% 65%
+    );
 
     filter:
         drop-shadow(
             0 6px 5px
-            #000
+            rgba(0,0,0,.9)
         );
-
-    opacity: 1;
 }
 
 
-/* =========================================
-   ALT YÜZ GÖLGESİ
-========================================= */
+/* ALT YÜZ GÖLGESİ */
 
 .rare-kafa::after {
     content: "";
@@ -326,11 +317,8 @@ body {
             ellipse at center,
 
             #ffffff 0%,
-
             #ff6666 28%,
-
             #d00000 52%,
-
             #300000 100%
         );
 
@@ -355,9 +343,7 @@ body {
 }
 
 
-/* =========================================
-   GÖZ BEBEĞİ
-========================================= */
+/* GÖZ BEBEĞİ */
 
 .rare-goz::after {
     content: "";
@@ -365,11 +351,9 @@ body {
     position: absolute;
 
     left: 45%;
-
     top: -15%;
 
     width: 10%;
-
     height: 130%;
 
     background: #030000;
@@ -381,9 +365,7 @@ body {
 }
 
 
-/* =========================================
-   SOL GÖZ
-========================================= */
+/* SOL GÖZ */
 
 .rare-goz.sol {
     left: 14%;
@@ -394,9 +376,7 @@ body {
 }
 
 
-/* =========================================
-   SAĞ GÖZ
-========================================= */
+/* SAĞ GÖZ */
 
 .rare-goz.sag {
     right: 14%;
@@ -407,9 +387,7 @@ body {
 }
 
 
-/* =========================================
-   GÖZ ÜSTÜ KESKİN GÖLGELER
-========================================= */
+/* GÖZ ÜSTÜ GÖLGELER */
 
 .rare-goz.sol::before,
 .rare-goz.sag::before {
@@ -478,8 +456,7 @@ body {
         scaleX(.04)
         scaleY(.12);
 
-    transform-origin:
-        center;
+    transform-origin: center;
 
     animation:
         gulus
@@ -487,8 +464,7 @@ body {
         cubic-bezier(.22,.7,.25,1)
         forwards;
 
-    animation-delay:
-        .55s;
+    animation-delay: .55s;
 
     box-shadow:
 
@@ -500,9 +476,7 @@ body {
 }
 
 
-/* =========================================
-   ÜST DİŞLER
-========================================= */
+/* ÜST DİŞLER */
 
 .rare-agiz::before {
     content:
@@ -540,9 +514,7 @@ body {
 }
 
 
-/* =========================================
-   ALT DİŞLER
-========================================= */
+/* ALT DİŞLER */
 
 .rare-agiz::after {
     content:
@@ -639,9 +611,7 @@ body {
 }
 
 
-/* =========================================
-   KARAKTER GELİŞİ
-========================================= */
+/* KARAKTER GELİŞİ */
 
 @keyframes karakterGelir {
 
@@ -795,9 +765,7 @@ body {
 }
 
 
-/* =========================================
-   MOBİL
-========================================= */
+/* MOBİL */
 
 @media (max-width: 600px) {
 
