@@ -2,127 +2,248 @@
 <html lang="tr">
 <head>
 <meta name="google-site-verification" content="8bBDY7YAJ8QZQA94EOhcnQOz2DGoIcLxKAFPl9P7Nas" />
- <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Kişisel Web Sitem</title>
+<title>Kişisel Web Sitem</title>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #0b1020;
-            color: white;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            overflow: hidden;
-        }
+    body {
+        font-family: Arial, sans-serif;
+        background: #0b1020;
+        color: white;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        overflow: hidden;
+    }
 
-        .arka-plan {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background:
-        radial-gradient(
-            circle at 20% 20%,
-            rgba(108, 44, 255, 0.18),
-            transparent 35%
-        ),
-        radial-gradient(
-            circle at 80% 80%,
-            rgba(80, 120, 255, 0.12),
-            transparent 35%
-        ),
-        #0b1020;
-}
+    .arka-plan {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background:
+            radial-gradient(
+                circle at 20% 20%,
+                rgba(108, 44, 255, 0.18),
+                transparent 35%
+            ),
+            radial-gradient(
+                circle at 80% 80%,
+                rgba(80, 120, 255, 0.12),
+                transparent 35%
+            ),
+            #0b1020;
+    }
 
-        .kutu {
-            position: relative;
-            width: 90%;
-            max-width: 700px;
-            padding: 50px 25px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 25px;
-            backdrop-filter: blur(15px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-        }
+    .kutu {
+        position: relative;
+        width: 90%;
+        max-width: 700px;
+        padding: 50px 25px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 25px;
+        backdrop-filter: blur(15px);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    }
 
+    .kutu h1 {
+        font-size: 45px;
+        margin-bottom: 15px;
+    }
+
+    .kutu p {
+        font-size: 18px;
+        color: #cccccc;
+        margin-bottom: 30px;
+    }
+
+    .buton {
+        display: inline-block;
+        padding: 14px 25px;
+        background: #7c3cff;
+        color: white;
+        text-decoration: none;
+        border-radius: 12px;
+        font-weight: bold;
+        transition: 0.3s;
+        cursor: pointer;
+        border: none;
+        font-size: 16px;
+    }
+
+    .buton:hover {
+        transform: scale(1.05);
+        background: #955fff;
+    }
+
+    .alt-yazi {
+        margin-top: 30px;
+        font-size: 13px;
+        color: #888;
+    }
+
+    /* Keşfet menüsü */
+    .kesfet-menu {
+        position: fixed;
+        inset: 0;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        background: rgba(5, 8, 20, 0.75);
+        backdrop-filter: blur(8px);
+        z-index: 10;
+    }
+
+    .kesfet-menu.aktif {
+        display: flex;
+    }
+
+    .kesfet-kutu {
+        width: 90%;
+        max-width: 420px;
+        padding: 30px 25px;
+        background: rgba(25, 20, 50, 0.95);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 22px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    .kesfet-kutu h2 {
+        margin-bottom: 22px;
+        font-size: 27px;
+    }
+
+    .secenek {
+        display: block;
+        width: 100%;
+        padding: 17px;
+        margin-top: 12px;
+        border-radius: 14px;
+        background: rgba(124, 60, 255, 0.18);
+        border: 1px solid rgba(124, 60, 255, 0.35);
+        color: white;
+        text-decoration: none;
+        font-size: 17px;
+        font-weight: bold;
+        transition: 0.25s;
+    }
+
+    .secenek:hover {
+        background: #7c3cff;
+        transform: translateY(-2px);
+    }
+
+    .kapat {
+        margin-top: 20px;
+        padding: 10px 18px;
+        border: none;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        color: #ccc;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .kapat:hover {
+        background: rgba(255, 255, 255, 0.18);
+        color: white;
+    }
+
+    @media (max-width: 600px) {
         .kutu h1 {
-            font-size: 45px;
-            margin-bottom: 15px;
+            font-size: 32px;
         }
 
         .kutu p {
-            font-size: 18px;
-            color: #cccccc;
-            margin-bottom: 30px;
+            font-size: 16px;
         }
-
-        .buton {
-            display: inline-block;
-            padding: 14px 25px;
-            background: #7c3cff;
-            color: white;
-            text-decoration: none;
-            border-radius: 12px;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        .buton:hover {
-            transform: scale(1.05);
-            background: #955fff;
-        }
-
-        .alt-yazi {
-            margin-top: 30px;
-            font-size: 13px;
-            color: #888;
-        }
-
-        @media (max-width: 600px) {
-            .kutu h1 {
-                font-size: 32px;
-            }
-
-            .kutu p {
-                font-size: 16px;
-            }
-        }
-    </style>
+    }
+</style>
 </head>
 
 <body>
 
-    <div class="arka-plan"></div>
+<div class="arka-plan"></div>
 
-    <div class="kutu">
+<div class="kutu">
 
-        <h1>Merhaba 👋</h1>
+    <h1>Merhaba 👋</h1>
 
-        <p>
-            Kendi web dünyama hoş geldin.
-            Burası benim küçük web dünyam. 🚀
-        </p>
+    <p>
+        Kendi web dünyama hoş geldin.
+        Burası benim küçük web dünyam. 🚀
+    </p>
 
-        <a href="hesap-makinesi.html" class="buton">
-            Siteyi Keşfet
+    <!-- Keşfet butonunun yeri aynı -->
+    <button class="buton" onclick="kesfetAc()">
+        Siteyi Keşfet
+    </button>
+
+    <div class="alt-yazi">
+        © 2026 • Kendi yaptığım web sitesi
+    </div>
+
+</div>
+
+
+<!-- Keşfet menüsü -->
+<div class="kesfet-menu" id="kesfetMenu">
+
+    <div class="kesfet-kutu">
+
+        <h2>Keşfet 🚀</h2>
+
+        <a href="hesap-makinesi.html" class="secenek">
+            🧮 Hesap Makinesi
         </a>
 
-        <div class="alt-yazi">
-            © 2026 • Kendi yaptığım web sitesi
-        </div>
+        <a href="oyunlar.html" class="secenek">
+            🎮 Oyunlar
+        </a>
+
+        <button class="kapat" onclick="kesfetKapat()">
+            Kapat
+        </button>
 
     </div>
+
+</div>
+
+
+<script>
+    function kesfetAc() {
+        document
+            .getElementById("kesfetMenu")
+            .classList.add("aktif");
+    }
+
+    function kesfetKapat() {
+        document
+            .getElementById("kesfetMenu")
+            .classList.remove("aktif");
+    }
+
+    /* Menü dışına basınca da kapanır */
+    document
+        .getElementById("kesfetMenu")
+        .addEventListener("click", function(event) {
+
+            if (event.target === this) {
+                kesfetKapat();
+            }
+
+        });
+</script>
 
 </body>
 </html>
