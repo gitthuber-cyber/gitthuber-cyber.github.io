@@ -26,8 +26,7 @@
 
         .arka-plan {
             position: fixed;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             background:
                 radial-gradient(
                     circle at 20% 20%,
@@ -49,20 +48,24 @@
             color: white;
             text-decoration: none;
             font-size: 32px;
-            z-index: 10;
+            z-index: 20;
         }
 
-        .kutu {
+        .kutu,
+        .ekran {
             position: relative;
             z-index: 2;
-            width: 300px;
-            padding: 30px;
+            width: 310px;
+            padding: 25px;
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 20px;
-            text-align: center;
             backdrop-filter: blur(15px);
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .kutu {
+            text-align: center;
         }
 
         .kutu h1 {
@@ -81,6 +84,7 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            transition: 0.2s;
         }
 
         .buton:hover {
@@ -90,15 +94,6 @@
 
         .ekran {
             display: none;
-            position: relative;
-            z-index: 2;
-            width: 300px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 20px;
-            backdrop-filter: blur(15px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
             text-align: center;
         }
 
@@ -155,14 +150,8 @@
 
         /* OYUN */
 
-        #oyun {
-            position: relative;
-            height: 300px;
-            margin-top: 10px;
-            overflow: hidden;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 15px;
-            border: 1px solid rgba(255,255,255,0.1);
+        #oyunEkrani {
+            width: 340px;
         }
 
         #skor {
@@ -170,35 +159,156 @@
             margin-bottom: 10px;
         }
 
+        #oyun {
+            position: relative;
+            width: 100%;
+            height: 280px;
+            overflow: hidden;
+            background:
+                linear-gradient(
+                    rgba(124, 60, 255, 0.08),
+                    rgba(11, 16, 32, 0.4)
+                );
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 15px;
+        }
+
+        /* ZEMİN */
+
+        #zemin {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 25px;
+            background: rgba(124, 60, 255, 0.35);
+            border-top: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* KARAKTER */
+
         #oyuncu {
             position: absolute;
-            bottom: 20px;
-            left: 40px;
-            font-size: 38px;
+            left: 45px;
+            bottom: 25px;
+            width: 30px;
+            height: 45px;
+            transition: transform 0.05s;
         }
+
+        .kafa {
+            position: absolute;
+            top: 0;
+            left: 7px;
+            width: 16px;
+            height: 16px;
+            background: white;
+            border-radius: 50%;
+        }
+
+        .govde {
+            position: absolute;
+            top: 15px;
+            left: 11px;
+            width: 8px;
+            height: 20px;
+            background: #9b6cff;
+            border-radius: 5px;
+        }
+
+        .bacak {
+            position: absolute;
+            top: 32px;
+            width: 7px;
+            height: 15px;
+            background: white;
+            border-radius: 5px;
+        }
+
+        .bacak1 {
+            left: 7px;
+        }
+
+        .bacak2 {
+            right: 7px;
+        }
+
+        .kol {
+            position: absolute;
+            top: 17px;
+            width: 6px;
+            height: 17px;
+            background: white;
+            border-radius: 5px;
+        }
+
+        .kol1 {
+            left: 3px;
+            transform: rotate(25deg);
+        }
+
+        .kol2 {
+            right: 3px;
+            transform: rotate(-25deg);
+        }
+
+        /* ENGEL */
 
         #engel {
             position: absolute;
-            bottom: 20px;
-            right: -50px;
-            font-size: 35px;
+            right: -45px;
+            bottom: 25px;
+            width: 35px;
+            height: 35px;
+            background: #8b52ff;
+            border-radius: 8px 8px 3px 3px;
+            transform: rotate(45deg);
+            box-shadow: 0 0 15px rgba(124, 60, 255, 0.5);
         }
 
-        .zipla {
-            margin-top: 15px;
+        #engel::before {
+            content: "";
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            background: #b38cff;
+            left: 8px;
+            top: 8px;
+            border-radius: 4px;
         }
+
+        /* SKOR VE BİLGİ */
 
         .oyun-bilgi {
             margin-top: 10px;
-            font-size: 14px;
-            color: #bbb;
+            font-size: 13px;
+            color: #aaa;
         }
 
         .oyun-bitti {
             display: none;
+            position: absolute;
+            inset: 0;
+            background: rgba(11, 16, 32, 0.9);
+            z-index: 5;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            border-radius: 15px;
+        }
+
+        .oyun-bitti h2 {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .son-skor {
+            color: #bbb;
+            margin-bottom: 10px;
+        }
+
+        .zipla {
             margin-top: 15px;
-            font-size: 20px;
-            font-weight: bold;
         }
     </style>
 </head>
@@ -220,10 +330,11 @@
         </button>
 
         <button class="buton" onclick="oyunAc()">
-            🏃 Kaç! Oyunu
+            🏃 Kaç!
         </button>
 
     </div>
+
 
     <!-- HESAP MAKİNESİ -->
 
@@ -261,6 +372,7 @@
 
     </div>
 
+
     <!-- OYUN -->
 
     <div class="ekran" id="oyunEkrani">
@@ -269,73 +381,116 @@
 
         <h1>🏃 KAÇ!</h1>
 
-        <div id="skor">🔥 Skor: 0</div>
+        <div id="skor">
+            🔥 Skor: 0
+        </div>
 
         <div id="oyun">
 
-            <div id="oyuncu">🏃</div>
+            <div id="oyuncu">
 
-            <div id="engel">🪨</div>
+                <div class="kafa"></div>
+                <div class="govde"></div>
+
+                <div class="kol kol1"></div>
+                <div class="kol kol2"></div>
+
+                <div class="bacak bacak1"></div>
+                <div class="bacak bacak2"></div>
+
+            </div>
+
+            <div id="engel"></div>
+
+            <div id="zemin"></div>
+
+            <div class="oyun-bitti" id="oyunBitti">
+
+                <h2>💀 Oyun Bitti!</h2>
+
+                <div class="son-skor" id="sonSkor">
+                    Skor: 0
+                </div>
+
+                <button class="buton" onclick="oyunuBaslat()">
+                    🔄 Tekrar Oyna
+                </button>
+
+            </div>
 
         </div>
 
         <button class="buton zipla" onclick="zipla()">
-            👆 Zıpla!
+            🦘 ZIPLA
         </button>
 
         <div class="oyun-bilgi">
-            Kayaya çarpmadan dayan!
-        </div>
-
-        <div class="oyun-bitti" id="oyunBitti">
-            💀 Oyun Bitti!
-            <br>
-            <button class="buton" onclick="oyunuBaslat()">
-                🔄 Tekrar Oyna
-            </button>
+            Ekrana veya ZIPLA butonuna dokun!
         </div>
 
     </div>
+
 
     <script>
 
         /* MENÜ */
 
         function hesapAc() {
+
             document.getElementById("menu").style.display = "none";
             document.getElementById("hesap").style.display = "block";
+
         }
 
+
         function oyunAc() {
+
             document.getElementById("menu").style.display = "none";
             document.getElementById("oyunEkrani").style.display = "block";
 
             oyunuBaslat();
+
         }
 
+
         function kapat() {
+
             document.getElementById("hesap").style.display = "none";
             document.getElementById("oyunEkrani").style.display = "none";
             document.getElementById("menu").style.display = "block";
+
+            oyunDevam = false;
+
         }
 
 
         /* HESAP MAKİNESİ */
 
         function sayiYaz(sayi) {
+
             document.getElementById("hesapEkrani").value += sayi;
+
         }
+
 
         function temizle() {
+
             document.getElementById("hesapEkrani").value = "";
+
         }
 
+
         function hesapla() {
-            let ekran = document.getElementById("hesapEkrani");
+
+            let ekran =
+                document.getElementById("hesapEkrani");
 
             if (ekran.value !== "") {
+
                 ekran.value = eval(ekran.value);
+
             }
+
         }
 
 
@@ -343,87 +498,221 @@
 
         let skor = 0;
         let oyunDevam = false;
-        let oyunZamani;
-        let oyuncuYuksekte = false;
+
+        let oyuncuY = 0;
+        let oyuncuHizi = 0;
+
+        let engelX = 0;
+        let oyunHizi = 6;
+
+        let sonZaman = 0;
+        let animasyon;
+
 
         function oyunuBaslat() {
 
             skor = 0;
+
             oyunDevam = true;
-            oyuncuYuksekte = false;
 
-            document.getElementById("skor").textContent = "🔥 Skor: 0";
-            document.getElementById("oyunBitti").style.display = "none";
+            oyuncuY = 0;
+            oyuncuHizi = 0;
 
-            let engel = document.getElementById("engel");
+            oyunHizi = 6;
 
-            engel.style.right = "-50px";
+            engelX = 340;
 
-            clearInterval(oyunZamani);
+            document.getElementById("skor").textContent =
+                "🔥 Skor: 0";
 
-            oyunZamani = setInterval(() => {
+            document.getElementById("oyunBitti").style.display =
+                "none";
 
-                if (!oyunDevam) return;
+            sonZaman = performance.now();
 
-                skor++;
+            cancelAnimationFrame(animasyon);
 
-                document.getElementById("skor").textContent =
-                    "🔥 Skor: " + skor;
-
-                let konum = parseInt(
-                    getComputedStyle(engel).right
-                );
-
-                engel.style.right = (konum + 5) + "px";
-
-                if (konum > 330) {
-                    engel.style.right = "-50px";
-                }
-
-                kontrolEt();
-
-            }, 100);
+            animasyon =
+                requestAnimationFrame(oyunDongusu);
 
         }
+
+
+        function oyunDongusu(zaman) {
+
+            if (!oyunDevam) return;
+
+            let delta =
+                Math.min((zaman - sonZaman) / 16.67, 2);
+
+            sonZaman = zaman;
+
+
+            /* YERÇEKİMİ */
+
+            oyuncuHizi += 0.8 * delta;
+
+            oyuncuY -= oyuncuHizi * delta;
+
+
+            if (oyuncuY < 0) {
+
+                oyuncuY = 0;
+                oyuncuHizi = 0;
+
+            }
+
+
+            /* ENGEL */
+
+            engelX -= oyunHizi * delta;
+
+
+            if (engelX < -50) {
+
+                engelX = 340;
+
+            }
+
+
+            /* SKOR */
+
+            skor += 0.12 * delta;
+
+            document.getElementById("skor").textContent =
+                "🔥 Skor: " + Math.floor(skor);
+
+
+            /* ZAMANLA HIZLAN */
+
+            oyunHizi += 0.002 * delta;
+
+
+            /* EKRANA UYGULA */
+
+            let oyuncu =
+                document.getElementById("oyuncu");
+
+            let engel =
+                document.getElementById("engel");
+
+
+            oyuncu.style.bottom =
+                (25 + oyuncuY) + "px";
+
+
+            engel.style.right =
+                (340 - engelX) + "px";
+
+
+            /* ÇARPIŞMA */
+
+            kontrolEt();
+
+
+            animasyon =
+                requestAnimationFrame(oyunDongusu);
+
+        }
+
 
         function zipla() {
 
-            if (!oyunDevam || oyuncuYuksekte) return;
+            if (!oyunDevam) return;
 
-            oyuncuYuksekte = true;
+            if (oyuncuY === 0) {
 
-            let oyuncu = document.getElementById("oyuncu");
+                oyuncuHizi = -14;
 
-            oyuncu.style.bottom = "120px";
+            }
 
-            setTimeout(() => {
-                oyuncu.style.bottom = "20px";
-                oyuncuYuksekte = false;
-            }, 500);
         }
+
 
         function kontrolEt() {
 
-            let oyuncu = document.getElementById("oyuncu");
-            let engel = document.getElementById("engel");
+            let oyuncu =
+                document.getElementById("oyuncu");
 
-            let oyuncuRect = oyuncu.getBoundingClientRect();
-            let engelRect = engel.getBoundingClientRect();
+            let engel =
+                document.getElementById("engel");
+
+
+            let oyuncuRect =
+                oyuncu.getBoundingClientRect();
+
+            let engelRect =
+                engel.getBoundingClientRect();
+
+
+            let bosluk = 7;
+
 
             if (
-                oyuncuRect.right > engelRect.left &&
-                oyuncuRect.left < engelRect.right &&
-                oyuncuRect.bottom > engelRect.top &&
-                oyuncuRect.top < engelRect.bottom
+                oyuncuRect.right - bosluk >
+                engelRect.left + bosluk &&
+
+                oyuncuRect.left + bosluk <
+                engelRect.right - bosluk &&
+
+                oyuncuRect.bottom - bosluk >
+                engelRect.top + bosluk &&
+
+                oyuncuRect.top + bosluk <
+                engelRect.bottom - bosluk
             ) {
 
-                oyunDevam = false;
+                oyunBitir();
 
-                clearInterval(oyunZamani);
-
-                document.getElementById("oyunBitti").style.display = "block";
             }
+
         }
+
+
+        function oyunBitir() {
+
+            oyunDevam = false;
+
+            cancelAnimationFrame(animasyon);
+
+            document.getElementById("sonSkor").textContent =
+                "Skor: " + Math.floor(skor);
+
+            document.getElementById("oyunBitti").style.display =
+                "flex";
+
+        }
+
+
+        /* EKRANA DOKUNARAK ZIPLAMA */
+
+        document.getElementById("oyun").addEventListener(
+            "touchstart",
+            function() {
+
+                zipla();
+
+            },
+            { passive: true }
+        );
+
+
+        /* BİLGİSAYARDA SPACE */
+
+        document.addEventListener(
+            "keydown",
+            function(event) {
+
+                if (event.code === "Space") {
+
+                    event.preventDefault();
+
+                    zipla();
+
+                }
+
+            }
+        );
 
     </script>
 
