@@ -506,7 +506,10 @@ body {
     }
 }
 
-/* RARE SCREEN */
+
+/* =========================================
+   V4 RARE SCREEN
+========================================= */
 
 #rareScreen {
     position: fixed;
@@ -514,7 +517,15 @@ body {
     display: none;
     align-items: center;
     justify-content: center;
-    background: #000;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #160000 0%,
+            #050000 40%,
+            #000 75%
+        );
+
     z-index: 9999;
     overflow: hidden;
 }
@@ -523,185 +534,603 @@ body {
     display: flex;
 }
 
+
+/* KIRMIZI ORTAM */
+
+#rareScreen::before {
+    content: "";
+    position: absolute;
+
+    width: 75vw;
+    height: 75vw;
+
+    max-width: 900px;
+    max-height: 900px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(180,0,0,.22),
+            rgba(80,0,0,.08) 45%,
+            transparent 70%
+        );
+
+    animation:
+        ortamTitreme
+        1.8s
+        infinite
+        alternate;
+
+    pointer-events: none;
+}
+
+@keyframes ortamTitreme {
+    from {
+        opacity: .25;
+        transform: scale(.88);
+    }
+
+    to {
+        opacity: .8;
+        transform: scale(1.12);
+    }
+}
+
+
+/* KARAKTER */
+
 .rare-karakter {
     position: absolute;
     inset: 0;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    transform: scale(.65);
+
+    transform:
+        scale(.55)
+        translateY(35px);
+
     opacity: 0;
-    animation: karakterGelir 1.1s ease forwards;
+
+    animation:
+        karakterGelir
+        1.3s
+        ease
+        forwards;
 }
+
+
+/* KAFA */
 
 .rare-kafa {
     position: relative;
+
     width: min(82vw, 620px);
     height: min(82vw, 620px);
+
     max-height: 85vh;
-    border-radius: 48% 48% 44% 44%;
+
+    border-radius:
+        43%
+        43%
+        48%
+        48%;
+
     background:
-        radial-gradient(circle at 50% 35%, #303030, #111 55%, #020202 100%);
+        radial-gradient(
+            ellipse at 50% 20%,
+            #3b3b3b 0%,
+            #191919 38%,
+            #080808 70%,
+            #000 100%
+        );
+
     box-shadow:
-        0 0 50px rgba(255,255,255,.04),
-        inset 0 -50px 80px rgba(0,0,0,.8);
+        0 0 30px rgba(170,0,0,.25),
+        0 0 80px rgba(120,0,0,.2),
+        inset 0 -90px 110px rgba(0,0,0,.95);
 }
+
+
+/* SİNİRLİ / ŞEYTANİ KAŞLAR */
+
+.rare-kafa::before {
+    content: "";
+
+    position: absolute;
+
+    top: 23%;
+    left: 7%;
+
+    width: 86%;
+    height: 14%;
+
+    background: #000;
+
+    clip-path: polygon(
+        0% 8%,
+        10% 0%,
+        43% 38%,
+        50% 75%,
+        57% 38%,
+        90% 0%,
+        100% 8%,
+        61% 65%,
+        50% 100%,
+        39% 65%
+    );
+
+    filter:
+        drop-shadow(
+            0 6px 5px
+            rgba(0,0,0,.9)
+        );
+}
+
+
+/* ALT YÜZ GÖLGESİ */
+
+.rare-kafa::after {
+    content: "";
+
+    position: absolute;
+
+    left: 12%;
+    bottom: 8%;
+
+    width: 76%;
+    height: 30%;
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(0,0,0,.85),
+            transparent 70%
+        );
+
+    pointer-events: none;
+}
+
+
+/* GÖZLER */
 
 .rare-goz {
     position: absolute;
+
     top: 32%;
-    width: 15%;
+
+    width: 22%;
     height: 7%;
-    background: #eee;
-    border-radius: 50%;
-    box-shadow: 0 0 25px rgba(255,255,255,.35);
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            #ffffff 0%,
+            #ff6666 28%,
+            #d00000 52%,
+            #300000 100%
+        );
+
+    border-radius:
+        50%
+        50%
+        35%
+        35%;
+
+    box-shadow:
+        0 0 10px rgba(255,0,0,1),
+        0 0 28px rgba(220,0,0,.85),
+        0 0 55px rgba(130,0,0,.6);
+
+    overflow: hidden;
 }
 
-.rare-goz.sol {
-    left: 19%;
-    transform: rotate(12deg);
-}
 
-.rare-goz.sag {
-    right: 19%;
-    transform: rotate(-12deg);
-}
+/* GÖZ BEBEĞİ */
 
 .rare-goz::after {
     content: "";
+
     position: absolute;
-    width: 35%;
-    height: 100%;
-    background: #050505;
+
+    left: 45%;
+    top: -15%;
+
+    width: 10%;
+    height: 130%;
+
+    background: #030000;
+
     border-radius: 50%;
-    left: 33%;
+
+    box-shadow:
+        0 0 9px #000;
 }
+
+
+/* SOL GÖZ */
+
+.rare-goz.sol {
+    left: 14%;
+
+    transform:
+        rotate(21deg)
+        skewX(-17deg);
+}
+
+
+/* SAĞ GÖZ */
+
+.rare-goz.sag {
+    right: 14%;
+
+    transform:
+        rotate(-21deg)
+        skewX(17deg);
+}
+
+
+/* GÖZ ÜSTÜ GÖLGELER */
+
+.rare-goz.sol::before,
+.rare-goz.sag::before {
+    content: "";
+
+    position: absolute;
+
+    width: 135%;
+    height: 70%;
+
+    top: -48%;
+
+    background: #020202;
+
+    border-radius: 50%;
+}
+
+.rare-goz.sol::before {
+    left: -10%;
+
+    transform: rotate(-15deg);
+}
+
+.rare-goz.sag::before {
+    right: -10%;
+
+    transform: rotate(15deg);
+}
+
+
+/* AĞIZ */
 
 .rare-agiz {
     position: absolute;
-    left: 16%;
-    bottom: 19%;
-    width: 68%;
-    height: 13%;
-    border-bottom: 10px solid #eee;
-    border-radius: 0 0 50% 50%;
-    transform: scaleX(.1);
+
+    left: 10%;
+    bottom: 15%;
+
+    width: 80%;
+    height: 22%;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            #420000,
+            #100000 60%,
+            #030000 100%
+        );
+
+    border:
+        4px solid
+        #650000;
+
+    border-radius:
+        10%
+        10%
+        50%
+        50%;
+
+    transform:
+        scaleX(.04)
+        scaleY(.12);
+
     transform-origin: center;
-    animation: gulus 1.5s ease forwards;
-    animation-delay: .5s;
+
+    animation:
+        gulus
+        1.8s
+        cubic-bezier(.22,.7,.25,1)
+        forwards;
+
+    animation-delay: .55s;
+
+    box-shadow:
+        0 0 25px rgba(180,0,0,.5),
+        inset 0 -18px 25px rgba(0,0,0,.95);
 }
 
-.rare-agiz::before,
-.rare-agiz::after {
-    content: "";
-    position: absolute;
-    width: 10%;
-    height: 70%;
-    background: #eee;
-    top: -10%;
-}
+
+/* ÜST DİŞLER */
 
 .rare-agiz::before {
-    left: 0;
-    transform: rotate(30deg);
+    content:
+        "▼ ▼ ▼ ▼ ▼ ▼ ▼ ▼";
+
+    position: absolute;
+
+    left: 4%;
+    top: 5%;
+
+    width: 92%;
+
+    color: #eee;
+
+    font-size:
+        clamp(
+            15px,
+            3vw,
+            28px
+        );
+
+    letter-spacing:
+        clamp(
+            2px,
+            1vw,
+            8px
+        );
+
+    text-align: center;
+
+    white-space: nowrap;
+
+    text-shadow:
+        0 0 6px #fff;
 }
+
+
+/* ALT DİŞLER */
 
 .rare-agiz::after {
-    right: 0;
-    transform: rotate(-30deg);
+    content:
+        "▲ ▲ ▲ ▲ ▲ ▲ ▲ ▲";
+
+    position: absolute;
+
+    left: 4%;
+    bottom: 1%;
+
+    width: 92%;
+
+    color: #bbb;
+
+    font-size:
+        clamp(
+            12px,
+            2.5vw,
+            23px
+        );
+
+    letter-spacing:
+        clamp(
+            2px,
+            1vw,
+            7px
+        );
+
+    text-align: center;
+
+    white-space: nowrap;
 }
 
-@keyframes karakterGelir {
+
+/* AKICI GÜLÜŞ */
+
+@keyframes gulus {
+
     0% {
-        opacity: 0;
-        transform: scale(.65);
+        transform:
+            scaleX(.04)
+            scaleY(.12);
+
+        border-radius: 50%;
     }
 
-    60% {
-        opacity: 1;
+    30% {
+        transform:
+            scaleX(.32)
+            scaleY(.28);
+
+        border-radius: 32%;
+    }
+
+    55% {
+        transform:
+            scaleX(.60)
+            scaleY(.55);
+
+        border-radius: 20%;
+    }
+
+    75% {
+        transform:
+            scaleX(.83)
+            scaleY(.78);
+
+        border-radius:
+            13%
+            13%
+            42%
+            42%;
+    }
+
+    90% {
+        transform:
+            scaleX(.94)
+            scaleY(.92);
     }
 
     100% {
-        opacity: 1;
-        transform: scale(1);
+        transform:
+            scaleX(1)
+            scaleY(1);
+
+        border-radius:
+            10%
+            10%
+            50%
+            50%;
     }
 }
 
-@keyframes gulus {
+
+/* KARAKTER GELİŞİ */
+
+@keyframes karakterGelir {
+
     0% {
-        transform: scaleX(.05);
+        opacity: 0;
+
+        transform:
+            scale(.55)
+            translateY(40px);
     }
 
-    35% {
-        transform: scaleX(.25);
+    45% {
+        opacity: 1;
+
+        transform:
+            scale(.92)
+            translateY(0);
     }
 
     70% {
-        transform: scaleX(.65);
+        transform:
+            scale(1.03)
+            translateY(0);
     }
 
     100% {
-        transform: scaleX(1);
+        opacity: 1;
+
+        transform:
+            scale(1)
+            translateY(0);
     }
 }
 
+
+/* YAZI */
+
 #rareYazi {
     position: absolute;
+
     left: 50%;
-    bottom: 7%;
-    transform: translateX(-50%);
-    width: 90%;
+    bottom: 6%;
+
+    transform:
+        translateX(-50%);
+
+    width: 92%;
+
     text-align: center;
+
     color: white;
-    font-size: clamp(18px, 4vw, 34px);
+
+    font-size:
+        clamp(
+            18px,
+            4vw,
+            34px
+        );
+
     font-weight: bold;
-    letter-spacing: .5px;
-    text-shadow: 0 0 12px black;
+
+    text-shadow:
+        0 0 8px #000,
+        0 0 15px #000;
+
     z-index: 5;
+
     opacity: 0;
 }
 
 #rareYazi.goster {
-    animation: yaziGelir .4s ease forwards;
+    animation:
+        yaziGelir
+        .4s
+        ease
+        forwards;
 }
 
 @keyframes yaziGelir {
+
     from {
         opacity: 0;
-        transform: translateX(-50%) translateY(10px);
+
+        transform:
+            translateX(-50%)
+            translateY(10px);
     }
 
     to {
         opacity: 1;
-        transform: translateX(-50%) translateY(0);
+
+        transform:
+            translateX(-50%)
+            translateY(0);
     }
 }
 
-#rareScreen.glitch::before,
+
+/* GLITCH */
+
 #rareScreen.glitch::after {
     content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 20;
-}
 
-#rareScreen.glitch::before {
-    background: repeating-linear-gradient(
-        to bottom,
-        rgba(255,255,255,.03) 0px,
-        rgba(255,255,255,.03) 2px,
-        transparent 2px,
-        transparent 5px
-    );
-    animation: scan 0.12s infinite;
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 20;
+
+    background:
+        repeating-linear-gradient(
+            to bottom,
+            rgba(255,0,0,.045) 0px,
+            rgba(255,0,0,.045) 2px,
+            transparent 2px,
+            transparent 5px
+        );
+
+    animation:
+        scan
+        .12s
+        infinite;
 }
 
 @keyframes scan {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(3px); }
-    100% { transform: translateY(-2px); }
+
+    0% {
+        transform:
+            translateY(0);
+    }
+
+    50% {
+        transform:
+            translateY(3px);
+    }
+
+    100% {
+        transform:
+            translateY(-2px);
+    }
 }
+
 
 /* MOBİL */
 
@@ -759,6 +1188,7 @@ body {
         </a>
     </div>
 
+
     <!-- MENÜ -->
 
     <div class="menu">
@@ -773,11 +1203,13 @@ body {
 
     </div>
 
+
     <!-- HESAP MAKİNESİ -->
 
     <div id="hesapPanel" class="panel aktif">
 
         <div class="panel-ust">
+
             <div class="panel-baslik">
                 🧮 Hesap Makinesi
             </div>
@@ -785,7 +1217,9 @@ body {
             <button id="hesapKapat" class="kapat-btn">
                 ✕ Kapat
             </button>
+
         </div>
+
 
         <div class="calculator">
 
@@ -831,6 +1265,7 @@ body {
 
     </div>
 
+
     <!-- OYUN -->
 
     <div id="oyunPanel" class="panel">
@@ -847,6 +1282,7 @@ body {
 
         </div>
 
+
         <div class="game-panel">
 
             <div class="oyun-kontrol">
@@ -856,6 +1292,7 @@ body {
                 </button>
 
             </div>
+
 
             <div class="game-header">
 
@@ -872,6 +1309,7 @@ body {
                 </div>
 
             </div>
+
 
             <div id="oyunAlani">
 
@@ -890,13 +1328,16 @@ body {
 
                 </div>
 
+
                 <div id="guc"></div>
 
                 <div class="zemin"></div>
 
+
                 <div id="greateYazisi">
                     GREAT!
                 </div>
+
 
                 <div id="oyunMesaji">
 
@@ -914,6 +1355,7 @@ body {
 
             </div>
 
+
             <p style="text-align:center;color:#999;margin-top:12px;font-size:14px;">
                 Space / Dokun → Zıpla
             </p>
@@ -925,7 +1367,9 @@ body {
 </div>
 
 
-<!-- RARE SCREEN -->
+<!-- =========================================
+     V4 RARE SCREEN
+========================================= -->
 
 <div id="rareScreen">
 
@@ -934,6 +1378,7 @@ body {
         <div class="rare-kafa">
 
             <div class="rare-goz sol"></div>
+
             <div class="rare-goz sag"></div>
 
             <div class="rare-agiz"></div>
@@ -953,16 +1398,26 @@ body {
    MENÜ ELEMENTLERİ
 ========================================= */
 
-const hesapBtn = document.getElementById("hesapBtn");
-const kacBtn = document.getElementById("kacBtn");
+const hesapBtn =
+    document.getElementById("hesapBtn");
 
-const hesapPanel = document.getElementById("hesapPanel");
-const oyunPanel = document.getElementById("oyunPanel");
+const kacBtn =
+    document.getElementById("kacBtn");
 
-const hesapKapat = document.getElementById("hesapKapat");
-const oyunKapat = document.getElementById("oyunKapat");
+const hesapPanel =
+    document.getElementById("hesapPanel");
 
-const baslatBtn = document.getElementById("baslatBtn");
+const oyunPanel =
+    document.getElementById("oyunPanel");
+
+const hesapKapat =
+    document.getElementById("hesapKapat");
+
+const oyunKapat =
+    document.getElementById("oyunKapat");
+
+const baslatBtn =
+    document.getElementById("baslatBtn");
 
 
 /* =========================================
@@ -972,19 +1427,24 @@ const baslatBtn = document.getElementById("baslatBtn");
 function hesapMakinesiniAc() {
 
     hesapBtn.classList.add("aktif");
+
     kacBtn.classList.remove("aktif");
 
     hesapPanel.classList.add("aktif");
+
     oyunPanel.classList.remove("aktif");
 
 }
 
+
 function oyunuAc() {
 
     hesapBtn.classList.remove("aktif");
+
     kacBtn.classList.add("aktif");
 
     hesapPanel.classList.remove("aktif");
+
     oyunPanel.classList.add("aktif");
 
 }
@@ -1000,6 +1460,7 @@ hesapBtn.addEventListener("click", () => {
 
 });
 
+
 kacBtn.addEventListener("click", () => {
 
     oyunuAc();
@@ -1014,6 +1475,7 @@ kacBtn.addEventListener("click", () => {
 hesapKapat.addEventListener("click", () => {
 
     hesapPanel.classList.remove("aktif");
+
     hesapBtn.classList.remove("aktif");
 
 });
@@ -1024,6 +1486,7 @@ oyunKapat.addEventListener("click", () => {
     oyunuDurdurVeTemizle();
 
     oyunPanel.classList.remove("aktif");
+
     kacBtn.classList.remove("aktif");
 
 });
@@ -1033,7 +1496,9 @@ oyunKapat.addEventListener("click", () => {
    HESAP MAKİNESİ
 ========================================= */
 
-const ekran = document.getElementById("ekran");
+const ekran =
+    document.getElementById("ekran");
+
 
 function sayiEkle(sayi) {
 
@@ -1041,13 +1506,21 @@ function sayiEkle(sayi) {
         ekran.value = "0";
     }
 
-    if (ekran.value === "0" && sayi !== ".") {
+    if (
+        ekran.value === "0" &&
+        sayi !== "."
+    ) {
+
         ekran.value = sayi;
+
     } else {
+
         ekran.value += sayi;
+
     }
 
 }
+
 
 function islemEkle(islem) {
 
@@ -1055,12 +1528,14 @@ function islemEkle(islem) {
         ekran.value = "0";
     }
 
-    const son = ekran.value.slice(-1);
+    const son =
+        ekran.value.slice(-1);
 
     if ("+-*/%".includes(son)) {
 
         ekran.value =
-            ekran.value.slice(0, -1) + islem;
+            ekran.value.slice(0, -1) +
+            islem;
 
     } else {
 
@@ -1070,11 +1545,13 @@ function islemEkle(islem) {
 
 }
 
+
 function temizle() {
 
     ekran.value = "0";
 
 }
+
 
 function sil() {
 
@@ -1091,13 +1568,17 @@ function sil() {
 
 }
 
+
 function hesapla() {
 
     try {
 
-        const sonuc = Function(
-            '"use strict"; return (' + ekran.value + ')'
-        )();
+        const sonuc =
+            Function(
+                '"use strict"; return (' +
+                ekran.value +
+                ')'
+            )();
 
         if (!Number.isFinite(sonuc)) {
 
@@ -1122,27 +1603,44 @@ function hesapla() {
    OYUN ELEMENTLERİ
 ========================================= */
 
-const oyunAlani = document.getElementById("oyunAlani");
-const oyuncu = document.getElementById("oyuncu");
-const oyunMesaji = document.getElementById("oyunMesaji");
-const tekrarOyna = document.getElementById("tekrarOyna");
+const oyunAlani =
+    document.getElementById("oyunAlani");
 
-const skorYazi = document.getElementById("skorYazi");
-const zorlukYazi = document.getElementById("zorlukYazi");
-const kalkanDurumu = document.getElementById("kalkanDurumu");
+const oyuncu =
+    document.getElementById("oyuncu");
 
-const sonSkor = document.getElementById("sonSkor");
+const oyunMesaji =
+    document.getElementById("oyunMesaji");
+
+const tekrarOyna =
+    document.getElementById("tekrarOyna");
+
+const skorYazi =
+    document.getElementById("skorYazi");
+
+const zorlukYazi =
+    document.getElementById("zorlukYazi");
+
+const kalkanDurumu =
+    document.getElementById("kalkanDurumu");
+
+const sonSkor =
+    document.getElementById("sonSkor");
 
 const greateYazisi =
     document.getElementById("greateYazisi");
 
-const guc = document.getElementById("guc");
+const guc =
+    document.getElementById("guc");
 
 const rareScreen =
     document.getElementById("rareScreen");
 
 const rareYazi =
     document.getElementById("rareYazi");
+
+const rareKarakter =
+    document.querySelector(".rare-karakter");
 
 
 /* =========================================
@@ -1156,14 +1654,17 @@ let animasyonID = null;
 let sonZaman = 0;
 
 let skor = 0;
+
 let skorSayac = 0;
 
 let sonGreatSkoru = 0;
 
 let oyuncuY = 0;
+
 let oyuncuHiziY = 0;
 
 const yerCekimi = 1500;
+
 const zipGucu = 600;
 
 let oyunHizi = 4.2;
@@ -1175,6 +1676,7 @@ let sonrakiEngel = 1.8;
 let engeller = [];
 
 let gucAktif = false;
+
 let gucX = -100;
 
 let kalkanVar = false;
@@ -1183,7 +1685,7 @@ let sonrakiGuc = 5;
 
 
 /* =========================================
-   RARE
+   RARE DEĞİŞKENLERİ
 ========================================= */
 
 let rareAktif = false;
@@ -1192,23 +1694,32 @@ let rareTimerlar = [];
 
 
 /* =========================================
-   ZAMANLAYICI YARDIMCISI
+   RARE TIMER
 ========================================= */
 
-function rareTimerOlustur(callback, sure) {
+function rareTimerOlustur(
+    callback,
+    sure
+) {
 
-    const timer = setTimeout(() => {
+    const timer =
+        setTimeout(() => {
 
-        const index =
-            rareTimerlar.indexOf(timer);
+            const index =
+                rareTimerlar.indexOf(timer);
 
-        if (index !== -1) {
-            rareTimerlar.splice(index, 1);
-        }
+            if (index !== -1) {
 
-        callback();
+                rareTimerlar.splice(
+                    index,
+                    1
+                );
 
-    }, sure);
+            }
+
+            callback();
+
+        }, sure);
 
     rareTimerlar.push(timer);
 
@@ -1219,9 +1730,13 @@ function rareTimerOlustur(callback, sure) {
 
 function rareTimerlariniTemizle() {
 
-    rareTimerlar.forEach(timer => {
-        clearTimeout(timer);
-    });
+    rareTimerlar.forEach(
+        timer => {
+
+            clearTimeout(timer);
+
+        }
+    );
 
     rareTimerlar = [];
 
@@ -1237,6 +1752,7 @@ function zorlukGuncelle() {
     if (skor < 50) {
 
         zorlukSeviyesi = 0;
+
         oyunHizi = 4.2;
 
         zorlukYazi.textContent =
@@ -1247,6 +1763,7 @@ function zorlukGuncelle() {
     else if (skor < 150) {
 
         zorlukSeviyesi = 1;
+
         oyunHizi = 4.8;
 
         zorlukYazi.textContent =
@@ -1257,6 +1774,7 @@ function zorlukGuncelle() {
     else if (skor < 300) {
 
         zorlukSeviyesi = 2;
+
         oyunHizi = 5.4;
 
         zorlukYazi.textContent =
@@ -1267,6 +1785,7 @@ function zorlukGuncelle() {
     else if (skor < 500) {
 
         zorlukSeviyesi = 3;
+
         oyunHizi = 6;
 
         zorlukYazi.textContent =
@@ -1277,6 +1796,7 @@ function zorlukGuncelle() {
     else if (skor < 800) {
 
         zorlukSeviyesi = 4;
+
         oyunHizi = 6.7;
 
         zorlukYazi.textContent =
@@ -1287,6 +1807,7 @@ function zorlukGuncelle() {
     else {
 
         zorlukSeviyesi = 5;
+
         oyunHizi = 7.5;
 
         zorlukYazi.textContent =
@@ -1303,12 +1824,18 @@ function zorlukGuncelle() {
 
 function zipla() {
 
-    if (!oyunCalisiyor || rareAktif) {
+    if (
+        !oyunCalisiyor ||
+        rareAktif
+    ) {
         return;
     }
 
     if (oyuncuY <= 1) {
-        oyuncuHiziY = zipGucu;
+
+        oyuncuHiziY =
+            zipGucu;
+
     }
 
 }
@@ -1318,35 +1845,41 @@ function zipla() {
    KLAVYE
 ========================================= */
 
-document.addEventListener("keydown", (e) => {
+document.addEventListener(
+    "keydown",
+    (e) => {
 
-    if (e.code === "Space") {
+        if (e.code === "Space") {
 
-        e.preventDefault();
+            e.preventDefault();
 
-        zipla();
+            zipla();
+
+        }
 
     }
-
-});
+);
 
 
 /* =========================================
    MOBİL
 ========================================= */
 
-oyunAlani.addEventListener("pointerdown", (e) => {
+oyunAlani.addEventListener(
+    "pointerdown",
+    (e) => {
 
-    if (
-        e.target.closest("#oyunMesaji") ||
-        e.target.closest("#guc")
-    ) {
-        return;
+        if (
+            e.target.closest("#oyunMesaji") ||
+            e.target.closest("#guc")
+        ) {
+            return;
+        }
+
+        zipla();
+
     }
-
-    zipla();
-
-});
+);
 
 
 /* =========================================
@@ -1360,7 +1893,8 @@ function engelOlustur() {
 
     engel.classList.add("engel");
 
-    const rastgele = Math.random();
+    const rastgele =
+        Math.random();
 
     if (rastgele < .34) {
 
@@ -1418,7 +1952,9 @@ function engelOlustur() {
         ikinci.style.left =
             ikinciX + "px";
 
-        oyunAlani.appendChild(ikinci);
+        oyunAlani.appendChild(
+            ikinci
+        );
 
         engeller.push({
             element: ikinci,
@@ -1457,13 +1993,17 @@ function sonrakiEngelSuresi() {
 
 function engelleriTemizle() {
 
-    engeller.forEach((engel) => {
+    engeller.forEach(
+        (engel) => {
 
-        if (engel.element) {
-            engel.element.remove();
+            if (engel.element) {
+
+                engel.element.remove();
+
+            }
+
         }
-
-    });
+    );
 
     engeller = [];
 
@@ -1474,10 +2014,14 @@ function engelleriTemizle() {
    ENGELLERİ HAREKET ETTİR
 ========================================= */
 
-function engelleriHareketEttir(delta) {
+function engelleriHareketEttir(
+    delta
+) {
 
     const hareket =
-        oyunHizi * 100 * delta;
+        oyunHizi *
+        100 *
+        delta;
 
     const oyuncuRect =
         oyuncu.getBoundingClientRect();
@@ -1488,7 +2032,8 @@ function engelleriHareketEttir(delta) {
         i--
     ) {
 
-        const engel = engeller[i];
+        const engel =
+            engeller[i];
 
         engel.x -= hareket;
 
@@ -1496,15 +2041,20 @@ function engelleriHareketEttir(delta) {
             engel.x + "px";
 
         const rect =
-            engel.element.getBoundingClientRect();
+            engel.element
+                .getBoundingClientRect();
 
         const yatay =
-            oyuncuRect.left + 7 < rect.right &&
-            oyuncuRect.right - 7 > rect.left;
+            oyuncuRect.left + 7 <
+                rect.right &&
+            oyuncuRect.right - 7 >
+                rect.left;
 
         const dikey =
-            oyuncuRect.top + 8 < rect.bottom &&
-            oyuncuRect.bottom - 5 > rect.top;
+            oyuncuRect.top + 8 <
+                rect.bottom &&
+            oyuncuRect.bottom - 5 >
+                rect.top;
 
         if (yatay && dikey) {
 
@@ -1560,7 +2110,8 @@ function gucOlustur() {
     gucX =
         oyunAlani.clientWidth + 30;
 
-    guc.style.display = "block";
+    guc.style.display =
+        "block";
 
     guc.style.left =
         gucX + "px";
@@ -1568,14 +2119,18 @@ function gucOlustur() {
 }
 
 
-function gucuHareketEttir(delta) {
+function gucuHareketEttir(
+    delta
+) {
 
     if (!gucAktif) {
         return;
     }
 
     gucX -=
-        oyunHizi * 80 * delta;
+        oyunHizi *
+        80 *
+        delta;
 
     guc.style.left =
         gucX + "px";
@@ -1587,15 +2142,20 @@ function gucuHareketEttir(delta) {
         guc.getBoundingClientRect();
 
     if (
-        oyuncuRect.left < gucRect.right &&
-        oyuncuRect.right > gucRect.left &&
-        oyuncuRect.top < gucRect.bottom &&
-        oyuncuRect.bottom > gucRect.top
+        oyuncuRect.left <
+            gucRect.right &&
+        oyuncuRect.right >
+            gucRect.left &&
+        oyuncuRect.top <
+            gucRect.bottom &&
+        oyuncuRect.bottom >
+            gucRect.top
     ) {
 
         gucAktif = false;
 
-        guc.style.display = "none";
+        guc.style.display =
+            "none";
 
         kalkanVar = true;
 
@@ -1618,7 +2178,8 @@ function gucuHareketEttir(delta) {
 
         gucAktif = false;
 
-        guc.style.display = "none";
+        guc.style.display =
+            "none";
 
     }
 
@@ -1645,7 +2206,7 @@ function greatGoster() {
 
 
 /* =========================================
-   RARE SCREEN
+   V4 RARE SCREEN BAŞLAT
 ========================================= */
 
 function rareScreenBaslat() {
@@ -1662,6 +2223,25 @@ function rareScreenBaslat() {
 
     rareTimerlariniTemizle();
 
+
+    /*
+       Animasyonları tekrar tetiklemek
+       için karakteri yeniden oluşturuyoruz.
+    */
+
+    const eskiKarakter =
+        document.querySelector(
+            ".rare-karakter"
+        );
+
+    const yeniKarakter =
+        eskiKarakter.cloneNode(true);
+
+    eskiKarakter.replaceWith(
+        yeniKarakter
+    );
+
+
     rareScreen.classList.add(
         "aktif"
     );
@@ -1677,33 +2257,27 @@ function rareScreenBaslat() {
     rareYazi.textContent = "";
 
 
-    /* İlk glitch */
+    /* 0.45 saniye sonra glitch biter */
 
-    rareTimerOlustur(() => {
+    rareTimerOlustur(
+        () => {
 
-        rareScreen.classList.remove(
-            "glitch"
-        );
+            rareScreen.classList.remove(
+                "glitch"
+            );
 
-    }, 450);
+        },
+        450
+    );
 
 
     /*
-       TOPLAM SÜRE:
-
-       0.00
-       ↓
-       2.00  → cümle başlar
-       2.50  → normal
-       3.00  → bir
-       3.50  → oyun
-       4.00  → değil...
-
-       4.00 → ana bölüm tamam
-       ↓
-       +2 saniye
-       ↓
-       6.00 → Oyun Bitti
+       2.00 → bu
+       2.50 → bu normal
+       3.00 → bu normal bir
+       3.50 → bu normal bir oyun
+       4.00 → bu normal bir oyun değil...
+       6.00 → ekran kapanır
     */
 
     const kelimeler = [
@@ -1715,7 +2289,9 @@ function rareScreenBaslat() {
     ];
 
     let mevcut = [];
+
     let kelimeIndex = 0;
+
 
     function sonrakiKelime() {
 
@@ -1723,38 +2299,54 @@ function rareScreenBaslat() {
             return;
         }
 
-        if (kelimeIndex >= kelimeler.length) {
 
-            /*
-               Son kelime tam 4. saniyede
-               tamamlandığı için burada
-               2 saniye bekliyoruz.
-            */
+        if (
+            kelimeIndex >=
+            kelimeler.length
+        ) {
 
-            rareTimerOlustur(() => {
+            rareTimerOlustur(
+                () => {
 
-                rareScreenBitir();
+                    rareScreenBitir();
 
-            }, 2000);
+                },
+                2000
+            );
 
             return;
-
         }
 
+
         mevcut.push(
-            kelimeler[kelimeIndex]
+            kelimeler[
+                kelimeIndex
+            ]
         );
+
 
         rareYazi.textContent =
             mevcut.join(" ");
+
+
+        rareYazi.classList.remove(
+            "goster"
+        );
+
+        void rareYazi.offsetWidth;
 
         rareYazi.classList.add(
             "goster"
         );
 
+
         kelimeIndex++;
 
-        if (kelimeIndex < kelimeler.length) {
+
+        if (
+            kelimeIndex <
+            kelimeler.length
+        ) {
 
             rareTimerOlustur(
                 sonrakiKelime,
@@ -1764,11 +2356,6 @@ function rareScreenBaslat() {
         }
 
         else {
-
-            /*
-               Son kelime 4. saniyede
-               görünsün.
-            */
 
             rareTimerOlustur(
                 sonrakiKelime,
@@ -1780,21 +2367,20 @@ function rareScreenBaslat() {
     }
 
 
-    /*
-       İlk kelime 2. saniyede.
-    */
+    rareTimerOlustur(
+        () => {
 
-    rareTimerOlustur(() => {
+            sonrakiKelime();
 
-        sonrakiKelime();
-
-    }, 2000);
+        },
+        2000
+    );
 
 }
 
 
 /* =========================================
-   RARE BİTİR
+   RARE SCREEN BİTİR
 ========================================= */
 
 function rareScreenBitir() {
@@ -1816,6 +2402,12 @@ function rareScreenBitir() {
     rareYazi.textContent = "";
 
     rareAktif = false;
+
+
+    /*
+       Easter Egg bittikten sonra
+       normal Oyun Bitti ekranı gelir.
+    */
 
     oyunMesaji.style.display =
         "flex";
@@ -1839,6 +2431,7 @@ function oyunBitti() {
         "kosuyor"
     );
 
+
     if (animasyonID !== null) {
 
         cancelAnimationFrame(
@@ -1849,12 +2442,14 @@ function oyunBitti() {
 
     }
 
+
     sonSkor.textContent =
         "Skor: " + skor;
 
 
     /*
-       1 / 800 RARE
+       %0.125 = 1 / 800
+       Easter Egg ihtimali
     */
 
     if (
@@ -1895,9 +2490,12 @@ function oyunDurumunuTemizle() {
 
     }
 
+
     oyunCalisiyor = false;
 
+
     engelleriTemizle();
+
 
     gucAktif = false;
 
@@ -1909,11 +2507,13 @@ function oyunDurumunuTemizle() {
     guc.style.left =
         "-100px";
 
+
     kalkanVar = false;
 
     oyuncu.classList.remove(
         "kalkan-aktif"
     );
+
 
     oyuncuY = 0;
 
@@ -1926,13 +2526,16 @@ function oyunDurumunuTemizle() {
         "kosuyor"
     );
 
+
     greateYazisi.classList.remove(
         "goster"
     );
 
+
     rareTimerlariniTemizle();
 
     rareAktif = false;
+
 
     rareScreen.classList.remove(
         "aktif"
@@ -1942,11 +2545,13 @@ function oyunDurumunuTemizle() {
         "glitch"
     );
 
+
     rareYazi.classList.remove(
         "goster"
     );
 
     rareYazi.textContent = "";
+
 
     oyunMesaji.style.display =
         "none";
@@ -1962,8 +2567,11 @@ function oyunuDurdurVeTemizle() {
 
     oyunDurumunuTemizle();
 
+
     skor = 0;
+
     skorSayac = 0;
+
 
     skorYazi.textContent =
         "Skor: 0";
@@ -1976,6 +2584,7 @@ function oyunuDurdurVeTemizle() {
 
     kalkanDurumu.style.color =
         "#aaa";
+
 
     baslatBtn.textContent =
         "▶️ Başlat";
@@ -1990,6 +2599,7 @@ function oyunuDurdurVeTemizle() {
 function oyunuBaslat() {
 
     oyunDurumunuTemizle();
+
 
     oyunCalisiyor = true;
 
@@ -2011,9 +2621,11 @@ function oyunuBaslat() {
 
     oyuncuHiziY = 0;
 
+
     oyuncu.classList.add(
         "kosuyor"
     );
+
 
     skorYazi.textContent =
         "Skor: 0";
@@ -2027,14 +2639,18 @@ function oyunuBaslat() {
     kalkanDurumu.style.color =
         "#aaa";
 
+
     oyunMesaji.style.display =
         "none";
+
 
     baslatBtn.textContent =
         "🔄 Yeniden Başlat";
 
+
     sonZaman =
         performance.now();
+
 
     animasyonID =
         requestAnimationFrame(
@@ -2058,6 +2674,7 @@ function oyunDongusu(zaman) {
         return;
     }
 
+
     const delta =
         Math.min(
             (zaman - sonZaman) / 1000,
@@ -2073,6 +2690,7 @@ function oyunDongusu(zaman) {
 
     const yeniSkor =
         Math.floor(skorSayac);
+
 
     if (yeniSkor !== skor) {
 
@@ -2090,7 +2708,8 @@ function oyunDongusu(zaman) {
             skor !== sonGreatSkoru
         ) {
 
-            sonGreatSkoru = skor;
+            sonGreatSkoru =
+                skor;
 
             greatGoster();
 
@@ -2102,10 +2721,13 @@ function oyunDongusu(zaman) {
     /* FİZİK */
 
     oyuncuHiziY -=
-        yerCekimi * delta;
+        yerCekimi *
+        delta;
 
     oyuncuY +=
-        oyuncuHiziY * delta;
+        oyuncuHiziY *
+        delta;
+
 
     if (oyuncuY < 0) {
 
@@ -2115,6 +2737,7 @@ function oyunDongusu(zaman) {
 
     }
 
+
     oyuncu.style.transform =
         `translateY(${-oyuncuY}px)`;
 
@@ -2122,6 +2745,7 @@ function oyunDongusu(zaman) {
     /* ENGEL ZAMANLAYICI */
 
     sonrakiEngel -= delta;
+
 
     if (sonrakiEngel <= 0) {
 
@@ -2138,6 +2762,7 @@ function oyunDongusu(zaman) {
     engelleriHareketEttir(
         delta
     );
+
 
     if (!oyunCalisiyor) {
         return;
@@ -2160,9 +2785,11 @@ function oyunDongusu(zaman) {
         }
 
         sonrakiGuc +=
-            7 + Math.random() * 5;
+            7 +
+            Math.random() * 5;
 
     }
+
 
     gucuHareketEttir(
         delta
