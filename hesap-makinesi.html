@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Hesap Makinesi</title>
+    <title>Mini Oyunlar</title>
 
     <style>
         * {
@@ -21,16 +21,25 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow: hidden;
         }
 
         .arka-plan {
             position: fixed;
-            width: 500px;
-            height: 500px;
-            background: #6c2cff;
-            filter: blur(150px);
-            opacity: 0.35;
-            border-radius: 50%;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(
+                    circle at 20% 20%,
+                    rgba(108, 44, 255, 0.18),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at 80% 80%,
+                    rgba(80, 120, 255, 0.12),
+                    transparent 35%
+                ),
+                #0b1020;
         }
 
         .geri {
@@ -43,30 +52,30 @@
             z-index: 10;
         }
 
-        /* İlk görünen küçük kutu */
-        .menu-kutu {
+        .kutu {
             position: relative;
             z-index: 2;
-            width: 280px;
+            width: 300px;
             padding: 30px;
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 18px;
+            border-radius: 20px;
             text-align: center;
             backdrop-filter: blur(15px);
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
         }
 
-        .menu-kutu h1 {
-            font-size: 22px;
+        .kutu h1 {
+            font-size: 24px;
             margin-bottom: 20px;
         }
 
-        .ac {
+        .buton {
             width: 100%;
-            padding: 12px;
+            padding: 14px;
+            margin-top: 10px;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             background: #7c3cff;
             color: white;
             font-size: 16px;
@@ -74,22 +83,23 @@
             cursor: pointer;
         }
 
-        .ac:hover {
+        .buton:hover {
             background: #955fff;
+            transform: scale(1.03);
         }
 
-        /* Hesap makinesi */
-        .hesap-makinesi {
+        .ekran {
             display: none;
             position: relative;
             z-index: 2;
-            width: 280px;
+            width: 300px;
             padding: 20px;
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 18px;
+            border-radius: 20px;
             backdrop-filter: blur(15px);
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            text-align: center;
         }
 
         .kapat {
@@ -103,13 +113,14 @@
             cursor: pointer;
         }
 
-        .hesap-makinesi h1 {
-            text-align: center;
+        .ekran h1 {
             font-size: 22px;
             margin-bottom: 15px;
         }
 
-        #ekran {
+        /* HESAP MAKİNESİ */
+
+        #hesapEkrani {
             width: 100%;
             height: 50px;
             margin-bottom: 15px;
@@ -141,6 +152,54 @@
         .tuslar button:hover {
             background: #955fff;
         }
+
+        /* OYUN */
+
+        #oyun {
+            position: relative;
+            height: 300px;
+            margin-top: 10px;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        #skor {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        #oyuncu {
+            position: absolute;
+            bottom: 20px;
+            left: 40px;
+            font-size: 38px;
+        }
+
+        #engel {
+            position: absolute;
+            bottom: 20px;
+            right: -50px;
+            font-size: 35px;
+        }
+
+        .zipla {
+            margin-top: 15px;
+        }
+
+        .oyun-bilgi {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #bbb;
+        }
+
+        .oyun-bitti {
+            display: none;
+            margin-top: 15px;
+            font-size: 20px;
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -148,28 +207,33 @@
 
     <div class="arka-plan"></div>
 
-    <!-- İlk sayfaya dön -->
     <a href="index.html" class="geri">←</a>
 
-    <!-- İlk görünen kutu -->
-    <div class="menu-kutu" id="menuKutu">
+    <!-- ANA MENÜ -->
 
-        <h1>Hesap Makinesi</h1>
+    <div class="kutu" id="menu">
 
-        <button class="ac" onclick="hesapMakinesiniAc()">
-            Aç
+        <h1>🎮 Ne yapmak istersin?</h1>
+
+        <button class="buton" onclick="hesapAc()">
+            🧮 Hesap Makinesi
+        </button>
+
+        <button class="buton" onclick="oyunAc()">
+            🏃 Kaç! Oyunu
         </button>
 
     </div>
 
-    <!-- Hesap makinesi -->
-    <div class="hesap-makinesi" id="hesapMakinesi">
+    <!-- HESAP MAKİNESİ -->
 
-        <button class="kapat" onclick="hesapMakinesiniKapat()">×</button>
+    <div class="ekran" id="hesap">
 
-        <h1>Hesap Makinesi</h1>
+        <button class="kapat" onclick="kapat()">×</button>
 
-        <input type="text" id="ekran" readonly>
+        <h1>🧮 Hesap Makinesi</h1>
+
+        <input type="text" id="hesapEkrani" readonly>
 
         <div class="tuslar">
 
@@ -197,31 +261,167 @@
 
     </div>
 
+    <!-- OYUN -->
+
+    <div class="ekran" id="oyunEkrani">
+
+        <button class="kapat" onclick="kapat()">×</button>
+
+        <h1>🏃 KAÇ!</h1>
+
+        <div id="skor">🔥 Skor: 0</div>
+
+        <div id="oyun">
+
+            <div id="oyuncu">🏃</div>
+
+            <div id="engel">🪨</div>
+
+        </div>
+
+        <button class="buton zipla" onclick="zipla()">
+            👆 Zıpla!
+        </button>
+
+        <div class="oyun-bilgi">
+            Kayaya çarpmadan dayan!
+        </div>
+
+        <div class="oyun-bitti" id="oyunBitti">
+            💀 Oyun Bitti!
+            <br>
+            <button class="buton" onclick="oyunuBaslat()">
+                🔄 Tekrar Oyna
+            </button>
+        </div>
+
+    </div>
+
     <script>
 
-        function hesapMakinesiniAc() {
-            document.getElementById("menuKutu").style.display = "none";
-            document.getElementById("hesapMakinesi").style.display = "block";
+        /* MENÜ */
+
+        function hesapAc() {
+            document.getElementById("menu").style.display = "none";
+            document.getElementById("hesap").style.display = "block";
         }
 
-        function hesapMakinesiniKapat() {
-            document.getElementById("hesapMakinesi").style.display = "none";
-            document.getElementById("menuKutu").style.display = "block";
+        function oyunAc() {
+            document.getElementById("menu").style.display = "none";
+            document.getElementById("oyunEkrani").style.display = "block";
+
+            oyunuBaslat();
         }
+
+        function kapat() {
+            document.getElementById("hesap").style.display = "none";
+            document.getElementById("oyunEkrani").style.display = "none";
+            document.getElementById("menu").style.display = "block";
+        }
+
+
+        /* HESAP MAKİNESİ */
 
         function sayiYaz(sayi) {
-            document.getElementById("ekran").value += sayi;
+            document.getElementById("hesapEkrani").value += sayi;
         }
 
         function temizle() {
-            document.getElementById("ekran").value = "";
+            document.getElementById("hesapEkrani").value = "";
         }
 
         function hesapla() {
-            let ekran = document.getElementById("ekran");
+            let ekran = document.getElementById("hesapEkrani");
 
             if (ekran.value !== "") {
                 ekran.value = eval(ekran.value);
+            }
+        }
+
+
+        /* OYUN */
+
+        let skor = 0;
+        let oyunDevam = false;
+        let oyunZamani;
+        let oyuncuYuksekte = false;
+
+        function oyunuBaslat() {
+
+            skor = 0;
+            oyunDevam = true;
+            oyuncuYuksekte = false;
+
+            document.getElementById("skor").textContent = "🔥 Skor: 0";
+            document.getElementById("oyunBitti").style.display = "none";
+
+            let engel = document.getElementById("engel");
+
+            engel.style.right = "-50px";
+
+            clearInterval(oyunZamani);
+
+            oyunZamani = setInterval(() => {
+
+                if (!oyunDevam) return;
+
+                skor++;
+
+                document.getElementById("skor").textContent =
+                    "🔥 Skor: " + skor;
+
+                let konum = parseInt(
+                    getComputedStyle(engel).right
+                );
+
+                engel.style.right = (konum + 5) + "px";
+
+                if (konum > 330) {
+                    engel.style.right = "-50px";
+                }
+
+                kontrolEt();
+
+            }, 100);
+
+        }
+
+        function zipla() {
+
+            if (!oyunDevam || oyuncuYuksekte) return;
+
+            oyuncuYuksekte = true;
+
+            let oyuncu = document.getElementById("oyuncu");
+
+            oyuncu.style.bottom = "120px";
+
+            setTimeout(() => {
+                oyuncu.style.bottom = "20px";
+                oyuncuYuksekte = false;
+            }, 500);
+        }
+
+        function kontrolEt() {
+
+            let oyuncu = document.getElementById("oyuncu");
+            let engel = document.getElementById("engel");
+
+            let oyuncuRect = oyuncu.getBoundingClientRect();
+            let engelRect = engel.getBoundingClientRect();
+
+            if (
+                oyuncuRect.right > engelRect.left &&
+                oyuncuRect.left < engelRect.right &&
+                oyuncuRect.bottom > engelRect.top &&
+                oyuncuRect.top < engelRect.bottom
+            ) {
+
+                oyunDevam = false;
+
+                clearInterval(oyunZamani);
+
+                document.getElementById("oyunBitti").style.display = "block";
             }
         }
 
