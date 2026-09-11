@@ -45,12 +45,9 @@ body {
 ========================================= */
 
 .test-kutu {
-
     width: 90%;
     max-width: 500px;
-
     padding: 35px;
-
     text-align: center;
 
     background: rgba(255,255,255,.08);
@@ -78,7 +75,6 @@ body {
 }
 
 #easterEggBtn {
-
     border: none;
 
     padding: 14px 25px;
@@ -94,12 +90,12 @@ body {
     font-weight: bold;
 
     cursor: pointer;
+
+    transition: .2s;
 }
 
 #easterEggBtn:hover {
-
     background: #955fff;
-
     transform: scale(1.03);
 }
 
@@ -109,9 +105,7 @@ body {
 ========================================= */
 
 #rareScreen {
-
     position: fixed;
-
     inset: 0;
 
     display: none;
@@ -122,8 +116,8 @@ body {
     background:
         radial-gradient(
             circle at center,
-            #090000 0%,
-            #020000 45%,
+            #160000 0%,
+            #050000 40%,
             #000 75%
         );
 
@@ -138,33 +132,35 @@ body {
 
 
 /* =========================================
-   KIRMIZI ORTAM IŞIĞI
+   KIRMIZI ORTAM
 ========================================= */
 
 #rareScreen::before {
-
     content: "";
 
     position: absolute;
 
-    width: 70vw;
-    height: 70vw;
+    width: 75vw;
+    height: 75vw;
 
-    max-width: 800px;
-    max-height: 800px;
+    max-width: 900px;
+    max-height: 900px;
 
     border-radius: 50%;
 
     background:
         radial-gradient(
             circle,
-            rgba(120,0,0,.18),
-            transparent 65%
+            rgba(180,0,0,.22),
+            rgba(80,0,0,.08) 45%,
+            transparent 70%
         );
 
     animation:
         ortamTitreme
-        2s infinite alternate;
+        1.8s
+        infinite
+        alternate;
 
     pointer-events: none;
 }
@@ -173,24 +169,22 @@ body {
 
     from {
         opacity: .25;
-        transform: scale(.9);
+        transform: scale(.88);
     }
 
     to {
-        opacity: .7;
-        transform: scale(1.08);
+        opacity: .8;
+        transform: scale(1.12);
     }
 }
 
 
 /* =========================================
-   ŞEYTANİ KARAKTER
+   KARAKTER
 ========================================= */
 
 .rare-karakter {
-
     position: absolute;
-
     inset: 0;
 
     display: flex;
@@ -200,7 +194,7 @@ body {
 
     transform:
         scale(.55)
-        translateY(30px);
+        translateY(35px);
 
     opacity: 0;
 
@@ -211,96 +205,103 @@ body {
         forwards;
 }
 
-.rare-kafa {
 
+/* =========================================
+   KAFA
+========================================= */
+
+.rare-kafa {
     position: relative;
 
     width: min(82vw, 620px);
-
     height: min(82vw, 620px);
 
     max-height: 85vh;
 
     border-radius:
-        45%
-        45%
+        43%
+        43%
         48%
         48%;
 
     background:
-
         radial-gradient(
-            ellipse at 50% 25%,
-            #333 0%,
-            #171717 42%,
-            #080808 72%,
+            ellipse at 50% 20%,
+            #3b3b3b 0%,
+            #191919 38%,
+            #080808 70%,
             #000 100%
         );
 
     box-shadow:
 
-        0 0 35px
-        rgba(120,0,0,.18),
+        0 0 30px
+        rgba(170,0,0,.25),
 
-        0 0 100px
-        rgba(80,0,0,.15),
+        0 0 80px
+        rgba(120,0,0,.2),
 
-        inset 0 -80px 100px
+        inset 0 -90px 110px
         rgba(0,0,0,.95);
 }
 
 
 /* =========================================
-   KAŞ / ALIN GÖLGELERİ
+   ŞEYTANİ KAŞLAR
 ========================================= */
 
 .rare-kafa::before {
-
     content: "";
 
     position: absolute;
 
-    top: 20%;
+    top: 22%;
 
-    left: 11%;
+    left: 8%;
 
-    width: 78%;
+    width: 84%;
 
-    height: 16%;
+    height: 15%;
 
     background:
-
         linear-gradient(
-            170deg,
+            165deg,
             transparent 0%,
-            rgba(0,0,0,.85) 42%,
-            transparent 43%
+            transparent 18%,
+            #020202 19%,
+            #000 55%,
+            transparent 56%
         );
 
-    transform:
-        rotate(-1deg);
+    filter:
+        drop-shadow(
+            0 6px 5px
+            #000
+        );
 
-    opacity: .9;
+    opacity: 1;
 }
 
-.rare-kafa::after {
 
+/* =========================================
+   ALT YÜZ GÖLGESİ
+========================================= */
+
+.rare-kafa::after {
     content: "";
 
     position: absolute;
 
-    left: 18%;
+    left: 12%;
+    bottom: 8%;
 
-    bottom: 12%;
-
-    width: 64%;
-
-    height: 25%;
+    width: 76%;
+    height: 30%;
 
     background:
         radial-gradient(
             ellipse,
-            rgba(0,0,0,.7),
+            rgba(0,0,0,.85),
             transparent 70%
         );
 
@@ -313,160 +314,159 @@ body {
 ========================================= */
 
 .rare-goz {
-
     position: absolute;
 
-    top: 31%;
+    top: 32%;
 
-    width: 19%;
-
-    height: 9%;
+    width: 22%;
+    height: 7%;
 
     background:
-
         radial-gradient(
             ellipse at center,
-            #fff 0%,
-            #ffdddd 35%,
-            #a40000 58%,
-            #220000 100%
+
+            #ffffff 0%,
+
+            #ff6666 28%,
+
+            #d00000 52%,
+
+            #300000 100%
         );
 
     border-radius:
         50%
         50%
-        45%
-        45%;
+        35%
+        35%;
 
     box-shadow:
 
-        0 0 8px
-        rgba(255,0,0,.9),
+        0 0 10px
+        rgba(255,0,0,1),
 
-        0 0 25px
-        rgba(180,0,0,.65),
+        0 0 28px
+        rgba(220,0,0,.85),
 
         0 0 55px
-        rgba(100,0,0,.4);
-}
+        rgba(130,0,0,.6);
 
-
-/* Göz bebeği */
-
-.rare-goz::after {
-
-    content: "";
-
-    position: absolute;
-
-    left: 43%;
-
-    top: 4%;
-
-    width: 18%;
-
-    height: 92%;
-
-    background: #050000;
-
-    border-radius: 50%;
-
-    box-shadow:
-        0 0 5px #000;
-}
-
-
-/* Sol göz */
-
-.rare-goz.sol {
-
-    left: 17%;
-
-    transform:
-        rotate(17deg)
-        skewX(-8deg);
-}
-
-
-/* Sağ göz */
-
-.rare-goz.sag {
-
-    right: 17%;
-
-    transform:
-        rotate(-17deg)
-        skewX(8deg);
+    overflow: hidden;
 }
 
 
 /* =========================================
-   GÖZ ÜSTÜ GÖLGELER
+   GÖZ BEBEĞİ
 ========================================= */
 
-.rare-goz.sol::before,
-.rare-goz.sag::before {
-
+.rare-goz::after {
     content: "";
 
     position: absolute;
 
-    width: 120%;
+    left: 45%;
 
-    height: 65%;
+    top: -15%;
 
-    top: -40%;
+    width: 10%;
 
-    background: #050505;
+    height: 130%;
+
+    background: #030000;
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 9px #000;
+}
+
+
+/* =========================================
+   SOL GÖZ
+========================================= */
+
+.rare-goz.sol {
+    left: 14%;
+
+    transform:
+        rotate(21deg)
+        skewX(-17deg);
+}
+
+
+/* =========================================
+   SAĞ GÖZ
+========================================= */
+
+.rare-goz.sag {
+    right: 14%;
+
+    transform:
+        rotate(-21deg)
+        skewX(17deg);
+}
+
+
+/* =========================================
+   GÖZ ÜSTÜ KESKİN GÖLGELER
+========================================= */
+
+.rare-goz.sol::before,
+.rare-goz.sag::before {
+    content: "";
+
+    position: absolute;
+
+    width: 135%;
+    height: 70%;
+
+    top: -48%;
+
+    background: #020202;
 
     border-radius: 50%;
 }
 
 .rare-goz.sol::before {
-
-    left: -5%;
+    left: -10%;
 
     transform:
-        rotate(-12deg);
+        rotate(-15deg);
 }
 
 .rare-goz.sag::before {
-
-    right: -5%;
+    right: -10%;
 
     transform:
-        rotate(12deg);
+        rotate(15deg);
 }
 
 
 /* =========================================
-   ŞEYTANİ AĞIZ
+   AĞIZ
 ========================================= */
 
 .rare-agiz {
-
     position: absolute;
 
-    left: 11%;
+    left: 10%;
 
-    bottom: 16%;
+    bottom: 15%;
 
-    width: 78%;
-
-    height: 21%;
+    width: 80%;
+    height: 22%;
 
     background:
-
         radial-gradient(
             ellipse at center,
-            #350000,
-            #080000 70%
+            #420000,
+            #100000 60%,
+            #030000 100%
         );
 
     border:
-
         4px solid
-        #500000;
+        #650000;
 
     border-radius:
         10%
@@ -475,49 +475,45 @@ body {
         50%;
 
     transform:
+        scaleX(.04)
+        scaleY(.12);
 
-        scaleX(.05)
-        scaleY(.15);
-
-    transform-origin: center;
+    transform-origin:
+        center;
 
     animation:
-
         gulus
-        1.7s
-        ease
+        1.8s
+        cubic-bezier(.22,.7,.25,1)
         forwards;
 
-    animation-delay: .55s;
+    animation-delay:
+        .55s;
 
     box-shadow:
 
-        0 0 20px
-        rgba(150,0,0,.45),
+        0 0 25px
+        rgba(180,0,0,.5),
 
-        inset 0 -15px 20px
-        rgba(0,0,0,.9);
+        inset 0 -18px 25px
+        rgba(0,0,0,.95);
 }
 
 
 /* =========================================
-   DİŞLER
+   ÜST DİŞLER
 ========================================= */
 
 .rare-agiz::before {
-
     content:
         "▼ ▼ ▼ ▼ ▼ ▼ ▼ ▼";
 
     position: absolute;
 
-    left: 5%;
+    left: 4%;
+    top: 5%;
 
-    top: 7%;
-
-    width: 90%;
-
-    height: 50%;
+    width: 92%;
 
     color: #eee;
 
@@ -540,24 +536,24 @@ body {
     white-space: nowrap;
 
     text-shadow:
-        0 0 5px #fff;
+        0 0 6px #fff;
 }
 
 
-/* Alt dişler */
+/* =========================================
+   ALT DİŞLER
+========================================= */
 
 .rare-agiz::after {
-
     content:
         "▲ ▲ ▲ ▲ ▲ ▲ ▲ ▲";
 
     position: absolute;
 
-    left: 5%;
+    left: 4%;
+    bottom: 1%;
 
-    bottom: 2%;
-
-    width: 90%;
+    width: 92%;
 
     color: #bbb;
 
@@ -581,34 +577,64 @@ body {
 }
 
 
+/* =========================================
+   AKICI GÜLÜŞ
+========================================= */
+
 @keyframes gulus {
 
     0% {
-
         transform:
-            scaleX(.03)
-            scaleY(.1);
+            scaleX(.04)
+            scaleY(.12);
+
+        border-radius: 50%;
     }
 
-    35% {
-
+    30% {
         transform:
-            scaleX(.35)
-            scaleY(.5);
+            scaleX(.32)
+            scaleY(.28);
+
+        border-radius: 32%;
     }
 
-    70% {
-
+    55% {
         transform:
-            scaleX(.82)
-            scaleY(.9);
+            scaleX(.60)
+            scaleY(.55);
+
+        border-radius: 20%;
+    }
+
+    75% {
+        transform:
+            scaleX(.83)
+            scaleY(.78);
+
+        border-radius:
+            13%
+            13%
+            42%
+            42%;
+    }
+
+    90% {
+        transform:
+            scaleX(.94)
+            scaleY(.92);
     }
 
     100% {
-
         transform:
             scaleX(1)
             scaleY(1);
+
+        border-radius:
+            10%
+            10%
+            50%
+            50%;
     }
 }
 
@@ -620,7 +646,6 @@ body {
 @keyframes karakterGelir {
 
     0% {
-
         opacity: 0;
 
         transform:
@@ -629,7 +654,6 @@ body {
     }
 
     45% {
-
         opacity: 1;
 
         transform:
@@ -638,14 +662,12 @@ body {
     }
 
     70% {
-
         transform:
             scale(1.03)
             translateY(0);
     }
 
     100% {
-
         opacity: 1;
 
         transform:
@@ -656,15 +678,13 @@ body {
 
 
 /* =========================================
-   NADİR YAZI
+   YAZI
 ========================================= */
 
 #rareYazi {
-
     position: absolute;
 
     left: 50%;
-
     bottom: 6%;
 
     transform:
@@ -685,12 +705,8 @@ body {
 
     font-weight: bold;
 
-    letter-spacing: .5px;
-
     text-shadow:
-
         0 0 8px #000,
-
         0 0 15px #000;
 
     z-index: 5;
@@ -699,7 +715,6 @@ body {
 }
 
 #rareYazi.goster {
-
     animation:
         yaziGelir
         .4s
@@ -710,7 +725,6 @@ body {
 @keyframes yaziGelir {
 
     from {
-
         opacity: 0;
 
         transform:
@@ -719,7 +733,6 @@ body {
     }
 
     to {
-
         opacity: 1;
 
         transform:
@@ -734,7 +747,6 @@ body {
 ========================================= */
 
 #rareScreen.glitch::after {
-
     content: "";
 
     position: absolute;
@@ -746,12 +758,15 @@ body {
     z-index: 20;
 
     background:
-
         repeating-linear-gradient(
             to bottom,
-            rgba(255,0,0,.035) 0px,
-            rgba(255,0,0,.035) 2px,
+
+            rgba(255,0,0,.045) 0px,
+
+            rgba(255,0,0,.045) 2px,
+
             transparent 2px,
+
             transparent 5px
         );
 
@@ -764,15 +779,18 @@ body {
 @keyframes scan {
 
     0% {
-        transform: translateY(0);
+        transform:
+            translateY(0);
     }
 
     50% {
-        transform: translateY(3px);
+        transform:
+            translateY(3px);
     }
 
     100% {
-        transform: translateY(-2px);
+        transform:
+            translateY(-2px);
     }
 }
 
@@ -784,14 +802,11 @@ body {
 @media (max-width: 600px) {
 
     .rare-kafa {
-
         width: 95vw;
-
         height: 95vw;
     }
 
     .test-kutu {
-
         padding: 28px 20px;
     }
 }
@@ -799,13 +814,8 @@ body {
 </style>
 </head>
 
-
 <body>
 
-
-<!-- =========================================
-     TEST MENÜSÜ
-========================================= -->
 
 <div class="test-kutu">
 
@@ -821,10 +831,6 @@ body {
 
 </div>
 
-
-<!-- =========================================
-     EASTER EGG
-========================================= -->
 
 <div id="rareScreen">
 
@@ -849,11 +855,6 @@ body {
 
 <script>
 
-
-/* =========================================
-   ELEMENTLER
-========================================= */
-
 const easterEggBtn =
     document.getElementById(
         "easterEggBtn"
@@ -869,46 +870,38 @@ const rareYazi =
         "rareYazi"
     );
 
-
-/* =========================================
-   DEĞİŞKENLER
-========================================= */
-
 let rareAktif = false;
 
 let rareTimerlar = [];
 
-
-/* =========================================
-   TIMER
-========================================= */
 
 function rareTimerOlustur(
     callback,
     sure
 ) {
 
-    const timer = setTimeout(
-        () => {
+    const timer =
+        setTimeout(
+            () => {
 
-            const index =
-                rareTimerlar.indexOf(
-                    timer
-                );
+                const index =
+                    rareTimerlar.indexOf(
+                        timer
+                    );
 
-            if (index !== -1) {
+                if (index !== -1) {
 
-                rareTimerlar.splice(
-                    index,
-                    1
-                );
-            }
+                    rareTimerlar.splice(
+                        index,
+                        1
+                    );
+                }
 
-            callback();
+                callback();
 
-        },
-        sure
-    );
+            },
+            sure
+        );
 
     rareTimerlar.push(timer);
 
@@ -921,7 +914,9 @@ function rareTimerlariniTemizle() {
     rareTimerlar.forEach(
         timer => {
 
-            clearTimeout(timer);
+            clearTimeout(
+                timer
+            );
 
         }
     );
@@ -929,10 +924,6 @@ function rareTimerlariniTemizle() {
     rareTimerlar = [];
 }
 
-
-/* =========================================
-   EASTER EGG BAŞLAT
-========================================= */
 
 function rareScreenBaslat() {
 
@@ -944,7 +935,6 @@ function rareScreenBaslat() {
 
     rareTimerlariniTemizle();
 
-
     rareScreen.classList.add(
         "aktif"
     );
@@ -953,15 +943,12 @@ function rareScreenBaslat() {
         "glitch"
     );
 
-
     rareYazi.classList.remove(
         "goster"
     );
 
     rareYazi.textContent = "";
 
-
-    /* İlk glitch */
 
     rareTimerOlustur(
         () => {
@@ -975,20 +962,13 @@ function rareScreenBaslat() {
     );
 
 
-    /* =====================================
-       YAZI ZAMANLAMASI
-    ===================================== */
-
     const kelimeler = [
-
         "bu",
         "normal",
         "bir",
         "oyun",
         "değil..."
-
     ];
-
 
     let mevcut = [];
 
@@ -1055,9 +1035,7 @@ function rareScreenBaslat() {
                 500
             );
 
-        }
-
-        else {
+        } else {
 
             rareTimerOlustur(
                 sonrakiKelime,
@@ -1065,11 +1043,8 @@ function rareScreenBaslat() {
             );
 
         }
-
     }
 
-
-    /* İlk kelime 2 saniye sonra */
 
     rareTimerOlustur(
         () => {
@@ -1079,18 +1054,12 @@ function rareScreenBaslat() {
         },
         2000
     );
-
 }
 
-
-/* =========================================
-   EASTER EGG BİTİR
-========================================= */
 
 function rareScreenBitir() {
 
     rareTimerlariniTemizle();
-
 
     rareScreen.classList.remove(
         "aktif"
@@ -1100,21 +1069,15 @@ function rareScreenBitir() {
         "glitch"
     );
 
-
     rareYazi.classList.remove(
         "goster"
     );
 
     rareYazi.textContent = "";
 
-
     rareAktif = false;
 }
 
-
-/* =========================================
-   TEST BUTONU
-========================================= */
 
 easterEggBtn.addEventListener(
     "click",
