@@ -18,7 +18,7 @@ body{
     justify-content:center;
     align-items:center;
     padding:20px;
-    font-family:Arial, sans-serif;
+    font-family:Arial,sans-serif;
     color:white;
     background:
         radial-gradient(circle at top left,#32105f 0%,transparent 35%),
@@ -143,7 +143,10 @@ body::before{
     background:linear-gradient(135deg,#793cff,#4b55ff);
 }
 
-/* OYUN */
+
+/* =========================
+   OYUN
+========================= */
 
 .game-panel{
     position:relative;
@@ -183,6 +186,8 @@ body::before{
         radial-gradient(circle at 75% 20%,rgba(125,80,255,.18),transparent 25%),
         linear-gradient(#080713,#0b0920);
     box-shadow:inset 0 0 50px rgba(0,0,0,.5);
+    touch-action:none;
+    user-select:none;
 }
 
 .ay{
@@ -218,13 +223,27 @@ body::before{
     border-top:2px solid rgba(150,100,255,.5);
 }
 
+
+/* =========================
+   KARAKTER
+========================= */
+
 #oyuncu{
     position:absolute;
     left:65px;
     bottom:45px;
     width:42px;
-    height:70px;
+    height:72px;
     z-index:4;
+
+    --bacak-sol:12deg;
+    --bacak-sag:-12deg;
+    --kol-sol:25deg;
+    --kol-sag:-25deg;
+
+    transform:translate3d(0,0,0);
+    transform-origin:center bottom;
+    will-change:transform;
 }
 
 .oyuncu-kafa{
@@ -235,6 +254,7 @@ body::before{
     height:24px;
     border-radius:50%;
     background:#eee;
+    box-shadow:0 0 8px rgba(255,255,255,.15);
 }
 
 .oyuncu-govde{
@@ -254,16 +274,18 @@ body::before{
     height:7px;
     border-radius:5px;
     background:#7041e7;
+    transform-origin:top center;
+    transition:transform .04s linear;
 }
 
 .oyuncu-kol.sol{
     left:-4px;
-    transform:rotate(25deg);
+    transform:rotate(var(--kol-sol));
 }
 
 .oyuncu-kol.sag{
     right:-4px;
-    transform:rotate(-25deg);
+    transform:rotate(var(--kol-sag));
 }
 
 .oyuncu-bacak{
@@ -273,35 +295,66 @@ body::before{
     height:24px;
     border-radius:5px;
     background:#5d36d9;
+    transform-origin:top center;
+    transition:transform .04s linear;
 }
 
 .oyuncu-bacak.sol{
     left:11px;
-    transform:rotate(12deg);
+    transform:rotate(var(--bacak-sol));
 }
 
 .oyuncu-bacak.sag{
     right:11px;
-    transform:rotate(-12deg);
+    transform:rotate(var(--bacak-sag));
 }
 
-.ziplama{
-    animation:ziplama .55s ease-out;
+#oyuncu.havada .oyuncu-bacak.sol{
+    transform:rotate(24deg);
 }
 
-@keyframes ziplama{
-    0%{transform:translateY(0)}
-    45%{transform:translateY(-125px)}
-    100%{transform:translateY(0)}
+#oyuncu.havada .oyuncu-bacak.sag{
+    transform:rotate(-24deg);
 }
+
+#oyuncu.havada .oyuncu-kol.sol{
+    transform:rotate(-18deg);
+}
+
+#oyuncu.havada .oyuncu-kol.sag{
+    transform:rotate(18deg);
+}
+
+
+/* =========================
+   KALKAN
+========================= */
+
+.kalkan::after{
+    content:"";
+    position:absolute;
+    inset:-12px;
+    border:3px solid #48e8ff;
+    border-radius:50%;
+    box-shadow:
+        0 0 15px #48e8ff,
+        inset 0 0 15px rgba(72,232,255,.35);
+    pointer-events:none;
+}
+
+
+/* =========================
+   ENGELLER
+========================= */
 
 .engel{
     position:absolute;
     bottom:45px;
-    right:-55px;
+    right:-65px;
     z-index:3;
     background:linear-gradient(135deg,#ff416c,#8b1e4d);
     box-shadow:0 0 18px rgba(255,50,100,.35);
+    will-change:right;
 }
 
 .engel.kucuk{
@@ -322,7 +375,12 @@ body::before{
     border-radius:50%;
 }
 
-.guc{
+
+/* =========================
+   GÜÇ
+========================= */
+
+#guc{
     display:none;
     position:absolute;
     width:27px;
@@ -335,16 +393,10 @@ body::before{
     box-shadow:
         0 0 10px #48e8ff,
         0 0 25px rgba(72,232,255,.6);
-}
-
-.kalkan{
-    position:absolute;
-    inset:-12px;
-    border:3px solid #48e8ff;
-    border-radius:50%;
-    box-shadow:
-        0 0 15px #48e8ff,
-        inset 0 0 15px rgba(72,232,255,.35);
+    text-align:center;
+    line-height:27px;
+    font-size:15px;
+    will-change:right;
 }
 
 .oyun-bilgi{
@@ -372,6 +424,11 @@ body::before{
     margin-top:8px;
 }
 
+
+/* =========================
+   GREAT
+========================= */
+
 #greatYazisi{
     position:absolute;
     left:50%;
@@ -398,15 +455,22 @@ body::before{
         opacity:0;
         transform:translate(-50%,-50%) scale(.5) rotate(-8deg);
     }
+
     25%{
         opacity:1;
         transform:translate(-50%,-50%) scale(1.2) rotate(3deg);
     }
+
     100%{
         opacity:0;
         transform:translate(-50%,-50%) scale(1.5);
     }
 }
+
+
+/* =========================
+   OYUN BİTİŞ
+========================= */
 
 #oyunMesaji{
     position:absolute;
@@ -430,7 +494,10 @@ body::before{
     color:#bca5ff;
 }
 
-/* RARE EASTER EGG */
+
+/* =========================
+   RARE EASTER EGG
+========================= */
 
 #rareScreen{
     display:none;
@@ -571,9 +638,11 @@ body::before{
         opacity:0;
         transform:translateY(80px) scale(.7);
     }
+
     60%{
         opacity:1;
     }
+
     100%{
         opacity:1;
         transform:translateY(0) scale(1);
@@ -581,8 +650,15 @@ body::before{
 }
 
 @keyframes gulus{
-    from{filter:none;transform:translateX(0)}
-    to{filter:contrast(2);transform:translateX(3px)}
+    from{
+        filter:none;
+        transform:translateX(0);
+    }
+
+    to{
+        filter:contrast(2);
+        transform:translateX(3px);
+    }
 }
 
 @keyframes ortamTitreme{
@@ -597,7 +673,9 @@ body::before{
     animation:ortamTitreme .08s infinite;
 }
 
+
 @media(max-width:480px){
+
     body{
         padding:12px;
     }
@@ -633,97 +711,239 @@ body::before{
 
 <body>
 
-<!-- HESAP MAKİNESİ -->
+<!-- =========================
+     HESAP MAKİNESİ
+========================= -->
+
 <div id="hesapPanel" class="panel aktif">
+
     <div class="kutu">
 
         <div class="panel-ust">
-            <div class="panel-baslik">🧮 Hesap Makinesi</div>
-            <button id="hesapKapat" class="kapat-btn">✕ Kapat</button>
+            <div class="panel-baslik">
+                🧮 Hesap Makinesi
+            </div>
+
+            <button id="hesapKapat" class="kapat-btn">
+                ✕ Kapat
+            </button>
         </div>
 
-        <input id="ekran" type="text" value="0" readonly>
+        <input
+            id="ekran"
+            type="text"
+            value="0"
+            readonly
+        >
 
         <div class="butonlar">
 
-            <button class="temizle" onclick="temizle()">C</button>
-            <button onclick="sil()">⌫</button>
-            <button onclick="islemEkle('%')">%</button>
-            <button class="islem" onclick="islemEkle('/')">÷</button>
+            <button
+                class="temizle"
+                onclick="temizle()"
+            >
+                C
+            </button>
 
-            <button onclick="sayiEkle('7')">7</button>
-            <button onclick="sayiEkle('8')">8</button>
-            <button onclick="sayiEkle('9')">9</button>
-            <button class="islem" onclick="islemEkle('*')">×</button>
+            <button onclick="sil()">
+                ⌫
+            </button>
 
-            <button onclick="sayiEkle('4')">4</button>
-            <button onclick="sayiEkle('5')">5</button>
-            <button onclick="sayiEkle('6')">6</button>
-            <button class="islem" onclick="islemEkle('-')">−</button>
+            <button onclick="islemEkle('%')">
+                %
+            </button>
 
-            <button onclick="sayiEkle('1')">1</button>
-            <button onclick="sayiEkle('2')">2</button>
-            <button onclick="sayiEkle('3')">3</button>
-            <button class="islem" onclick="islemEkle('+')">+</button>
+            <button
+                class="islem"
+                onclick="islemEkle('/')"
+            >
+                ÷
+            </button>
 
-            <button onclick="sayiEkle('0')">0</button>
-            <button onclick="sayiEkle('.')">.</button>
-            <button class="esittir" style="grid-column:span 2" onclick="hesapla()">=</button>
+
+            <button onclick="sayiEkle('7')">
+                7
+            </button>
+
+            <button onclick="sayiEkle('8')">
+                8
+            </button>
+
+            <button onclick="sayiEkle('9')">
+                9
+            </button>
+
+            <button
+                class="islem"
+                onclick="islemEkle('*')"
+            >
+                ×
+            </button>
+
+
+            <button onclick="sayiEkle('4')">
+                4
+            </button>
+
+            <button onclick="sayiEkle('5')">
+                5
+            </button>
+
+            <button onclick="sayiEkle('6')">
+                6
+            </button>
+
+            <button
+                class="islem"
+                onclick="islemEkle('-')"
+            >
+                −
+            </button>
+
+
+            <button onclick="sayiEkle('1')">
+                1
+            </button>
+
+            <button onclick="sayiEkle('2')">
+                2
+            </button>
+
+            <button onclick="sayiEkle('3')">
+                3
+            </button>
+
+            <button
+                class="islem"
+                onclick="islemEkle('+')"
+            >
+                +
+            </button>
+
+
+            <button onclick="sayiEkle('0')">
+                0
+            </button>
+
+            <button onclick="sayiEkle('.')">
+                .
+            </button>
+
+            <button
+                class="esittir"
+                style="grid-column:span 2"
+                onclick="hesapla()"
+            >
+                =
+            </button>
 
         </div>
     </div>
 </div>
 
 
-<!-- OYUN -->
+<!-- =========================
+     OYUN
+========================= -->
+
 <div id="oyunPanel" class="panel">
 
     <div class="kutu">
 
         <div class="panel-ust">
-            <div class="panel-baslik">🏃 Kaç!</div>
-            <button id="oyunKapat" class="kapat-btn">✕ Kapat</button>
+
+            <div class="panel-baslik">
+                🏃 Kaç!
+            </div>
+
+            <button
+                id="oyunKapat"
+                class="kapat-btn"
+            >
+                ✕ Kapat
+            </button>
+
         </div>
 
         <div class="game-panel">
 
             <div class="oyun-kontrol">
-                <button id="baslatBtn">▶️ Başlat</button>
+
+                <button id="baslatBtn">
+                    ▶️ Başlat
+                </button>
+
             </div>
 
             <div class="oyun-bilgi">
-                <span>Skor: <b id="skor">0</b></span>
-                <span id="zorluk">Kolay</span>
+
+                <span>
+                    Skor:
+                    <b id="skor">0</b>
+                </span>
+
+                <span id="zorluk">
+                    Kolay
+                </span>
+
             </div>
 
-            <div id="oyunAlani" class="oyun-alani">
+            <div
+                id="oyunAlani"
+                class="oyun-alani"
+            >
 
                 <div class="ay"></div>
 
+
                 <div id="oyuncu">
+
                     <div class="oyuncu-kafa"></div>
+
                     <div class="oyuncu-govde"></div>
+
                     <div class="oyuncu-kol sol"></div>
+
                     <div class="oyuncu-kol sag"></div>
+
                     <div class="oyuncu-bacak sol"></div>
+
                     <div class="oyuncu-bacak sag"></div>
+
                 </div>
+
 
                 <div id="guc">
                     ⚡
                 </div>
 
-                <div id="greatYazisi">GREAT!</div>
+
+                <div id="greatYazisi">
+                    GREAT!
+                </div>
+
 
                 <div id="oyunMesaji">
-                    <h2>💀 Oyun Bitti</h2>
-                    <div id="sonSkor">Skor: 0</div>
-                    <button id="tekrarOyna">🔄 Tekrar Oyna</button>
+
+                    <h2>
+                        💀 Oyun Bitti
+                    </h2>
+
+                    <div id="sonSkor">
+                        Skor: 0
+                    </div>
+
+                    <button id="tekrarOyna">
+                        🔄 Tekrar Oyna
+                    </button>
+
                 </div>
+
 
                 <div class="zemin"></div>
 
             </div>
+
 
             <div class="ipucu">
                 Space / Dokun → Zıpla
@@ -734,19 +954,28 @@ body::before{
 </div>
 
 
-<!-- RARE EASTER EGG -->
+<!-- =========================
+     RARE EASTER EGG
+========================= -->
+
 <div id="rareScreen">
 
     <div class="rare-karakter">
 
         <div class="rare-kafa">
+
             <div class="rare-goz sol"></div>
+
             <div class="rare-goz sag"></div>
+
             <div class="rare-agiz"></div>
+
         </div>
 
         <div class="rare-govde"></div>
+
         <div class="rare-kol sol"></div>
+
         <div class="rare-kol sag"></div>
 
     </div>
@@ -757,6 +986,7 @@ body::before{
 
 
 <script>
+
 /* =========================
    TEMEL ELEMENTLER
 ========================= */
@@ -822,13 +1052,14 @@ const oyunModu =
 if(oyunModu){
 
     hesapPanel.classList.remove("aktif");
+
     oyunPanel.classList.add("aktif");
 
 }else{
 
     oyunPanel.classList.remove("aktif");
-    hesapPanel.classList.add("aktif");
 
+    hesapPanel.classList.add("aktif");
 }
 
 
@@ -842,11 +1073,15 @@ function sayiEkle(sayi){
         ekran.value === "0" ||
         ekran.value === "Hata"
     ){
+
         ekran.value = sayi;
+
     }else{
+
         ekran.value += sayi;
     }
 }
+
 
 function islemEkle(islem){
 
@@ -860,17 +1095,23 @@ function islemEkle(islem){
     if(
         ["+","-","*","/","%"].includes(son)
     ){
+
         ekran.value =
             ekran.value.slice(0,-1) +
             islem;
+
     }else{
+
         ekran.value += islem;
     }
 }
 
+
 function temizle(){
+
     ekran.value = "0";
 }
+
 
 function sil(){
 
@@ -878,7 +1119,9 @@ function sil(){
         ekran.value.length <= 1 ||
         ekran.value === "Hata"
     ){
+
         ekran.value = "0";
+
         return;
     }
 
@@ -886,12 +1129,16 @@ function sil(){
         ekran.value.slice(0,-1);
 }
 
+
 function hesapla(){
 
     try{
 
         let ifade =
-            ekran.value.replace(/%/g,"/100");
+            ekran.value.replace(
+                /%/g,
+                "/100"
+            );
 
         const sonuc =
             Function(
@@ -918,7 +1165,6 @@ function hesapla(){
     }catch{
 
         ekran.value = "Hata";
-
     }
 }
 
@@ -928,28 +1174,66 @@ function hesapla(){
 ========================= */
 
 let oyunAktif = false;
+
 let oyunBitti = false;
 
 let oyunFrame = null;
 
 let skor = 0;
+
 let hiz = 5;
 
 let sonZaman = 0;
+
 let engelSayaci = 0;
+
 let gucSayaci = 0;
 
-let ziplaniyor = false;
-let kalkanAktif = false;
-
 let engeller = [];
+
 let rareAktif = false;
 
 let rareTimerlar = [];
 
+let oncekiYuzluk = 0;
+
 
 /* =========================
-   TEMİZLEME
+   GERÇEK FİZİK
+========================= */
+
+let oyuncuY = 0;
+
+let oyuncuHizY = 0;
+
+let yerde = true;
+
+let sonZiplaZamani = 0;
+
+let sonYerTemasi = 0;
+
+let ziplamaKuyrugu = false;
+
+
+/*
+    Fizik değerleri.
+
+    gravity:
+    Karakterin düşüşünü belirler.
+
+    jumpPower:
+    İlk zıplama hızını belirler.
+*/
+
+const gravity = 0.78;
+
+const jumpPower = 14.2;
+
+const maxDusmeHizi = 18;
+
+
+/* =========================
+   RARE TIMER
 ========================= */
 
 function rareTimerOlustur(fn,sure){
@@ -962,6 +1246,7 @@ function rareTimerOlustur(fn,sure){
     return timer;
 }
 
+
 function rareTimerlariniTemizle(){
 
     rareTimerlar.forEach(
@@ -972,86 +1257,78 @@ function rareTimerlariniTemizle(){
 }
 
 
-function oyunDurumunuTemizle(){
+/* =========================
+   OYUNCU POZİSYONU
+========================= */
 
-    cancelAnimationFrame(
-        oyunFrame
-    );
+function oyuncuPozisyonunuUygula(){
 
-    oyunFrame = null;
+    oyuncu.style.transform =
+        "translate3d(0," +
+        (-oyuncuY) +
+        "px,0)";
+}
 
-    oyunAktif = false;
-    oyunBitti = false;
 
-    ziplaniyor = false;
-    kalkanAktif = false;
+/* =========================
+   KARAKTER ANİMASYONU
+========================= */
 
-    skor = 0;
-    hiz = 5;
+function karakterAnimasyonu(zaman){
 
-    sonZaman = 0;
-    engelSayaci = 0;
-    gucSayaci = 0;
+    if(!oyunAktif){
+        return;
+    }
 
-    oyuncu.classList.remove(
-        "ziplama"
-    );
+    if(!yerde){
 
-    oyuncu.classList.remove(
-        "kalkan"
-    );
-
-    guc.style.display = "none";
-
-    engeller.forEach(
-        engel => engel.remove()
-    );
-
-    engeller = [];
-
-    document
-        .querySelectorAll(".engel")
-        .forEach(
-            el => el.remove()
+        oyuncu.classList.add(
+            "havada"
         );
 
-    oyunMesaji.style.display =
-        "none";
+        return;
+    }
 
-    greatYazisi.classList.remove(
-        "great-goster"
+    oyuncu.classList.remove(
+        "havada"
     );
 
-    rareAktif = false;
+    /*
+        Koşu animasyonu.
 
-    rareTimerlariniTemizle();
+        Sinüs kullanıldığı için
+        hareket yumuşak oluyor.
+    */
 
-    document.body.classList.remove(
-        "rare-titreme"
-    );
-
-    document
-        .getElementById("rareScreen")
-        .classList.remove("aktif");
-
-    document
-        .querySelectorAll(".rare-karakter")
-        .forEach(
-            karakter =>
-                karakter.classList.remove(
-                    "giris"
-                )
+    const kosu =
+        Math.sin(
+            zaman * 0.022
         );
 
-    document.getElementById(
-        "rareYazi"
-    ).textContent = "";
+    const kosu2 =
+        Math.sin(
+            zaman * 0.022 + Math.PI
+        );
 
-    skorYazi.textContent = "0";
-    zorlukYazi.textContent = "Kolay";
+    oyuncu.style.setProperty(
+        "--bacak-sol",
+        (kosu * 28 + 8) + "deg"
+    );
 
-    baslatBtn.textContent =
-        "▶️ Başlat";
+    oyuncu.style.setProperty(
+        "--bacak-sag",
+        (kosu2 * 28 - 8) + "deg"
+    );
+
+    oyuncu.style.setProperty(
+        "--kol-sol",
+        (kosu2 * 22 + 18) + "deg"
+    );
+
+    oyuncu.style.setProperty(
+        "--kol-sag",
+        (kosu * 22 - 18) + "deg"
+    );
 }
 
 
@@ -1064,28 +1341,124 @@ function zipla(){
     if(
         !oyunAktif ||
         oyunBitti ||
-        rareAktif ||
-        ziplaniyor
+        rareAktif
     ){
         return;
     }
 
-    ziplaniyor = true;
+    const simdi =
+        performance.now();
 
-    oyuncu.classList.remove(
-        "ziplama"
-    );
 
-    void oyuncu.offsetWidth;
+    /*
+        Çok kısa aralıkta gelen
+        çift dokunmayı engeller.
+    */
+
+    if(
+        simdi - sonZiplaZamani < 90
+    ){
+        return;
+    }
+
+
+    /*
+        Yerde değilsek küçük bir
+        jump-buffer bırakıyoruz.
+
+        Böylece oyuncu yere değdiği
+        anda basılmış tuşu kaçırmıyor.
+    */
+
+    if(!yerde){
+
+        ziplamaKuyrugu = true;
+
+        return;
+    }
+
+
+    sonZiplaZamani = simdi;
+
+    yerde = false;
+
+    oyuncuHizY =
+        jumpPower;
+
+    ziplamaKuyrugu = false;
 
     oyuncu.classList.add(
-        "ziplama"
+        "havada"
     );
-
-    setTimeout(()=>{
-        ziplaniyor = false;
-    },550);
 }
+
+
+function fizikGuncelle(dt){
+
+    /*
+        dt yaklaşık 1 olduğu zaman
+        60 FPS davranışı verir.
+    */
+
+    oyuncuHizY -=
+        gravity * dt;
+
+    if(
+        oyuncuHizY < -maxDusmeHizi
+    ){
+
+        oyuncuHizY =
+            -maxDusmeHizi;
+    }
+
+    oyuncuY +=
+        oyuncuHizY * dt;
+
+
+    /*
+        Zemin.
+    */
+
+    if(oyuncuY <= 0){
+
+        oyuncuY = 0;
+
+        oyuncuHizY = 0;
+
+        if(!yerde){
+
+            yerde = true;
+
+            sonYerTemasi =
+                performance.now();
+        }
+
+        oyuncu.classList.remove(
+            "havada"
+        );
+
+
+        /*
+            Jump buffer varsa
+            yere iner inmez zıpla.
+        */
+
+        if(ziplamaKuyrugu){
+
+            ziplamaKuyrugu = false;
+
+            zipla();
+        }
+    }
+
+
+    oyuncuPozisyonunuUygula();
+}
+
+
+/* =========================
+   KONTROLLER
+========================= */
 
 document.addEventListener(
     "keydown",
@@ -1102,6 +1475,7 @@ document.addEventListener(
     }
 );
 
+
 oyunAlani.addEventListener(
     "pointerdown",
     event => {
@@ -1114,13 +1488,18 @@ oyunAlani.addEventListener(
             return;
         }
 
+        event.preventDefault();
+
         zipla();
+    },
+    {
+        passive:false
     }
 );
 
 
 /* =========================
-   ENGEL
+   ENGEL OLUŞTUR
 ========================= */
 
 function engelOlustur(){
@@ -1128,29 +1507,43 @@ function engelOlustur(){
     const engel =
         document.createElement("div");
 
+    const rastgele =
+        Math.random();
+
+    let tip;
+
+    if(rastgele < .30){
+
+        tip = "yuvarlak";
+
+    }else if(rastgele < .65){
+
+        tip = "buyuk";
+
+    }else{
+
+        tip = "kucuk";
+    }
+
     engel.className =
-        "engel " +
-        (
-            Math.random() < .3
-            ? "yuvarlak"
-            : Math.random() < .5
-                ? "buyuk"
-                : "kucuk"
-        );
+        "engel " + tip;
 
     engel.style.right =
-        "-60px";
+        "-65px";
 
     oyunAlani.appendChild(
         engel
     );
 
-    engeller.push(engel);
+    engeller.push({
+        element:engel,
+        right:-65
+    });
 }
 
 
 /* =========================
-   GÜÇ
+   GÜÇ OLUŞTUR
 ========================= */
 
 function gucOlustur(){
@@ -1161,9 +1554,13 @@ function gucOlustur(){
         return;
     }
 
-    guc.style.display = "block";
-    guc.style.right = "-35px";
+    guc.style.display =
+        "block";
+
+    guc.style.right =
+        "-35px";
 }
+
 
 function gucuTopla(){
 
@@ -1195,17 +1592,26 @@ function gucuTopla(){
             "kalkan"
         );
 
-        setTimeout(()=>{
+        clearTimeout(
+            gucKalkanTimer
+        );
 
-            kalkanAktif = false;
+        gucKalkanTimer =
+            setTimeout(()=>{
 
-            oyuncu.classList.remove(
-                "kalkan"
-            );
+                kalkanAktif = false;
 
-        },5000);
+                oyuncu.classList.remove(
+                    "kalkan"
+                );
+
+            },5000);
     }
 }
+
+let kalkanAktif = false;
+
+let gucKalkanTimer = null;
 
 
 /* =========================
@@ -1217,23 +1623,42 @@ function carpismalar(){
     const oyuncuRect =
         oyuncu.getBoundingClientRect();
 
+    /*
+        Biraz daha adil collision.
+
+        Karakterin etrafındaki
+        görünmez kutuyu küçültüyoruz.
+    */
+
+    const oyuncuHitbox = {
+        left: oyuncuRect.left + 7,
+        right: oyuncuRect.right - 7,
+        top: oyuncuRect.top + 5,
+        bottom: oyuncuRect.bottom - 2
+    };
+
+
     for(
         let i = engeller.length - 1;
         i >= 0;
         i--
     ){
 
-        const engel =
+        const veri =
             engeller[i];
+
+        const engel =
+            veri.element;
 
         const rect =
             engel.getBoundingClientRect();
 
         const temas =
-            oyuncuRect.left < rect.right &&
-            oyuncuRect.right > rect.left &&
-            oyuncuRect.top < rect.bottom &&
-            oyuncuRect.bottom > rect.top;
+            oyuncuHitbox.left < rect.right &&
+            oyuncuHitbox.right > rect.left &&
+            oyuncuHitbox.top < rect.bottom &&
+            oyuncuHitbox.bottom > rect.top;
+
 
         if(temas){
 
@@ -1269,12 +1694,12 @@ function carpismalar(){
    GREAT
 ========================= */
 
-let oncekiYuzluk = 0;
-
 function greatKontrol(){
 
     const yuzluk =
-        Math.floor(skor / 100);
+        Math.floor(
+            skor / 100
+        );
 
     if(
         yuzluk > 0 &&
@@ -1328,6 +1753,7 @@ function zorlukGuncelle(){
         zorlukYazi.textContent =
             "Kolay";
     }
+
 
     hiz =
         5 +
@@ -1405,11 +1831,13 @@ function rareScreenBaslat(){
             "rareYazi"
         );
 
-    rareYazi.textContent = "";
+    rareYazi.textContent =
+        "";
 
     karakter.classList.remove(
         "giris"
     );
+
 
     rareTimerOlustur(()=>{
 
@@ -1419,6 +1847,7 @@ function rareScreenBaslat(){
 
     },100);
 
+
     rareTimerOlustur(()=>{
 
         document.body.classList.remove(
@@ -1427,12 +1856,14 @@ function rareScreenBaslat(){
 
     },450);
 
+
     rareTimerOlustur(()=>{
 
         rareYazi.textContent =
             "bu";
 
     },2000);
+
 
     rareTimerOlustur(()=>{
 
@@ -1441,12 +1872,14 @@ function rareScreenBaslat(){
 
     },2500);
 
+
     rareTimerOlustur(()=>{
 
         rareYazi.textContent =
             "bu normal bir";
 
     },3000);
+
 
     rareTimerOlustur(()=>{
 
@@ -1455,12 +1888,14 @@ function rareScreenBaslat(){
 
     },3500);
 
+
     rareTimerOlustur(()=>{
 
         rareYazi.textContent =
             "bu normal bir oyun değil...";
 
     },4000);
+
 
     rareTimerOlustur(()=>{
 
@@ -1469,6 +1904,7 @@ function rareScreenBaslat(){
         );
 
     },4500);
+
 
     rareTimerOlustur(()=>{
 
@@ -1482,6 +1918,7 @@ function rareScreenBaslat(){
 
     },5200);
 
+
     rareTimerOlustur(()=>{
 
         document.body.classList.remove(
@@ -1492,7 +1929,8 @@ function rareScreenBaslat(){
             "aktif"
         );
 
-        rareYazi.textContent = "";
+        rareYazi.textContent =
+            "";
 
         rareAktif = false;
 
@@ -1500,9 +1938,169 @@ function rareScreenBaslat(){
             "flex";
 
         sonSkor.textContent =
-            "Skor: " + skor;
+            "Skor: " +
+            Math.floor(skor);
 
     },6500);
+}
+
+
+/* =========================
+   TEMİZLE
+========================= */
+
+function oyunDurumunuTemizle(){
+
+    cancelAnimationFrame(
+        oyunFrame
+    );
+
+    oyunFrame = null;
+
+    oyunAktif = false;
+
+    oyunBitti = false;
+
+    skor = 0;
+
+    hiz = 5;
+
+    sonZaman = 0;
+
+    engelSayaci = 0;
+
+    gucSayaci = 0;
+
+    oyuncuY = 0;
+
+    oyuncuHizY = 0;
+
+    yerde = true;
+
+    ziplamaKuyrugu = false;
+
+    kalkanAktif = false;
+
+    clearTimeout(
+        gucKalkanTimer
+    );
+
+    gucKalkanTimer = null;
+
+    oyuncu.style.setProperty(
+        "--bacak-sol",
+        "12deg"
+    );
+
+    oyuncu.style.setProperty(
+        "--bacak-sag",
+        "-12deg"
+    );
+
+    oyuncu.style.setProperty(
+        "--kol-sol",
+        "25deg"
+    );
+
+    oyuncu.style.setProperty(
+        "--kol-sag",
+        "-25deg"
+    );
+
+    oyuncu.classList.remove(
+        "havada"
+    );
+
+    oyuncu.classList.remove(
+        "kalkan"
+    );
+
+    oyuncuPozisyonunuUygula();
+
+    guc.style.display =
+        "none";
+
+    engeller.forEach(
+        veri => {
+
+            veri.element.remove();
+
+        }
+    );
+
+    engeller = [];
+
+
+    document
+        .querySelectorAll(".engel")
+        .forEach(
+            el => el.remove()
+        );
+
+
+    oyunMesaji.style.display =
+        "none";
+
+
+    greatYazisi.classList.remove(
+        "great-goster"
+    );
+
+
+    rareAktif = false;
+
+    rareTimerlariniTemizle();
+
+
+    document.body.classList.remove(
+        "rare-titreme"
+    );
+
+
+    document
+        .getElementById("rareScreen")
+        .classList.remove(
+            "aktif"
+        );
+
+
+    document
+        .querySelectorAll(
+            ".rare-karakter"
+        )
+        .forEach(
+            karakter =>
+                karakter.classList.remove(
+                    "giris"
+                )
+        );
+
+
+    document.getElementById(
+        "rareYazi"
+    ).textContent =
+        "";
+
+
+    skorYazi.textContent =
+        "0";
+
+    zorlukYazi.textContent =
+        "Kolay";
+
+    baslatBtn.textContent =
+        "▶️ Başlat";
+}
+
+
+/*
+    Kapatma butonu için
+    eski isimle uyumlu fonksiyon.
+*/
+
+function oyunuDurdurVeTemizle(){
+
+    oyunDurumunuTemizle();
 }
 
 
@@ -1520,28 +2118,82 @@ function oyunDongusu(zaman){
         return;
     }
 
+
     if(!sonZaman){
-        sonZaman = zaman;
+
+        sonZaman =
+            zaman;
     }
 
-    const delta =
+
+    /*
+        Gerçek delta.
+
+        60 FPS = yaklaşık 1
+
+        Böylece cihaz 30 FPS
+        veya 120 FPS olsa bile
+        oyun hissi bozulmaz.
+    */
+
+    const deltaMs =
         zaman - sonZaman;
 
-    sonZaman = zaman;
+    sonZaman =
+        zaman;
+
+
+    const dt =
+        Math.min(
+            deltaMs / 16.6667,
+            2
+        );
+
+
+    /*
+        Skor.
+    */
 
     skor +=
-        delta * .015;
+        deltaMs * .015;
+
 
     const tamSkor =
         Math.floor(skor);
 
+
     skorYazi.textContent =
         tamSkor;
 
+
     greatKontrol();
+
     zorlukGuncelle();
 
-    engelSayaci += delta;
+
+    /*
+        FİZİK.
+    */
+
+    fizikGuncelle(dt);
+
+
+    /*
+        KARAKTER KOŞUSU.
+    */
+
+    karakterAnimasyonu(
+        zaman
+    );
+
+
+    /*
+        ENGEL ÜRETİMİ.
+    */
+
+    engelSayaci +=
+        deltaMs;
+
 
     const engelAraligi =
         Math.max(
@@ -1549,6 +2201,7 @@ function oyunDongusu(zaman){
             1250 -
             tamSkor * 1.4
         );
+
 
     if(
         engelSayaci >=
@@ -1560,7 +2213,14 @@ function oyunDongusu(zaman){
         engelOlustur();
     }
 
-    gucSayaci += delta;
+
+    /*
+        GÜÇ ÜRETİMİ.
+    */
+
+    gucSayaci +=
+        deltaMs;
+
 
     if(
         gucSayaci > 7000
@@ -1571,9 +2231,15 @@ function oyunDongusu(zaman){
         if(
             Math.random() < .5
         ){
+
             gucOlustur();
         }
     }
+
+
+    /*
+        ENGELLERİ HAREKET ETTİR.
+    */
 
     for(
         let i = engeller.length - 1;
@@ -1581,24 +2247,30 @@ function oyunDongusu(zaman){
         i--
     ){
 
-        const engel =
+        const veri =
             engeller[i];
 
-        const mevcut =
-            parseFloat(
-                getComputedStyle(
-                    engel
-                ).right
-            );
+        const engel =
+            veri.element;
 
-        const yeni =
-            mevcut + hiz;
+
+        /*
+            Burada hiz'ı frame'e
+            doğrudan eklemiyoruz.
+
+            dt ile çarpıyoruz.
+        */
+
+        veri.right +=
+            hiz * dt;
+
 
         engel.style.right =
-            yeni + "px";
+            veri.right + "px";
+
 
         if(
-            yeni >
+            veri.right >
             oyunAlani.offsetWidth + 100
         ){
 
@@ -1611,20 +2283,38 @@ function oyunDongusu(zaman){
         }
     }
 
+
+    /*
+        GÜÇ HAREKETİ.
+    */
+
     if(
         guc.style.display === "block"
     ){
 
-        const mevcut =
+        let mevcut =
             parseFloat(
                 getComputedStyle(
                     guc
                 ).right
             );
 
+
+        if(
+            !Number.isFinite(mevcut)
+        ){
+
+            mevcut = -35;
+        }
+
+
+        mevcut +=
+            hiz * dt;
+
+
         guc.style.right =
-            (mevcut + hiz) +
-            "px";
+            mevcut + "px";
+
 
         if(
             mevcut >
@@ -1636,7 +2326,17 @@ function oyunDongusu(zaman){
         }
     }
 
+
+    /*
+        ÇARPIŞMA.
+    */
+
     carpismalar();
+
+
+    /*
+        Sonraki frame.
+    */
 
     oyunFrame =
         requestAnimationFrame(
@@ -1654,9 +2354,13 @@ function oyunuBaslat(){
     oyunDurumunuTemizle();
 
     oyunAktif = true;
+
     oyunBitti = false;
 
     skor = 0;
+
+    hiz = 5;
+
     oncekiYuzluk = 0;
 
     skorYazi.textContent =
@@ -1686,13 +2390,12 @@ function oyunuBaslat(){
 
 function oyunBitir(){
 
-    if(
-        oyunBitti
-    ){
+    if(oyunBitti){
         return;
     }
 
     oyunBitti = true;
+
     oyunAktif = false;
 
     cancelAnimationFrame(
@@ -1708,18 +2411,24 @@ function oyunBitir(){
         "Skor: " +
         Math.floor(skor);
 
+
     /*
        %0.4 = 1 / 250
        Easter Egg ihtimali
     */
+
     if (
         Math.random() <
         (1 / 250)
     ) {
+
         oyunMesaji.style.display =
             "none";
+
         rareScreenBaslat();
+
     } else {
+
         oyunMesaji.style.display =
             "flex";
     }
@@ -1742,10 +2451,13 @@ baslatBtn.addEventListener(
     }
 );
 
+
 tekrarOyna.addEventListener(
     "click",
     ()=>{
+
         oyunuBaslat();
+
     }
 );
 
@@ -1758,7 +2470,7 @@ hesapKapat.addEventListener(
     "click",
     ()=>{
 
-        oyunDurumunuTemizle();
+        oyunuDurdurVeTemizle();
 
         window.location.replace(
             "/index.html"
@@ -1766,11 +2478,12 @@ hesapKapat.addEventListener(
     }
 );
 
+
 oyunKapat.addEventListener(
     "click",
     ()=>{
 
-        oyunDurumunuTemizle();
+        oyunuDurdurVeTemizle();
 
         window.location.replace(
             "/oyunlar.html"
