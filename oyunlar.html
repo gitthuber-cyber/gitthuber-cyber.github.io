@@ -1,328 +1,914 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Oyunlar 🎮</title>
 
 <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+
+    font-family: Arial, sans-serif;
+
+    min-height: 100vh;
+
+    color: white;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    overflow: hidden;
+
+    background: #03040c;
+}
+
+
+/* =================================
+   ARKA PLAN
+================================= */
+
+.arka-plan {
+
+    position: fixed;
+
+    inset: 0;
+
+    overflow: hidden;
+
+    background:
+
+        radial-gradient(
+            circle at 50% 15%,
+            rgba(110, 40, 255, .25),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 10% 80%,
+            rgba(0, 120, 255, .22),
+            transparent 32%
+        ),
+
+        radial-gradient(
+            circle at 90% 65%,
+            rgba(180, 30, 255, .18),
+            transparent 30%
+        ),
+
+        linear-gradient(
+            180deg,
+            #050616 0%,
+            #08091b 45%,
+            #03040c 100%
+        );
+
+    z-index: -10;
+}
+
+
+/* =================================
+   PARÇACIKLAR
+================================= */
+
+.parcacik {
+
+    position: absolute;
+
+    width: 3px;
+    height: 3px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    box-shadow:
+        0 0 8px white,
+        0 0 15px #8f5cff;
+
+    animation:
+        parcacikHareket
+        linear
+        infinite;
+}
+
+.p1 {
+    left: 8%;
+    top: 15%;
+    animation-duration: 7s;
+}
+
+.p2 {
+    left: 18%;
+    top: 70%;
+    animation-duration: 11s;
+}
+
+.p3 {
+    left: 32%;
+    top: 25%;
+    animation-duration: 8s;
+}
+
+.p4 {
+    left: 47%;
+    top: 75%;
+    animation-duration: 13s;
+}
+
+.p5 {
+    left: 63%;
+    top: 18%;
+    animation-duration: 9s;
+}
+
+.p6 {
+    left: 77%;
+    top: 55%;
+    animation-duration: 12s;
+}
+
+.p7 {
+    left: 90%;
+    top: 25%;
+    animation-duration: 10s;
+}
+
+.p8 {
+    left: 55%;
+    top: 45%;
+    animation-duration: 7s;
+}
+
+@keyframes parcacikHareket {
+
+    0% {
+        transform:
+            translateY(40px)
+            scale(.5);
+
+        opacity: 0;
     }
 
-    body {
-        font-family: Arial, sans-serif;
-        min-height: 100vh;
-        color: white;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        overflow: hidden;
-        background: #070817;
+    30% {
+        opacity: 1;
     }
 
-    /* ANA ARKA PLAN */
-    .arka-plan {
-        position: fixed;
-        inset: 0;
-        overflow: hidden;
-        background:
-            radial-gradient(
-                circle at 15% 20%,
-                rgba(124, 60, 255, 0.35),
-                transparent 30%
-            ),
-            radial-gradient(
-                circle at 85% 75%,
-                rgba(0, 140, 255, 0.25),
-                transparent 32%
-            ),
-            radial-gradient(
-                circle at 50% 100%,
-                rgba(170, 40, 255, 0.18),
-                transparent 35%
-            ),
-            #070817;
-        z-index: -5;
+    70% {
+        opacity: .8;
     }
 
-    /* NEON IŞIKLAR */
-    .isik {
-        position: absolute;
-        border-radius: 50%;
-        filter: blur(70px);
-        opacity: 0.45;
-        animation: hareket 8s ease-in-out infinite alternate;
+    100% {
+
+        transform:
+            translateY(-100px)
+            scale(1.4);
+
+        opacity: 0;
+    }
+}
+
+
+/* =================================
+   NEON IŞIKLAR
+================================= */
+
+.isik {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    filter: blur(90px);
+
+    opacity: .35;
+
+    animation:
+        isikHareket
+        9s
+        ease-in-out
+        infinite
+        alternate;
+}
+
+.isik1 {
+
+    width: 350px;
+    height: 350px;
+
+    left: -130px;
+    top: -120px;
+
+    background: #713cff;
+}
+
+.isik2 {
+
+    width: 320px;
+    height: 320px;
+
+    right: -120px;
+    top: 35%;
+
+    background: #087cff;
+
+    animation-delay: 2s;
+}
+
+.isik3 {
+
+    width: 260px;
+    height: 260px;
+
+    left: 35%;
+    bottom: -140px;
+
+    background: #c02cff;
+
+    animation-delay: 4s;
+}
+
+@keyframes isikHareket {
+
+    from {
+        transform:
+            translate(0, 0)
+            scale(1);
     }
 
-    .isik1 {
-        width: 280px;
-        height: 280px;
-        background: #713cff;
-        top: -100px;
-        left: -80px;
+    to {
+
+        transform:
+            translate(60px, -45px)
+            scale(1.25);
+    }
+}
+
+
+/* =================================
+   PERSPEKTİF ZEMİN
+================================= */
+
+.cizgiler {
+
+    position: absolute;
+
+    left: -20%;
+    right: -20%;
+
+    bottom: -18%;
+
+    height: 58%;
+
+    opacity: .22;
+
+    background-image:
+
+        linear-gradient(
+            rgba(100, 70, 255, .45) 1px,
+            transparent 1px
+        ),
+
+        linear-gradient(
+            90deg,
+            rgba(100, 70, 255, .45) 1px,
+            transparent 1px
+        );
+
+    background-size: 55px 55px;
+
+    transform:
+        perspective(450px)
+        rotateX(62deg);
+
+    transform-origin:
+        center bottom;
+
+    animation:
+        zeminHareket
+        3s
+        linear
+        infinite;
+}
+
+@keyframes zeminHareket {
+
+    from {
+        background-position:
+            0 0,
+            0 0;
     }
 
-    .isik2 {
-        width: 240px;
-        height: 240px;
-        background: #168cff;
-        right: -70px;
-        bottom: -70px;
-        animation-delay: 2s;
+    to {
+        background-position:
+            0 55px,
+            55px 0;
+    }
+}
+
+
+/* =================================
+   NEON ŞEHİR
+================================= */
+
+.sehir {
+
+    position: absolute;
+
+    bottom: 28%;
+
+    width: 100%;
+
+    height: 100px;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    opacity: .3;
+}
+
+.bina {
+
+    width: 25px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #1b1d42,
+            #070817
+        );
+
+    border-top:
+        2px solid
+        rgba(130, 80, 255, .5);
+
+    box-shadow:
+        0 0 15px
+        rgba(100, 60, 255, .2);
+}
+
+.bina:nth-child(1) {
+    height: 70px;
+}
+
+.bina:nth-child(2) {
+    height: 110px;
+}
+
+.bina:nth-child(3) {
+    height: 55px;
+}
+
+.bina:nth-child(4) {
+    height: 135px;
+}
+
+.bina:nth-child(5) {
+    height: 85px;
+}
+
+.bina:nth-child(6) {
+    height: 120px;
+}
+
+.bina:nth-child(7) {
+    height: 65px;
+}
+
+.bina:nth-child(8) {
+    height: 145px;
+}
+
+.bina:nth-child(9) {
+    height: 75px;
+}
+
+.bina:nth-child(10) {
+    height: 115px;
+}
+
+
+/* =================================
+   UÇAN ŞEKİLLER
+================================= */
+
+.sekil {
+
+    position: absolute;
+
+    border:
+        2px solid
+        rgba(150, 100, 255, .45);
+
+    transform: rotate(45deg);
+
+    box-shadow:
+        0 0 15px
+        rgba(130, 70, 255, .25);
+
+    animation:
+        sekilHareket
+        9s
+        linear
+        infinite;
+}
+
+.sekil1 {
+
+    width: 35px;
+    height: 35px;
+
+    top: 15%;
+    left: 10%;
+}
+
+.sekil2 {
+
+    width: 20px;
+    height: 20px;
+
+    top: 65%;
+    left: 18%;
+
+    animation-delay: 2s;
+}
+
+.sekil3 {
+
+    width: 45px;
+    height: 45px;
+
+    top: 23%;
+    right: 10%;
+
+    animation-delay: 4s;
+}
+
+.sekil4 {
+
+    width: 25px;
+    height: 25px;
+
+    bottom: 20%;
+    right: 22%;
+
+    animation-delay: 6s;
+}
+
+@keyframes sekilHareket {
+
+    0% {
+
+        transform:
+            translateY(0)
+            rotate(45deg);
+
+        opacity: .15;
     }
 
-    .isik3 {
-        width: 180px;
-        height: 180px;
-        background: #b42cff;
-        left: 45%;
-        top: 65%;
-        animation-delay: 4s;
+    50% {
+
+        transform:
+            translateY(-40px)
+            rotate(180deg);
+
+        opacity: .7;
     }
 
-    @keyframes hareket {
-        from {
-            transform: translate(0, 0) scale(1);
-        }
+    100% {
 
-        to {
-            transform: translate(40px, -30px) scale(1.15);
-        }
+        transform:
+            translateY(0)
+            rotate(360deg);
+
+        opacity: .15;
     }
+}
 
-    /* OYUN ÇİZGİLERİ */
-    .cizgiler {
-        position: absolute;
-        inset: 0;
-        opacity: 0.16;
-        background-image:
-            linear-gradient(
-                rgba(130, 90, 255, 0.35) 1px,
-                transparent 1px
-            ),
-            linear-gradient(
-                90deg,
-                rgba(130, 90, 255, 0.35) 1px,
-                transparent 1px
-            );
-        background-size: 55px 55px;
-        transform: perspective(500px) rotateX(55deg) scale(1.5);
-        transform-origin: bottom;
-        top: 45%;
-    }
 
-    /* UÇAN OYUN ŞEKİLLERİ */
-    .sekil {
-        position: absolute;
-        border: 2px solid rgba(150, 100, 255, 0.35);
-        transform: rotate(45deg);
-        animation: sekilHareket 10s linear infinite;
-    }
+/* =================================
+   ANA KUTU
+================================= */
 
-    .sekil1 {
-        width: 35px;
-        height: 35px;
-        top: 15%;
-        left: 12%;
-    }
+.kutu {
 
-    .sekil2 {
-        width: 20px;
-        height: 20px;
-        top: 70%;
-        left: 20%;
-        animation-delay: 3s;
-    }
+    position: relative;
 
-    .sekil3 {
-        width: 45px;
-        height: 45px;
-        top: 25%;
-        right: 12%;
-        animation-delay: 5s;
-    }
+    width: 90%;
 
-    .sekil4 {
-        width: 25px;
-        height: 25px;
-        bottom: 15%;
-        right: 25%;
-        animation-delay: 7s;
-    }
+    max-width: 650px;
 
-    @keyframes sekilHareket {
-        0% {
-            transform: translateY(0) rotate(45deg);
-            opacity: 0.2;
-        }
+    padding: 35px 25px;
 
-        50% {
-            transform: translateY(-35px) rotate(180deg);
-            opacity: 0.6;
-        }
+    background:
+        linear-gradient(
+            145deg,
+            rgba(20, 18, 48, .82),
+            rgba(7, 8, 25, .88)
+        );
 
-        100% {
-            transform: translateY(0) rotate(360deg);
-            opacity: 0.2;
-        }
-    }
+    border:
+        1px solid
+        rgba(160, 120, 255, .25);
 
-    /* ANA KUTU */
-    .kutu {
-        position: relative;
-        width: 90%;
-        max-width: 650px;
-        padding: 35px 25px;
-        background: rgba(15, 15, 35, 0.72);
-        border: 1px solid rgba(255, 255, 255, 0.16);
-        border-radius: 25px;
-        backdrop-filter: blur(18px);
+    border-radius: 25px;
+
+    backdrop-filter:
+        blur(20px);
+
+    box-shadow:
+
+        0 25px 80px
+        rgba(0, 0, 0, .7),
+
+        0 0 60px
+        rgba(100, 50, 255, .16),
+
+        inset 0 0 30px
+        rgba(120, 70, 255, .04);
+}
+
+.kutu::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 12%;
+    right: 12%;
+
+    top: 0;
+
+    height: 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #8b5cff,
+            #36aaff,
+            #8b5cff,
+            transparent
+        );
+
+    box-shadow:
+        0 0 15px #784cff;
+}
+
+
+/* =================================
+   GERİ
+================================= */
+
+.geri {
+
+    display: inline-block;
+
+    color: #bbb;
+
+    text-decoration: none;
+
+    margin-bottom: 18px;
+
+    font-size: 15px;
+
+    transition: .25s;
+}
+
+.geri:hover {
+
+    color: white;
+
+    transform:
+        translateX(-5px);
+}
+
+
+/* =================================
+   YAKINDA YENİLERİ GELECEK
+================================= */
+
+.yakinda {
+
+    display: inline-block;
+
+    margin-bottom: 15px;
+
+    padding: 8px 17px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(130, 80, 255, .12);
+
+    border:
+        1px solid
+        rgba(150, 100, 255, .35);
+
+    color: #c8b8ff;
+
+    font-size: 13px;
+
+    box-shadow:
+        0 0 20px
+        rgba(120, 70, 255, .15);
+
+    animation:
+        yakindaParla
+        3s
+        ease-in-out
+        infinite
+        alternate;
+}
+
+@keyframes yakindaParla {
+
+    from {
         box-shadow:
-            0 20px 60px rgba(0, 0, 0, 0.55),
-            0 0 50px rgba(100, 50, 255, 0.12);
+            0 0 10px
+            rgba(120, 70, 255, .12);
     }
 
-    /* GERİ */
-    .geri {
-        display: inline-block;
-        color: #bbb;
-        text-decoration: none;
-        margin-bottom: 22px;
-        font-size: 15px;
-        transition: 0.25s;
+    to {
+        box-shadow:
+            0 0 25px
+            rgba(120, 70, 255, .3);
     }
+}
 
-    .geri:hover {
-        color: white;
-        transform: translateX(-4px);
-    }
 
-    /* BAŞLIK */
+/* =================================
+   BAŞLIK
+================================= */
+
+h1 {
+
+    font-size: 40px;
+
+    margin-bottom: 10px;
+
+    text-shadow:
+
+        0 0 10px
+        rgba(130, 80, 255, .8),
+
+        0 0 30px
+        rgba(100, 50, 255, .4);
+}
+
+.aciklama {
+
+    color: #aaa;
+
+    margin-bottom: 30px;
+
+    font-size: 16px;
+}
+
+
+/* =================================
+   OYUN KARTI
+================================= */
+
+.oyun-kart {
+
+    display: block;
+
+    text-decoration: none;
+
+    color: white;
+
+    padding: 28px 22px;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(124, 60, 255, .25),
+            rgba(20, 120, 255, .13)
+        );
+
+    border:
+        1px solid
+        rgba(150, 100, 255, .5);
+
+    box-shadow:
+
+        inset 0 0 30px
+        rgba(124, 60, 255, .08),
+
+        0 12px 40px
+        rgba(0, 0, 0, .35),
+
+        0 0 25px
+        rgba(100, 60, 255, .08);
+
+    transition: .3s;
+}
+
+.oyun-kart:hover {
+
+    transform:
+        translateY(-7px)
+        scale(1.025);
+
+    border-color:
+        rgba(190, 160, 255, .85);
+
+    box-shadow:
+
+        0 0 35px
+        rgba(124, 60, 255, .35),
+
+        0 20px 50px
+        rgba(0, 0, 0, .45);
+}
+
+
+/* =================================
+   OYUN İKONU
+================================= */
+
+.oyun-emoji {
+
+    font-size: 55px;
+
+    margin-bottom: 12px;
+
+    filter:
+        drop-shadow(
+            0 0 10px
+            rgba(120, 80, 255, .8)
+        );
+}
+
+.oyun-kart h2 {
+
+    font-size: 28px;
+
+    margin-bottom: 9px;
+}
+
+.oyun-kart p {
+
+    color: #bbb;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+}
+
+
+/* =================================
+   ETİKET
+================================= */
+
+.etiket {
+
+    display: inline-block;
+
+    margin-top: 18px;
+
+    padding: 8px 15px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(255, 255, 255, .07);
+
+    border:
+        1px solid
+        rgba(255, 255, 255, .08);
+
+    color: #bbb;
+
+    font-size: 12px;
+
+    box-shadow:
+        0 0 15px
+        rgba(120, 70, 255, .12);
+}
+
+
+/* =================================
+   MOBİL
+================================= */
+
+@media (max-width: 600px) {
+
     h1 {
-        font-size: 40px;
-        margin-bottom: 10px;
-        text-shadow:
-            0 0 15px rgba(140, 80, 255, 0.8);
+        font-size: 31px;
     }
 
-    .aciklama {
-        color: #aaa;
-        margin-bottom: 30px;
-        font-size: 16px;
+    .kutu {
+
+        width: 92%;
+
+        padding:
+            30px 18px;
     }
 
-    /* OYUN KARTI */
     .oyun-kart {
-        display: block;
-        text-decoration: none;
-        color: white;
-        padding: 28px 22px;
-        border-radius: 20px;
 
-        background:
-            linear-gradient(
-                135deg,
-                rgba(124, 60, 255, 0.24),
-                rgba(20, 120, 255, 0.12)
-            );
-
-        border: 1px solid rgba(150, 100, 255, 0.45);
-
-        box-shadow:
-            inset 0 0 25px rgba(124, 60, 255, 0.08),
-            0 10px 35px rgba(0, 0, 0, 0.25);
-
-        transition: 0.3s;
+        padding:
+            24px 18px;
     }
 
-    .oyun-kart:hover {
-        transform: translateY(-6px) scale(1.02);
-
-        background:
-            linear-gradient(
-                135deg,
-                rgba(124, 60, 255, 0.38),
-                rgba(20, 120, 255, 0.2)
-            );
-
-        border-color: rgba(180, 140, 255, 0.7);
-
-        box-shadow:
-            0 0 30px rgba(124, 60, 255, 0.25),
-            0 15px 40px rgba(0, 0, 0, 0.35);
-    }
-
-    /* OYUN İKONU */
     .oyun-emoji {
-        font-size: 52px;
-        margin-bottom: 12px;
-        filter:
-            drop-shadow(0 0 12px rgba(150, 100, 255, 0.7));
+        font-size: 45px;
     }
 
-    .oyun-kart h2 {
-        font-size: 27px;
-        margin-bottom: 9px;
+    .cizgiler {
+        background-size: 40px 40px;
     }
 
-    .oyun-kart p {
-        color: #bbb;
-        font-size: 14px;
-        line-height: 1.5;
+    .sehir {
+        bottom: 24%;
     }
 
-    /* ALT ETİKET */
-    .etiket {
-        display: inline-block;
-        margin-top: 18px;
-        padding: 7px 13px;
-        border-radius: 20px;
-        background: rgba(255, 255, 255, 0.07);
-        color: #aaa;
+    .yakinda {
         font-size: 12px;
     }
 
-    @media (max-width: 600px) {
+}
 
-        h1 {
-            font-size: 31px;
-        }
-
-        .kutu {
-            width: 92%;
-            padding: 30px 18px;
-        }
-
-        .oyun-kart {
-            padding: 24px 18px;
-        }
-
-        .oyun-emoji {
-            font-size: 45px;
-        }
-
-        .cizgiler {
-            background-size: 40px 40px;
-        }
-    }
 </style>
+
 </head>
+
 
 <body>
 
-<!-- ARKA PLAN -->
+
+<!-- =================================
+     ARKA PLAN
+================================= -->
+
 <div class="arka-plan">
 
     <div class="isik isik1"></div>
+
     <div class="isik isik2"></div>
+
     <div class="isik isik3"></div>
 
+
+    <!-- PARÇACIKLAR -->
+
+    <div class="parcacik p1"></div>
+    <div class="parcacik p2"></div>
+    <div class="parcacik p3"></div>
+    <div class="parcacik p4"></div>
+    <div class="parcacik p5"></div>
+    <div class="parcacik p6"></div>
+    <div class="parcacik p7"></div>
+    <div class="parcacik p8"></div>
+
+
+    <!-- ZEMİN -->
+
     <div class="cizgiler"></div>
+
+
+    <!-- ŞEHİR -->
+
+    <div class="sehir">
+
+        <div class="bina"></div>
+        <div class="bina"></div>
+        <div class="bina"></div>
+        <div class="bina"></div>
+        <div class="bina"></div>
+        <div class="bina"></div>
+        <div class="bina"></div>
+        <div class="bina"></div>
+        <div class="bina"></div>
+        <div class="bina"></div>
+
+    </div>
+
+
+    <!-- UÇAN ŞEKİLLER -->
 
     <div class="sekil sekil1"></div>
     <div class="sekil sekil2"></div>
@@ -332,33 +918,66 @@
 </div>
 
 
-<!-- İÇERİK -->
+<!-- =================================
+     ANA İÇERİK
+================================= -->
+
 <div class="kutu">
 
-    <a href="index.html" class="geri">
+
+    <!-- ANA SAYFA -->
+
+    <a
+        href="index.html"
+        class="geri"
+    >
         ← Ana Sayfa
     </a>
 
-    <h1>🎮 Oyunlar</h1>
+
+    <!-- YAKINDA -->
+
+    <div class="yakinda">
+        🚀 Yakında yenileri gelecek!
+    </div>
+
+
+    <!-- BAŞLIK -->
+
+    <h1>
+        🎮 Oyunlar
+    </h1>
+
 
     <p class="aciklama">
         Oynamak istediğin oyunu seç.
     </p>
 
 
-    <!-- KAÇ! OYUNU -->
-    <a href="hesap-makinesi.html" class="oyun-kart">
+    <!-- =================================
+         KAÇ!
+    ================================= -->
+
+    <a
+        href="hesap-makinesi.html?oyun=1"
+        class="oyun-kart"
+    >
 
         <div class="oyun-emoji">
             🏃
         </div>
 
-        <h2>Kaç!</h2>
+
+        <h2>
+            Kaç!
+        </h2>
+
 
         <p>
             Engellerden kaç, puanını yükselt
             ve mümkün olduğunca uzun süre hayatta kal!
         </p>
+
 
         <div class="etiket">
             🎮 Oyna
@@ -366,7 +985,10 @@
 
     </a>
 
+
 </div>
 
+
 </body>
+
 </html>
