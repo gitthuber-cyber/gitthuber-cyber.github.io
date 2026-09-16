@@ -1,0 +1,1497 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>🏃 Kaç!</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+    margin:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#02030a;
+    color:white;
+    touch-action:none;
+}
+
+body{
+    position:relative;
+}
+
+/* =========================
+   ARKA PLAN
+========================= */
+
+.arka-plan{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    background:
+        radial-gradient(circle at 20% 20%,rgba(0,255,255,.13),transparent 25%),
+        radial-gradient(circle at 80% 25%,rgba(170,0,255,.15),transparent 28%),
+        radial-gradient(circle at 50% 80%,rgba(0,100,255,.13),transparent 30%),
+        linear-gradient(180deg,#030414 0%,#05071a 55%,#02030a 100%);
+}
+
+.isik{
+    position:absolute;
+    width:320px;
+    height:320px;
+    border-radius:50%;
+    filter:blur(70px);
+    opacity:.35;
+    animation:isikHareket 7s ease-in-out infinite alternate;
+}
+
+.isik1{
+    left:-100px;
+    top:5%;
+    background:#00eaff;
+}
+
+.isik2{
+    right:-100px;
+    top:20%;
+    background:#9b00ff;
+    animation-delay:1.5s;
+}
+
+.isik3{
+    left:35%;
+    bottom:-180px;
+    background:#0066ff;
+    animation-delay:3s;
+}
+
+@keyframes isikHareket{
+    from{transform:translate(0,0) scale(1)}
+    to{transform:translate(70px,-40px) scale(1.25)}
+}
+
+/* yıldızlar */
+
+.yildizlar{
+    position:absolute;
+    inset:0;
+    background-image:
+        radial-gradient(circle,rgba(255,255,255,.8) 1px,transparent 1.5px),
+        radial-gradient(circle,rgba(0,255,255,.55) 1px,transparent 1.5px);
+    background-size:95px 95px,145px 145px;
+    opacity:.35;
+    animation:yildizKay 18s linear infinite;
+}
+
+@keyframes yildizKay{
+    from{background-position:0 0,0 0}
+    to{background-position:95px 190px,-145px 290px}
+}
+
+/* şehir */
+
+.sehir{
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:20%;
+    height:34%;
+    display:flex;
+    align-items:flex-end;
+    gap:5px;
+    opacity:.7;
+}
+
+.bina{
+    flex:1;
+    min-width:18px;
+    background:linear-gradient(180deg,#080b25,#02030b);
+    border-top:1px solid rgba(0,220,255,.4);
+    position:relative;
+}
+
+.bina::after{
+    content:"";
+    position:absolute;
+    inset:12px 5px;
+    background:
+        repeating-linear-gradient(
+            180deg,
+            rgba(0,220,255,.55) 0 2px,
+            transparent 2px 12px
+        );
+    opacity:.25;
+}
+
+.bina:nth-child(1){height:55%}
+.bina:nth-child(2){height:80%}
+.bina:nth-child(3){height:45%}
+.bina:nth-child(4){height:92%}
+.bina:nth-child(5){height:62%}
+.bina:nth-child(6){height:75%}
+.bina:nth-child(7){height:48%}
+.bina:nth-child(8){height:88%}
+.bina:nth-child(9){height:58%}
+.bina:nth-child(10){height:72%}
+.bina:nth-child(11){height:43%}
+.bina:nth-child(12){height:84%}
+.bina:nth-child(13){height:60%}
+.bina:nth-child(14){height:76%}
+
+/* neon kuleler */
+
+.kule{
+    position:absolute;
+    bottom:19%;
+    width:4px;
+    height:34%;
+    background:#00eaff;
+    box-shadow:
+        0 0 8px #00eaff,
+        0 0 25px #00eaff;
+    opacity:.35;
+}
+
+.kule1{left:12%}
+.kule2{right:17%;height:40%;background:#a600ff}
+.kule3{left:67%;height:27%}
+
+/* zemin */
+
+.zemin{
+    position:absolute;
+    left:-20%;
+    right:-20%;
+    bottom:-18%;
+    height:48%;
+    transform:perspective(500px) rotateX(62deg);
+    transform-origin:bottom;
+    background:
+        linear-gradient(rgba(0,220,255,.18) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(0,220,255,.18) 1px,transparent 1px);
+    background-size:55px 55px;
+    box-shadow:0 -5px 35px rgba(0,220,255,.15);
+    animation:zeminAkis 2.5s linear infinite;
+}
+
+@keyframes zeminAkis{
+    from{background-position:0 0,0 0}
+    to{background-position:0 55px,55px 0}
+}
+
+/* =========================
+   OYUN
+========================= */
+
+#oyun{
+    position:fixed;
+    inset:0;
+    z-index:5;
+}
+
+/* üst bilgi */
+
+.ust{
+    position:absolute;
+    top:15px;
+    left:50%;
+    transform:translateX(-50%);
+    width:min(92%,500px);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    z-index:50;
+}
+
+.bilgi{
+    padding:10px 15px;
+    border:1px solid rgba(0,238,255,.35);
+    border-radius:14px;
+    background:rgba(3,7,22,.7);
+    backdrop-filter:blur(12px);
+    box-shadow:0 0 20px rgba(0,220,255,.1);
+    font-weight:bold;
+}
+
+.baslik{
+    font-size:19px;
+    color:#00eaff;
+    text-shadow:0 0 12px #00eaff;
+}
+
+/* oyun alanı */
+
+.yol{
+    position:absolute;
+    left:50%;
+    bottom:0;
+    transform:translateX(-50%);
+    width:min(100%,620px);
+    height:78%;
+    overflow:hidden;
+    border-left:2px solid rgba(0,238,255,.12);
+    border-right:2px solid rgba(0,238,255,.12);
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0,0,0,.18),
+            rgba(0,220,255,.035),
+            rgba(0,0,0,.18)
+        );
+}
+
+/* yol kenarları */
+
+.yol::before,
+.yol::after{
+    content:"";
+    position:absolute;
+    top:0;
+    bottom:0;
+    width:3px;
+    background:linear-gradient(
+        180deg,
+        transparent,
+        #00eaff,
+        transparent
+    );
+    opacity:.25;
+}
+
+.yol::before{left:3%}
+.yol::after{right:3%}
+
+/* =========================
+   KARAKTER
+========================= */
+
+.oyuncu{
+    position:absolute;
+    width:58px;
+    height:90px;
+    left:50%;
+    bottom:58px;
+    transform:translateX(-50%);
+    z-index:20;
+}
+
+.kafa{
+    position:absolute;
+    left:16px;
+    top:0;
+    width:28px;
+    height:28px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#dffcff,#5feaff);
+    border:2px solid #00eaff;
+    box-shadow:
+        0 0 8px #00eaff,
+        0 0 22px rgba(0,238,255,.8);
+}
+
+.kafa::after{
+    content:"";
+    position:absolute;
+    left:5px;
+    top:8px;
+    width:17px;
+    height:6px;
+    border-radius:5px;
+    background:#071522;
+    box-shadow:0 0 7px #00eaff;
+}
+
+.govde{
+    position:absolute;
+    left:13px;
+    top:25px;
+    width:32px;
+    height:37px;
+    border-radius:12px 12px 8px 8px;
+    background:linear-gradient(135deg,#0cecff,#0065b8);
+    border:2px solid #00eaff;
+    box-shadow:
+        0 0 8px #00eaff,
+        inset 0 0 12px rgba(255,255,255,.25);
+}
+
+.govde::after{
+    content:"";
+    position:absolute;
+    left:9px;
+    top:10px;
+    width:11px;
+    height:17px;
+    border-radius:4px;
+    background:#03101d;
+    box-shadow:0 0 8px #00eaff;
+}
+
+.kol{
+    position:absolute;
+    top:28px;
+    width:10px;
+    height:31px;
+    border-radius:8px;
+    background:#0797d2;
+    border:1px solid #00eaff;
+    transform-origin:top center;
+}
+
+.kol1{
+    left:4px;
+    animation:kolSol .35s infinite alternate;
+}
+
+.kol2{
+    right:4px;
+    animation:kolSag .35s infinite alternate;
+}
+
+@keyframes kolSol{
+    from{transform:rotate(25deg)}
+    to{transform:rotate(-35deg)}
+}
+
+@keyframes kolSag{
+    from{transform:rotate(-25deg)}
+    to{transform:rotate(35deg)}
+}
+
+.bacak{
+    position:absolute;
+    top:58px;
+    width:12px;
+    height:34px;
+    border-radius:8px;
+    background:#0876ae;
+    border:1px solid #00eaff;
+    transform-origin:top center;
+}
+
+.bacak1{
+    left:14px;
+    animation:bacak1 .35s infinite alternate;
+}
+
+.bacak2{
+    right:14px;
+    animation:bacak2 .35s infinite alternate;
+}
+
+@keyframes bacak1{
+    from{transform:rotate(25deg)}
+    to{transform:rotate(-25deg)}
+}
+
+@keyframes bacak2{
+    from{transform:rotate(-25deg)}
+    to{transform:rotate(25deg)}
+}
+
+.ayak{
+    position:absolute;
+    width:20px;
+    height:7px;
+    border-radius:8px;
+    background:#062b42;
+    border:1px solid #00eaff;
+    bottom:-3px;
+}
+
+.bacak1 .ayak{left:-7px}
+.bacak2 .ayak{right:-7px}
+
+.enerji{
+    position:absolute;
+    left:22px;
+    bottom:-13px;
+    width:15px;
+    height:22px;
+    border-radius:50%;
+    background:#00eaff;
+    filter:blur(5px);
+    opacity:.7;
+    animation:enerji .25s infinite alternate;
+}
+
+@keyframes enerji{
+    from{transform:scaleY(.7);opacity:.4}
+    to{transform:scaleY(1.3);opacity:.9}
+}
+
+/* zıplama */
+
+.oyuncu.ziplama{
+    animation:ziplama .65s cubic-bezier(.2,.8,.3,1);
+}
+
+@keyframes ziplama{
+    0%{bottom:58px}
+    45%{bottom:220px}
+    100%{bottom:58px}
+}
+
+/* =========================
+   KALKAN
+========================= */
+
+.oyuncu.kalkan::before{
+    content:"";
+    position:absolute;
+    left:-20px;
+    top:-18px;
+    width:98px;
+    height:125px;
+    border-radius:50%;
+    border:3px solid #00eaff;
+    background:radial-gradient(
+        circle,
+        rgba(0,238,255,.18),
+        rgba(0,238,255,.04) 55%,
+        transparent 70%
+    );
+    box-shadow:
+        0 0 10px #00eaff,
+        0 0 30px #00eaff,
+        inset 0 0 20px rgba(0,238,255,.4);
+    animation:kalkanDon 1.2s linear infinite;
+    z-index:-1;
+}
+
+@keyframes kalkanDon{
+    from{transform:rotate(0deg) scale(1)}
+    50%{transform:rotate(180deg) scale(1.06)}
+    to{transform:rotate(360deg) scale(1)}
+}
+
+/* =========================
+   KAYA
+========================= */
+
+.kaya{
+    position:absolute;
+    width:66px;
+    height:54px;
+    bottom:60px;
+    left:0;
+    z-index:15;
+    filter:drop-shadow(0 7px 8px rgba(0,0,0,.7));
+}
+
+.kaya-govde{
+    position:absolute;
+    inset:0;
+    clip-path:polygon(
+        8% 82%,
+        15% 40%,
+        34% 12%,
+        63% 7%,
+        89% 35%,
+        97% 76%,
+        76% 96%,
+        35% 100%
+    );
+    background:
+        linear-gradient(
+            135deg,
+            #aeb7c2 0%,
+            #68727e 30%,
+            #343c47 65%,
+            #181d25 100%
+        );
+    border:2px solid #a9b6c4;
+    box-shadow:
+        inset 8px 8px 12px rgba(255,255,255,.18),
+        inset -10px -10px 15px rgba(0,0,0,.45);
+}
+
+.kaya-govde::before{
+    content:"";
+    position:absolute;
+    width:30px;
+    height:10px;
+    left:15px;
+    top:14px;
+    transform:rotate(-20deg);
+    background:rgba(255,255,255,.18);
+    border-radius:50%;
+}
+
+.kaya-govde::after{
+    content:"";
+    position:absolute;
+    width:17px;
+    height:5px;
+    left:37px;
+    top:31px;
+    transform:rotate(25deg);
+    background:rgba(0,0,0,.28);
+    border-radius:50%;
+}
+
+.kaya.yok{
+    animation:kayaPatla .28s ease-out forwards;
+}
+
+@keyframes kayaPatla{
+    0%{transform:scale(1);opacity:1}
+    100%{transform:scale(1.7) rotate(20deg);opacity:0}
+}
+
+/* =========================
+   KALKAN GÜÇLENDİRİCİ
+========================= */
+
+.kalkan-esya{
+    position:absolute;
+    width:58px;
+    height:58px;
+    bottom:62px;
+    z-index:12;
+    filter:drop-shadow(0 0 12px #00eaff);
+}
+
+.kalkan-sembol{
+    position:absolute;
+    inset:4px;
+    clip-path:polygon(
+        50% 0,
+        91% 15%,
+        84% 66%,
+        50% 100%,
+        16% 66%,
+        9% 15%
+    );
+    background:linear-gradient(
+        135deg,
+        #eaffff,
+        #00eaff 40%,
+        #006cff
+    );
+    border:2px solid white;
+    box-shadow:
+        0 0 10px #00eaff,
+        0 0 25px #008cff;
+}
+
+.kalkan-sembol::after{
+    content:"";
+    position:absolute;
+    left:19px;
+    top:13px;
+    width:16px;
+    height:23px;
+    border:3px solid white;
+    border-top:none;
+    border-radius:0 0 10px 10px;
+    transform:rotate(45deg);
+    opacity:.9;
+}
+
+.kalkan-esya::before{
+    content:"";
+    position:absolute;
+    inset:-7px;
+    border:2px solid rgba(0,238,255,.35);
+    border-radius:50%;
+    animation:gucDon 1.2s linear infinite;
+}
+
+@keyframes gucDon{
+    to{transform:rotate(360deg)}
+}
+
+/* =========================
+   PARÇALANMA
+========================= */
+
+.parca{
+    position:absolute;
+    width:8px;
+    height:8px;
+    background:#00eaff;
+    border-radius:2px;
+    z-index:40;
+    box-shadow:0 0 10px #00eaff;
+    pointer-events:none;
+    animation:parcaUcus .5s ease-out forwards;
+}
+
+@keyframes parcaUcus{
+    to{
+        transform:translate(var(--x),var(--y)) rotate(180deg);
+        opacity:0;
+    }
+}
+
+/* =========================
+   BUTON
+========================= */
+
+.alt{
+    position:absolute;
+    left:50%;
+    bottom:18px;
+    transform:translateX(-50%);
+    z-index:60;
+}
+
+.ziplama-btn{
+    width:92px;
+    height:92px;
+    border-radius:50%;
+    border:2px solid #00eaff;
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #19f5ff,
+            #0069a8 50%,
+            #03182b
+        );
+    color:white;
+    font-size:40px;
+    box-shadow:
+        0 0 12px #00eaff,
+        0 0 35px rgba(0,238,255,.5),
+        inset 0 0 20px rgba(255,255,255,.15);
+    cursor:pointer;
+    user-select:none;
+}
+
+.ziplama-btn:active{
+    transform:scale(.9);
+}
+
+.aciklama{
+    text-align:center;
+    margin-top:5px;
+    font-size:11px;
+    opacity:.65;
+}
+
+/* =========================
+   OYUN BİTTİ
+========================= */
+
+.oyun-sonu{
+    position:absolute;
+    inset:0;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:100;
+    background:rgba(0,0,10,.72);
+    backdrop-filter:blur(8px);
+}
+
+.oyun-sonu.aktif{
+    display:flex;
+}
+
+.son-kutu{
+    width:min(90%,360px);
+    padding:28px;
+    text-align:center;
+    border:1px solid rgba(0,238,255,.5);
+    border-radius:24px;
+    background:rgba(4,9,27,.9);
+    box-shadow:
+        0 0 30px rgba(0,238,255,.2);
+}
+
+.son-kutu h1{
+    margin:0 0 10px;
+    color:#00eaff;
+    text-shadow:0 0 15px #00eaff;
+}
+
+.son-kutu p{
+    margin:8px 0;
+}
+
+.tekrar{
+    margin-top:20px;
+    padding:13px 25px;
+    border:1px solid #00eaff;
+    border-radius:12px;
+    color:white;
+    background:#06344b;
+    font-weight:bold;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.ana-sayfa{
+    display:block;
+    margin-top:13px;
+    color:#8fefff;
+    text-decoration:none;
+    font-size:14px;
+}
+
+/* küçük ekran */
+
+@media(max-height:650px){
+    .yol{
+        height:73%;
+    }
+
+    .oyuncu{
+        bottom:45px;
+    }
+
+    .kaya,
+    .kalkan-esya{
+        bottom:47px;
+    }
+
+    .ziplama-btn{
+        width:78px;
+        height:78px;
+        font-size:34px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="arka-plan">
+    <div class="isik isik1"></div>
+    <div class="isik isik2"></div>
+    <div class="isik isik3"></div>
+    <div class="yildizlar"></div>
+
+    <div class="sehir">
+        <div class="bina"></div>
+        <div class="bina"></div>
+        <div class="bina"></div>
+        <div class="bina"></div>
+        <div class="bina"></div>
+        <div class="bina"></div>
+        <div class="bina"></div>
+        <div class="bina"></div>
+        <div class="bina"></div>
+        <div class="bina"></div>
+        <div class="bina"></div>
+        <div class="bina"></div>
+        <div class="bina"></div>
+        <div class="bina"></div>
+    </div>
+
+    <div class="kule kule1"></div>
+    <div class="kule kule2"></div>
+    <div class="kule kule3"></div>
+
+    <div class="zemin"></div>
+</div>
+
+<div id="oyun">
+
+    <div class="ust">
+        <div class="bilgi baslik">🏃 KAÇ!</div>
+
+        <div class="bilgi">
+            Skor: <span id="skor">0</span>
+        </div>
+
+        <div class="bilgi">
+            🏆 <span id="rekor">0</span>
+        </div>
+    </div>
+
+    <div class="yol" id="yol">
+
+        <!-- KARAKTER -->
+        <div class="oyuncu" id="oyuncu">
+
+            <div class="kafa"></div>
+
+            <div class="govde"></div>
+
+            <div class="kol kol1"></div>
+            <div class="kol kol2"></div>
+
+            <div class="bacak bacak1">
+                <div class="ayak"></div>
+            </div>
+
+            <div class="bacak bacak2">
+                <div class="ayak"></div>
+            </div>
+
+            <div class="enerji"></div>
+        </div>
+
+    </div>
+
+    <div class="alt">
+        <button class="ziplama-btn" id="ziplamaBtn">⬆</button>
+        <div class="aciklama">Zıpla</div>
+    </div>
+
+    <!-- OYUN SONU -->
+    <div class="oyun-sonu" id="oyunSonu">
+
+        <div class="son-kutu">
+
+            <h1>💥 YAKALANDIN!</h1>
+
+            <p>
+                Skorun:
+                <strong id="sonSkor">0</strong>
+            </p>
+
+            <p>
+                Rekor:
+                <strong id="sonRekor">0</strong>
+            </p>
+
+            <button class="tekrar" id="tekrarBtn">
+                🔄 Tekrar Oyna
+            </button>
+
+            <a href="oyunlar.html" class="ana-sayfa">
+                ← Oyunlara Dön
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+/* ==================================================
+   KAÇ! OYUNU
+================================================== */
+
+const yol = document.getElementById("yol");
+const oyuncu = document.getElementById("oyuncu");
+const skorEl = document.getElementById("skor");
+const rekorEl = document.getElementById("rekor");
+const oyunSonu = document.getElementById("oyunSonu");
+const sonSkor = document.getElementById("sonSkor");
+const sonRekor = document.getElementById("sonRekor");
+const ziplamaBtn = document.getElementById("ziplamaBtn");
+const tekrarBtn = document.getElementById("tekrarBtn");
+
+let oyunAktif = true;
+
+let skor = 0;
+
+let rekor =
+    Number(localStorage.getItem("kacRekor")) || 0;
+
+rekorEl.textContent = rekor;
+
+let engeller = [];
+let kalkanlar = [];
+
+let sonKaya = 0;
+let kayaAraligi = 1250;
+
+let sonKalkan = 0;
+let sonrakiKalkanZamani = 0;
+
+let kalkanAktif = false;
+
+let ziplaniyor = false;
+
+let hiz = 6.5;
+
+let sonZaman = performance.now();
+
+/* ==================================================
+   RASTGELE SAYI
+================================================== */
+
+function rastgele(min,max){
+    return Math.random() * (max-min) + min;
+}
+
+/* ==================================================
+   OYUNU BAŞLAT
+================================================== */
+
+function oyunuBaslat(){
+
+    oyunAktif = true;
+
+    skor = 0;
+
+    hiz = 6.5;
+
+    sonKaya = performance.now();
+
+    sonKalkan = performance.now();
+
+    sonrakiKalkanZamani =
+        rastgele(10000,15000);
+
+    kalkanAktif = false;
+
+    oyuncu.classList.remove("kalkan");
+
+    engeller.forEach(function(kaya){
+        if(kaya.element){
+            kaya.element.remove();
+        }
+    });
+
+    kalkanlar.forEach(function(kalkan){
+        if(kalkan.element){
+            kalkan.element.remove();
+        }
+    });
+
+    engeller = [];
+    kalkanlar = [];
+
+    oyunSonu.classList.remove("aktif");
+
+    skorEl.textContent = "0";
+
+    sonZaman = performance.now();
+
+    requestAnimationFrame(oyunDongusu);
+}
+
+/* ==================================================
+   ZIPLAMA
+================================================== */
+
+function zipla(){
+
+    if(!oyunAktif) return;
+
+    if(ziplaniyor) return;
+
+    ziplaniyor = true;
+
+    oyuncu.classList.add("ziplama");
+
+    setTimeout(function(){
+
+        oyuncu.classList.remove("ziplama");
+
+        ziplaniyor = false;
+
+    },650);
+}
+
+ziplamaBtn.addEventListener(
+    "pointerdown",
+    function(e){
+        e.preventDefault();
+        zipla();
+    }
+);
+
+/* klavye */
+
+document.addEventListener("keydown",function(e){
+
+    if(
+        e.code === "Space" ||
+        e.code === "ArrowUp" ||
+        e.code === "KeyW"
+    ){
+
+        e.preventDefault();
+
+        zipla();
+    }
+
+});
+
+/* ==================================================
+   KAYA OLUŞTUR
+================================================== */
+
+function kayaOlustur(){
+
+    const kaya = document.createElement("div");
+
+    kaya.className = "kaya";
+
+    const govde = document.createElement("div");
+
+    govde.className = "kaya-govde";
+
+    kaya.appendChild(govde);
+
+    const maxLeft =
+        yol.clientWidth - 80;
+
+    kaya.style.left =
+        rastgele(20,maxLeft) + "px";
+
+    kaya.style.bottom = "60px";
+
+    yol.appendChild(kaya);
+
+    engeller.push({
+        element:kaya,
+        x:parseFloat(kaya.style.left),
+        y:0
+    });
+}
+
+/* ==================================================
+   KALKAN GÜÇLENDİRİCİ
+================================================== */
+
+function kalkanOlustur(){
+
+    if(!oyunAktif) return;
+
+    if(kalkanAktif) return;
+
+    if(kalkanlar.length > 0) return;
+
+    const kalkan =
+        document.createElement("div");
+
+    kalkan.className = "kalkan-esya";
+
+    const sembol =
+        document.createElement("div");
+
+    sembol.className = "kalkan-sembol";
+
+    kalkan.appendChild(sembol);
+
+    const maxLeft =
+        yol.clientWidth - 75;
+
+    kalkan.style.left =
+        rastgele(20,maxLeft) + "px";
+
+    kalkan.style.bottom = "62px";
+
+    yol.appendChild(kalkan);
+
+    kalkanlar.push({
+        element:kalkan,
+        x:parseFloat(kalkan.style.left),
+        y:0
+    });
+}
+
+/* ==================================================
+   KALKAN AKTİF
+================================================== */
+
+function kalkanAktifEt(){
+
+    kalkanAktif = true;
+
+    oyuncu.classList.add("kalkan");
+
+    const eski =
+        kalkanlar[0];
+
+    if(eski && eski.element){
+        eski.element.remove();
+    }
+
+    kalkanlar = [];
+}
+
+/* ==================================================
+   KALKAN KIRILMASI
+================================================== */
+
+function kalkanKirildi(){
+
+    kalkanAktif = false;
+
+    oyuncu.classList.remove("kalkan");
+
+    /*
+       Kalkan kayaya çarptığı AN
+       yeni 10-15 saniyelik sayaç başlar.
+    */
+
+    sonKalkan = performance.now();
+
+    sonrakiKalkanZamani =
+        rastgele(10000,15000);
+
+    kalkanKirilmaEfekti();
+}
+
+/* ==================================================
+   KALKAN KIRILMA EFEKTİ
+================================================== */
+
+function kalkanKirilmaEfekti(){
+
+    const rect =
+        oyuncu.getBoundingClientRect();
+
+    const yolRect =
+        yol.getBoundingClientRect();
+
+    const merkezX =
+        rect.left -
+        yolRect.left +
+        rect.width / 2;
+
+    const merkezY =
+        rect.top -
+        yolRect.top +
+        rect.height / 2;
+
+    for(let i=0;i<18;i++){
+
+        const parca =
+            document.createElement("div");
+
+        parca.className = "parca";
+
+        parca.style.left =
+            merkezX + "px";
+
+        parca.style.top =
+            merkezY + "px";
+
+        parca.style.setProperty(
+            "--x",
+            rastgele(-100,100) + "px"
+        );
+
+        parca.style.setProperty(
+            "--y",
+            rastgele(-100,100) + "px"
+        );
+
+        yol.appendChild(parca);
+
+        setTimeout(function(){
+
+            parca.remove();
+
+        },550);
+    }
+}
+
+/* ==================================================
+   ÇARPIŞMA
+================================================== */
+
+function carpisma(a,b){
+
+    const ar =
+        a.getBoundingClientRect();
+
+    const br =
+        b.getBoundingClientRect();
+
+    return !(
+        ar.right < br.left + 8 ||
+        ar.left > br.right - 8 ||
+        ar.bottom < br.top + 8 ||
+        ar.top > br.bottom - 8
+    );
+}
+
+/* ==================================================
+   KAYA ÇARPIŞMASI
+================================================== */
+
+function kayaCarpismasi(kaya){
+
+    if(!carpisma(oyuncu,kaya.element)){
+        return false;
+    }
+
+    if(kalkanAktif){
+
+        kaya.element.classList.add("yok");
+
+        /*
+           Kaya kalkana çarptığı anda
+           yok oluyor.
+        */
+
+        setTimeout(function(){
+
+            if(kaya.element){
+                kaya.element.remove();
+            }
+
+        },280);
+
+        kalkanKirildi();
+
+        return false;
+    }
+
+    oyunuBitir();
+
+    return true;
+}
+
+/* ==================================================
+   KALKAN TOPLAMA
+================================================== */
+
+function kalkanToplama(kalkan){
+
+    if(
+        carpisma(
+            oyuncu,
+            kalkan.element
+        )
+    ){
+
+        kalkanAktifEt();
+
+        return true;
+    }
+
+    return false;
+}
+
+/* ==================================================
+   OYUN BİTTİ
+================================================== */
+
+function oyunuBitir(){
+
+    if(!oyunAktif) return;
+
+    oyunAktif = false;
+
+    if(skor > rekor){
+
+        rekor = skor;
+
+        localStorage.setItem(
+            "kacRekor",
+            rekor
+        );
+    }
+
+    sonSkor.textContent = skor;
+
+    sonRekor.textContent = rekor;
+
+    rekorEl.textContent = rekor;
+
+    oyunSonu.classList.add("aktif");
+}
+
+/* ==================================================
+   OYUN DÖNGÜSÜ
+================================================== */
+
+function oyunDongusu(zaman){
+
+    if(!oyunAktif) return;
+
+    const delta =
+        Math.min(
+            zaman - sonZaman,
+            40
+        );
+
+    sonZaman = zaman;
+
+    /*
+       SKOR
+    */
+
+    skor += delta * 0.01;
+
+    skorEl.textContent =
+        Math.floor(skor);
+
+    /*
+       HIZ
+    */
+
+    hiz =
+        6.5 +
+        Math.min(
+            5,
+            skor / 120
+        );
+
+    /*
+       KAYA
+    */
+
+    if(
+        zaman - sonKaya >
+        Math.max(
+            650,
+            kayaAraligi -
+            skor * 1.5
+        )
+    ){
+
+        kayaOlustur();
+
+        sonKaya = zaman;
+    }
+
+    /*
+       KAYALARI HAREKET ETTİR
+    */
+
+    for(
+        let i = engeller.length - 1;
+        i >= 0;
+        i--
+    ){
+
+        const kaya =
+            engeller[i];
+
+        kaya.y +=
+            hiz *
+            (delta / 16);
+
+        kaya.element.style.transform =
+            "translateY(" +
+            kaya.y +
+            "px)";
+
+        if(
+            kayaCarpismasi(kaya)
+        ){
+            return;
+        }
+
+        if(
+            kaya.y >
+            yol.clientHeight + 100
+        ){
+
+            kaya.element.remove();
+
+            engeller.splice(i,1);
+        }
+    }
+
+    /*
+       KALKAN SPAWN
+       
+       Kalkan aktif değilse ve
+       10-15 saniyelik süre dolduysa
+       yeni kalkan çıkar.
+    */
+
+    if(
+        !kalkanAktif &&
+        kalkanlar.length === 0 &&
+        zaman - sonKalkan >=
+        sonrakiKalkanZamani
+    ){
+
+        kalkanOlustur();
+
+        /*
+           Bu sayaç burada tekrar çalışmaz.
+           Kalkan toplandığında veya kırıldığında
+           yeniden ayarlanır.
+        */
+        sonKalkan = Infinity;
+    }
+
+    /*
+       KALKANLARI HAREKET ETTİR
+    */
+
+    for(
+        let i = kalkanlar.length - 1;
+        i >= 0;
+        i--
+    ){
+
+        const kalkan =
+            kalkanlar[i];
+
+        kalkan.y +=
+            hiz *
+            (delta / 16);
+
+        kalkan.element.style.transform =
+            "translateY(" +
+            kalkan.y +
+            "px)";
+
+        if(
+            kalkanToplama(kalkan)
+        ){
+
+            kalkanlar.splice(i,1);
+
+            /*
+               Aktif kalkan varken
+               yeni kalkan çıkmaz.
+            */
+
+            continue;
+        }
+
+        if(
+            kalkan.y >
+            yol.clientHeight + 100
+        ){
+
+            kalkan.element.remove();
+
+            kalkanlar.splice(i,1);
+
+            /*
+               Kaçırılan kalkan için
+               yeniden 10-15 saniye bekle.
+            */
+
+            sonKalkan =
+                performance.now();
+
+            sonrakiKalkanZamani =
+                rastgele(10000,15000);
+        }
+    }
+
+    requestAnimationFrame(
+        oyunDongusu
+    );
+}
+
+/* ==================================================
+   TEKRAR
+================================================== */
+
+tekrarBtn.addEventListener(
+    "click",
+    function(){
+
+        oyunuBaslat();
+
+    }
+);
+
+/* ==================================================
+   SAYFA AÇILINCA BAŞLAT
+================================================== */
+
+oyunuBaslat();
+
+</script>
+
+</body>
+</html>
